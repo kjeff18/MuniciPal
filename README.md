@@ -1,2 +1,0 @@
-# MuniciPal
-Crowdsource Infrastructure Application
