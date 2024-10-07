@@ -1,0 +1,42 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-municipal-dev-e9c39-authRole",
+      "UnauthRoleArn": "arn:aws:iam::471112514403:role/amplify-municipal-dev-e9c39-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::471112514403:role/amplify-municipal-dev-e9c39-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-municipal-dev-e9c39-deployment",
+      "UnauthRoleName": "amplify-municipal-dev-e9c39-unauthRole",
+      "StackName": "amplify-municipal-dev-e9c39",
+      "StackId": "arn:aws:cloudformation:us-east-2:471112514403:stack/amplify-municipal-dev-e9c39/efb5bbf0-84b0-11ef-8866-0239578d3975",
+      "AmplifyAppId": "d1ebndlaaqcnwm",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-municipal-dev-e9c39-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "municipal6e3c111b": {},
+        "userPoolGroups": {}
+      },
+      "function": {
+        "municipal6e3c111bCustomMessage": {
+          "REDIRECTURL": "",
+          "EMAILSUBJECT": "Confirm you MuniciPal Account",
+          "EMAILMESSAGE": "Here is the confirmation link for your MuniciPal account",
+          "deploymentBucketName": "amplify-municipal-dev-e9c39-deployment",
+          "s3Key": "amplify-builds/municipal6e3c111bCustomMessage-58536e5254302f4e6d4d-build.zip"
+        },
+        "municipal6e3c111bPostConfirmation": {
+          "GROUP": "",
+          "deploymentBucketName": "amplify-municipal-dev-e9c39-deployment",
+          "s3Key": "amplify-builds/municipal6e3c111bPostConfirmation-6670374e756e66673636-build.zip"
+        }
+      },
+      "api": {
+        "municipal": {}
+      },
+      "storage": {
+        "MuniciPalImages": {}
+      }
+    }
+  }
+}

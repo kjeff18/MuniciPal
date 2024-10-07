@@ -1,0 +1,14 @@
+[
+  {
+    "groupName": "Governments",
+    "precedence": 1
+  },
+  {
+    "groupName": "Contractors",
+    "precedence": 2
+  },
+  {
+    "groupName": "Citizens",
+    "precedence": 3
+  }
+]

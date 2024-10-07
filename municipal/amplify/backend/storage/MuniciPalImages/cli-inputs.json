@@ -1,0 +1,12 @@
+{
+  "resourceName": "MuniciPalImages",
+  "policyUUID": "a9e6d45c",
+  "bucketName": "municipaldda0c95ca6ff41c2b9e44568f0cded69",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ],
+  "triggerFunction": "NONE"
+}
