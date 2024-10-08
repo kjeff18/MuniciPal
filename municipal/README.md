@@ -8,7 +8,7 @@ A Crowd-sourced Infrastructure Application
 - **Node.js**: Install [Node.js](https://nodejs.org/).
 - **AWS Amplify CLI**: Install via npm: 
     ```bash
-    npm install -g @aws-amplify/cli
+    npm install @aws-amplify/cli
     ```
 - **Flutter**: Install Flutter from the [official site](https://flutter.dev/docs/get-started/install).
 - **Git**: Ensure you have Git installed.
@@ -42,6 +42,7 @@ A Crowd-sourced Infrastructure Application
 
 ## Step 3: Set Up AWS Amplify
 1. **Sign in to AWS**: Make sure you have access to an AWS account and are signed in.
+
    
 2. **Amplify Initialization**:
    - Run the following command to configure Amplify for your local environment:
