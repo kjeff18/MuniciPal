@@ -31,6 +31,9 @@ dependencies:
   amplify_flutter: ^2.0.0
   amplify_auth_cognito: ^2.0.0
   amplify_authenticator: ^2.0.0
+  amplify_api: ^2.4.1
+  google_fonts: ^6.2.1
+ 
   flutter:
     sdk: flutter
 
@@ -42,7 +45,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
