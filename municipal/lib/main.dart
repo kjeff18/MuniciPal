@@ -69,9 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
           primaryColor: primaryColor,
           primaryTextTheme:
             TextTheme(
-              headlineMedium: textFont.copyWith(color: textColor, fontSize:60 ),
-              displaySmall: textFont.copyWith(color: textColor, fontSize:17 ),
-              bodyMedium: textFont.copyWith(color: textColor, fontSize: 30 )
+              headlineMedium: textFont.copyWith(color: textColor, fontSize:HeadlineSize ),
+              displaySmall: textFont.copyWith(color: textColor, fontSize:hintTextSize ),
+              bodyMedium: textFont.copyWith(color: textColor, fontSize: bodyTextSize )
             )
 
         ),
