@@ -4,6 +4,8 @@ import 'package:municipal/DesingContstant.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
+// Logical Function
+
 void _LoginFunc ()
       {
         print("login");
@@ -22,11 +24,11 @@ class SignInPage extends StatelessWidget {
 
 
 
-
+// Design and Placements
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: BackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(defaultPadding),
@@ -37,11 +39,7 @@ class SignInPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(defaultPadding),
                 child: Center(
-                  child: WebsafeSvg.asset(
-                    logoPath,
-                    height: 150, // Adjust height as needed
-                    width: 150, // Adjust width as needed
-                  ),
+                  child: _LogoPic(context),
                 ),
               ),
               Padding(
@@ -76,6 +74,15 @@ class SignInPage extends StatelessWidget {
     );
   }
 }
+
+// All Widget Method
+  Widget _LogoPic (BuildContext context) {
+    return WebsafeSvg.asset(
+      logoPath,
+      height: 150, // Adjust height as needed
+      width: 150, // Adjust width as needed
+    );
+  }
 
   Widget _EmailTextField(BuildContext context) {
     return Container(
@@ -161,19 +168,19 @@ class SignInPage extends StatelessWidget {
 
 Widget _LoginButton(BuildContext context) {
   return SizedBox(
-    width: MediaQuery.of(context).size.width, // Full width of the screen
-    height: MediaQuery.of(context).size.width * 0.13, // Adjust height as needed
+    width: MediaQuery.of(context).size.width, 
+    height: MediaQuery.of(context).size.width * 0.13, 
     child: ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: accentColor, // Use your defined color
+        backgroundColor: ButtonColor, 
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0), // Rounded corners
+          borderRadius: BorderRadius.circular(10.0), 
         ),
       ),
-      onPressed: _LoginFunc, // Function to be called on press
+      onPressed: _LoginFunc, 
       child: Text(
         'Log In',
-        style: Theme.of(context).primaryTextTheme.displaySmall, // Use theme text style
+        style: Theme.of(context).primaryTextTheme.displaySmall, 
       ),
     ),
   );
@@ -187,9 +194,9 @@ Widget _ForgetPasswordButton (BuildContext context)
     child: Text(
       'Forget Password?',
       style: textFont.copyWith(
-        color: accentColor,
-        fontWeight: FontWeight.bold, // Makes the text bold
-        decoration: TextDecoration.underline, // Underlines the text
+        color: ButtonColor,
+        fontWeight: FontWeight.bold, 
+        decoration: TextDecoration.underline, 
       ),
     ),
   );
@@ -197,19 +204,19 @@ Widget _ForgetPasswordButton (BuildContext context)
 
 Widget _SignUpButton (BuildContext context) {
   return SizedBox(
-    width: MediaQuery.of(context).size.width, // Full width of the screen
-    height: MediaQuery.of(context).size.width * 0.13, // Adjust height as needed
+    width: MediaQuery.of(context).size.width, 
+    height: MediaQuery.of(context).size.width * 0.13, 
     child: ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: accentColor, // Use your defined color
+        backgroundColor: ButtonColor, 
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0), // Rounded corners
+          borderRadius: BorderRadius.circular(10.0), 
         ),
       ),
-      onPressed: _SignUpFunc, // Function to be called on press
+      onPressed: _SignUpFunc, 
       child: Text(
         'Sign Up to become a Pal',
-        style: Theme.of(context).primaryTextTheme.displaySmall, // Use theme text style
+        style: Theme.of(context).primaryTextTheme.displaySmall, 
       ),
     ),
   );

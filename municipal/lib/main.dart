@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return MaterialApp(
       title: 'Municipal',
         theme: ThemeData(
-          primaryColor: primaryColor,
+          primaryColor: BackgroundColor,
           primaryTextTheme:
             TextTheme(
               headlineMedium: textFont.copyWith(color: textColor, fontSize:HeadlineSize ),
