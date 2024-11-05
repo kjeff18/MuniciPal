@@ -5,14 +5,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'package:municipal/widgets/WelcomeButton.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'LoginPage.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
 
-    loginFunc()
-    {
-      print("Login");
-    }
+   void loginFunc(BuildContext context) {
+    // Navigate to LogInPage
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LogInPage()),
+    );
+  }
+
 
 // Design and Placements
   @override
@@ -36,13 +41,17 @@ class SignInPage extends StatelessWidget {
              padding: const EdgeInsets.symmetric(horizontal: defaultPadding*4, vertical: defaultPadding/2),
              child: Welcomebutton(
                 text: 'Login',
-               onPressed: loginFunc, 
-               blueButton: true,),
+               onPressed: () => loginFunc(context), 
+               blueButton: true,
+               ),
            ),
 
            Padding(
             padding: const EdgeInsets.symmetric(horizontal: defaultPadding*4, vertical: defaultPadding/2),
-            child: Welcomebutton(text: 'Sign Up', onPressed: loginFunc, blueButton: false), 
+            child: Welcomebutton(text: 'Sign Up', 
+            onPressed: () => loginFunc(context),
+             blueButton: false
+             ), 
            )
           
         ],

@@ -8,6 +8,10 @@ const secondaryColor = Color(0xFF5AA1BB);
  const ButtonColor = Color(0xFF0B2E60);
 const textColor = Color(0xFF000000);
 
+
+const TextFieldBorer = Color(0xFF002E6F);
+const TextFieldIconColor = Color(0xFF8D8E8D);
+
 //TextFont
 TextStyle textFont = GoogleFonts.sourceSans3();
 
@@ -15,7 +19,7 @@ TextStyle textFont = GoogleFonts.sourceSans3();
 
 //BorderRaduis 
 
-const double borderRadius = 16.0;
+const double secondaryBackgroundBorderRadius = 80.0;
 const double buttonBorderRadius = 8.0;
 const double textFieldBorderRadius = 8.0;
 
@@ -65,6 +69,6 @@ const waterLeakBubble = 'assets/MapBubble/WaterLeakBubble.svg';
 const defaultPadding = 15.0;
 
  //fontSize
-const double HeadlineSize = 50;
+const double HeadlineSize = 30;
 const double bodyTextSize = 30;
 const double hintTextSize = 17;

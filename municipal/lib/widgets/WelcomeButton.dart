@@ -22,7 +22,7 @@ class Welcomebutton extends StatelessWidget {
       child: Container(
         decoration:  BoxDecoration(
           shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.all(Radius.circular(borderRadius)), 
+          borderRadius: BorderRadius.all(Radius.circular(secondaryBackgroundBorderRadius)), 
           color: buttonColor,
          boxShadow: const [
           BoxShadow(
