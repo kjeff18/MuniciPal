@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
 
-class Welcomebutton extends StatelessWidget {
-  const Welcomebutton({
+class CustomButton extends StatelessWidget {
+  const CustomButton({
     super.key,
     required this.text,
     required this.onPressed,

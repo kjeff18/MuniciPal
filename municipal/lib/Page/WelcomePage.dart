@@ -4,7 +4,7 @@ import 'package:municipal/DesingContstant.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:municipal/widgets/CustomAppBar.dart';
 import 'package:websafe_svg/websafe_svg.dart';
-import 'package:municipal/widgets/WelcomeButton.dart';
+import 'package:municipal/widgets/CustomButton.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'LoginPage.dart';
 
@@ -40,7 +40,7 @@ class SignInPage extends StatelessWidget {
     
            Padding(
              padding: const EdgeInsets.symmetric(horizontal: defaultPadding*4, vertical: defaultPadding/2),
-             child: Welcomebutton(
+             child: CustomButton(
                 text: 'Login',
                onPressed: () => loginFunc(context), 
                blueButton: true,
@@ -49,7 +49,7 @@ class SignInPage extends StatelessWidget {
 
            Padding(
             padding: const EdgeInsets.symmetric(horizontal: defaultPadding*4, vertical: defaultPadding/2),
-            child: Welcomebutton(text: 'Sign Up', 
+            child: CustomButton(text: 'Sign Up', 
             onPressed: () => loginFunc(context),
              blueButton: false
              ), 
