@@ -51,7 +51,7 @@ class LogInPage extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SizedBox(height: 80),
+                          SizedBox(height: 40),
                
                           CustomTextField(
                             hintText: 'Email',
