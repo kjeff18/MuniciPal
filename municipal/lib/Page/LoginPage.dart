@@ -41,35 +41,37 @@ class LogInPage extends StatelessWidget {
             ),
           ),
   
-           Stack(
-                children: [
-                 const Secondarybackground(),
-                   
-                  Padding(
-                    padding: const EdgeInsets.all(defaultPadding), // Padding for text fields
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 80),
-             
-                        CustomTextField(
-                          hintText: 'Email',
-                          controller: _emailController,
-                          icon: Icon(Icons.mail),
-                        ),
-                        const SizedBox(height: 16), 
-                        CustomTextField(
-                          hintText: 'Password',
-                          controller: _passwordController,
-                          icon: Icon(Icons.lock),
-                          obscureText: true,
-                        ),
-                       
-                      ],
+           Expanded(
+             child: Stack(
+                  children: [
+                    Secondarybackground(),
+                     
+                    Padding(
+                      padding: const EdgeInsets.all(defaultPadding), // Padding for text fields
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 80),
+               
+                          CustomTextField(
+                            hintText: 'Email',
+                            controller: _emailController,
+                            icon: Icon(Icons.mail),
+                          ),
+                          const SizedBox(height: 16), 
+                          CustomTextField(
+                            hintText: 'Password',
+                            controller: _passwordController,
+                            icon: Icon(Icons.lock),
+                            obscureText: true,
+                          ),
+                         
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+           ),
            
           
         ],

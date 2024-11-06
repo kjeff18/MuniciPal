@@ -17,7 +17,7 @@ TextStyle textFont = GoogleFonts.sourceSans3();
 
 //App Bar Height
 
-const appBarHeight = 100; 
+const double appBarHeight = 50; 
 
 //BorderRaduis 
 
