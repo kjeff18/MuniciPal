@@ -23,12 +23,12 @@
           "EMAILSUBJECT": "Confirm you MuniciPal Account",
           "EMAILMESSAGE": "Here is the confirmation link for your MuniciPal account",
           "deploymentBucketName": "amplify-municipal-dev-e9c39-deployment",
-          "s3Key": "amplify-builds/municipal6e3c111bCustomMessage-58536e5254302f4e6d4d-build.zip"
+          "s3Key": "amplify-builds/municipal6e3c111bCustomMessage-54695254774d31724864-build.zip"
         },
         "municipal6e3c111bPostConfirmation": {
           "GROUP": "",
           "deploymentBucketName": "amplify-municipal-dev-e9c39-deployment",
-          "s3Key": "amplify-builds/municipal6e3c111bPostConfirmation-6670374e756e66673636-build.zip"
+          "s3Key": "amplify-builds/municipal6e3c111bPostConfirmation-32656f32347a52395a58-build.zip"
         }
       },
       "api": {

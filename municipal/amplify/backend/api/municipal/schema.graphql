@@ -14,6 +14,7 @@ type Issue @model
   status: IssueStatus!                 # Status of the issue (OPEN, IN_PROGRESS, CLOSED)
   progress: String                     # Progress update field, viewable by citizens
   upvotes: Int!                        # Number of upvotes the issue has received
+  reports: [Report] @hasMany(indexName: "byIssue", fields: ["id"]) # Reports associated with the issue
 }
 
 # Enumeration to define the status of an issue
@@ -37,6 +38,19 @@ enum IssueCategory {
   StreetSign
   PedestrianCrossing 
   Other
+}
+
+type Report @model
+  @auth(rules: [
+    { allow: groups, groups: ["Citizen"], operations: [create, read] }
+  ]) {
+  id: ID!
+  citizenId: ID!
+  issueId: ID! @index(name: "byIssue", queryField: "reportsByIssue")
+  latitude: Float!
+  longitude: Float!
+  description: String
+  imageUrl: String
 }
 
 # Citizens can upvote issues. Each upvote is tied to a specific citizen and issue, and a citizen can only upvote once per issue.
