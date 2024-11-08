@@ -15,8 +15,8 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color textColor = blueButton ? Colors.white : ButtonColor;
-    Color buttonColor = blueButton ? ButtonColor : Colors.white;
+    Color textColor = blueButton ? Colors.white : accentColor;
+    Color buttonColor = blueButton ? accentColor : Colors.white;
     return GestureDetector(
       onTap: onPressed, 
       child: Container(
@@ -33,7 +33,7 @@ class CustomButton extends StatelessWidget {
           ),
         ],
         border: Border.all(
-          color: ButtonColor,
+          color: accentColor,
           width: 2.0
           )
         ), 

@@ -3,14 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 //Color
-const BackgroundColor = Color(0xFFFFFFFF);
+const backgroundColor = Color(0xFFFFFFFF);
 const secondaryColor = Color(0xFF5AA1BB);
-const ButtonColor = Color(0xFF0B2E60);
+const accentColor = Color(0xFF0B2E60);
 const textColor = Color(0xFF000000);
 
 
-const TextFieldBorer = Color(0xFF002E6F);
-const TextFieldIconColor = Color(0xFF8D8E8D);
+const textFieldBorder = Color(0xFF002E6F);
+const textFieldIconColor = Color(0xFF8D8E8D);
 
 //TextFont
 TextStyle textFont = GoogleFonts.sourceSans3();

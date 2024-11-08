@@ -26,17 +26,17 @@ class CustomTextField extends StatelessWidget {
           
           prefixIcon: Icon(
             icon.icon,
-            color: TextFieldIconColor,
+            color: textFieldIconColor,
           ), 
           filled: true,
-          fillColor: BackgroundColor,
+          fillColor: backgroundColor,
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(color: TextFieldBorer), 
+            borderSide: BorderSide(color: textFieldBorder), 
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(color: TextFieldBorer ), 
+            borderSide: BorderSide(color: textFieldBorder ), 
           ),
         ),
       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
+import 'package:municipal/widgets/CustomBottomNavigationBar.dart';
+import 'package:municipal/widgets/CustomButton.dart';
 import 'package:municipal/widgets/SecondaryBackground.dart';
 import 'package:municipal/widgets/TextField.dart'; // Ensure you have this file created with CustomTextField
 
@@ -9,10 +11,18 @@ class LogInPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  
+     void loginFunc(BuildContext context) {
+    // Navigate to LogInPage
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CustomBottomNavigationBar()),
+    );
+ }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: BackgroundColor,
+      backgroundColor: backgroundColor,
       body: Column(
         children: [
        
@@ -65,7 +75,10 @@ class LogInPage extends StatelessWidget {
                             icon: Icon(Icons.lock),
                             obscureText: true,
                           ),
-                         
+
+                          Spacer(),
+
+                          CustomButton(text: 'Login',  onPressed: () => loginFunc(context), blueButton: true)
                         ],
                       ),
                     ),
@@ -79,3 +92,5 @@ class LogInPage extends StatelessWidget {
     );
   }
 }
+
+  

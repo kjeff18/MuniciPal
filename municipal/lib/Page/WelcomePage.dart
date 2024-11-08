@@ -8,8 +8,8 @@ import 'package:municipal/widgets/CustomButton.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'LoginPage.dart';
 
-class SignInPage extends StatelessWidget {
-  const SignInPage({super.key});
+class WelcomePage extends StatelessWidget {
+  const WelcomePage({super.key});
 
    void loginFunc(BuildContext context) {
     // Navigate to LogInPage
@@ -24,6 +24,7 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,7 +35,7 @@ class SignInPage extends StatelessWidget {
           const SizedBox(height: 30),
 
           Text('Get Started',
-          style: textFont.copyWith(color: ButtonColor,fontSize: 15)),
+          style: textFont.copyWith(color: accentColor,fontSize: 15)),
            
            const SizedBox(height: 30),
     
