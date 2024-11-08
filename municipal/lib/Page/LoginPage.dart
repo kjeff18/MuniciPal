@@ -16,7 +16,7 @@ class LogInPage extends StatelessWidget {
     // Navigate to LogInPage
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => CustomBottomNavigationBar()),
+      MaterialPageRoute(builder: (context) =>CustomBottomNavigationBar()),
     );
  }
   @override
