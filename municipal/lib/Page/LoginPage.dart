@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
+import 'package:municipal/Page/IssueCategoryPage.dart';
 import 'package:municipal/widgets/CustomBottomNavigationBar.dart';
 import 'package:municipal/widgets/CustomButton.dart';
 import 'package:municipal/widgets/SecondaryBackground.dart';
@@ -16,7 +17,7 @@ class LogInPage extends StatelessWidget {
     // Navigate to LogInPage
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) =>CustomBottomNavigationBar()),
+      MaterialPageRoute(builder: (context) =>IssueCategoryPage()),
     );
  }
   @override
