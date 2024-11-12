@@ -53,9 +53,9 @@
       ]
     },
     "userPoolGroupList": [
-      "Governments",
-      "Contractors",
-      "Citizens"
+      "Government",
+      "Contractor",
+      "Citizen"
     ],
     "serviceName": "Cognito",
     "verificationBucketName": "municipal6e3c111bverificationbucket",

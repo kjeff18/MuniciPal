@@ -1,14 +1,14 @@
 [
   {
-    "groupName": "Governments",
+    "groupName": "Government",
     "precedence": 1
   },
   {
-    "groupName": "Contractors",
+    "groupName": "Contractor",
     "precedence": 2
   },
   {
-    "groupName": "Citizens",
+    "groupName": "Citizen",
     "precedence": 3
   }
 ]

@@ -2,7 +2,7 @@
 type Issue @model
   @auth(rules: [
     { allow: groups, groups: ["Citizen"], operations: [create, read] },
-    { allow: groups, groups: ["Contractor", "Government"], operations: [read, update, delete] }
+    { allow: groups, groups: ["Contractor`", "Government"], operations: [read, update, delete] }
   ]) {
   id: ID!
   citizenId: ID!                       # ID of the citizen who created the issue
