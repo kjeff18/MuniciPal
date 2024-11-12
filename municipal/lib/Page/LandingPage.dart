@@ -18,7 +18,7 @@ class _LandingPageState extends State<LandingPage> {
 
   void editAccountButtonFunc() {
   LatLng? currentPosition = userLocation.getCurrentPosition();
-     print('Currentsssss position: ${currentPosition!.latitude}, ${currentPosition!.longitude}');
+     print('Currentsssss rrrposition: ${currentPosition!.latitude}, ${currentPosition!.longitude}');
   }
 
   @override
