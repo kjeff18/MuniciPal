@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:municipal/HelperFunction/UserLocation.dart';
 import 'package:municipal/widgets/CustomFloatingButton.dart';
+import 'package:municipal/widgets/ReportMenuButton.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -55,6 +56,10 @@ class _LandingPageState extends State<LandingPage> {
             right: screenSize.width * 0.02,
             child: CustomFloatingButton(onPressed: editAccountButtonFunc),
           ),
+          Positioned(
+            bottom: screenSize.height * 0.05,
+            right: screenSize.width * 0.02,
+            child: ReportMenuButton())
         ],
       ),
     );
