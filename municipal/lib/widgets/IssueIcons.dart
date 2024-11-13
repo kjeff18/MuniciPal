@@ -25,7 +25,7 @@ class Issueicons extends StatelessWidget {
           height: size,
         ),
         Padding(
-          padding: const EdgeInsets.all(defaultPadding),
+          padding: const EdgeInsets.all(defaultPadding/4),
           child: Text(iconName,
           textAlign: TextAlign.center,
           softWrap: true,

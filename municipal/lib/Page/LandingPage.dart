@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/HelperFunction/UserLocation.dart';
 import 'package:municipal/widgets/CustomFloatingButton.dart';
+import 'package:municipal/widgets/QuickReportIcon.dart';
 import 'package:municipal/widgets/ReportMenuButton.dart';
 
 class LandingPage extends StatefulWidget {
@@ -86,24 +87,24 @@ class _LandingPageState extends State<LandingPage> {
           ),
           // First AnimatedPositioned widget
           AnimatedPositioned(
-            bottom: _isVisible1 ? -150 :screenSize.height * 0.15 ,
+            bottom: _isVisible1 ? screenSize.height * 0.15: -500 ,
             right: screenSize.width * 0.02,
-            curve: Curves.easeInCubic,
-            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeInOut,
+            duration: const Duration(milliseconds: 300),
             child: AnimatedOpacity(
-              opacity: !_isVisible1 ? 1.0 : 0.0,
+              opacity: _isVisible1 ? 1.0 : 0.0,
               duration: const Duration(milliseconds: 150),
               curve: Curves.easeInOutCubicEmphasized,
-              child: Column(
+              child: const Column(
                 children: [
+                   QuickReportIcon(iconPath: potholeIcon),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: defaultPadding),
-                    child: Image.asset(logo, height: 82, width: 82),
+                    padding: EdgeInsets.symmetric(vertical: defaultPadding),
+                    child: QuickReportIcon(iconPath:trafficLightIcon),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: defaultPadding),
-                    child: Image.asset(logo, height: 82, width: 82),
-                  ),
+                  Padding(padding: EdgeInsets.only(bottom: defaultPadding),
+                  child: QuickReportIcon(iconPath: streetLightIcon),)
+
                 ],
               ),
             ),

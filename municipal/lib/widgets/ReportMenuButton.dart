@@ -28,7 +28,7 @@ class _ReportMenuButtonState extends State<ReportMenuButton> with SingleTickerPr
     );
 
     // Define rotation animation: Tween from 0 to 45 degrees
-    _rotationAnimation = Tween<double>(begin: 0, end: 45).animate(
+    _rotationAnimation = Tween<double>(begin: 0, end: 135).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
   }
