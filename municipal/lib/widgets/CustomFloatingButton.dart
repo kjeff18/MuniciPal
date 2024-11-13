@@ -11,7 +11,7 @@ class CustomFloatingButton extends StatelessWidget {
     return FloatingActionButton(
       onPressed: onPressed,
       child: const Icon(Icons.menu, color: backgroundColor),
-      backgroundColor: accentColor, // Hamburger icon
+      backgroundColor: accentColor.withOpacity(0.8), // Hamburger icon
     );
   }
 }
