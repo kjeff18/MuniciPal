@@ -76,6 +76,11 @@ const trafficLightBubble = 'assets/MapBubble/TrafficLightBubble.svg';
 const treeMaintenanceBubble = 'assets/MapBubble/TreeBubble.svg';
 const waterLeakBubble = 'assets/MapBubble/WaterLeakBubble.svg';
 
+//Botom Navigation Scaling,
+
+const double bottomNavIconScale = 1.3;
+
+
 //Padding
 const defaultPadding = 15.0;
 
