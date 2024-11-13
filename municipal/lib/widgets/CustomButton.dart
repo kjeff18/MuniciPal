@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
 
-class Welcomebutton extends StatelessWidget {
-  const Welcomebutton({
+class CustomButton extends StatelessWidget {
+  const CustomButton({
     super.key,
     required this.text,
     required this.onPressed,
@@ -15,8 +15,8 @@ class Welcomebutton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color textColor = blueButton ? Colors.white : ButtonColor;
-    Color buttonColor = blueButton ? ButtonColor : Colors.white;
+    Color textColor = blueButton ? Colors.white : accentColor;
+    Color buttonColor = blueButton ? accentColor : Colors.white;
     return GestureDetector(
       onTap: onPressed, 
       child: Container(
@@ -33,7 +33,7 @@ class Welcomebutton extends StatelessWidget {
           ),
         ],
         border: Border.all(
-          color: ButtonColor,
+          color: accentColor,
           width: 2.0
           )
         ), 

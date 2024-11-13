@@ -40,6 +40,8 @@ dependencies:
   geocoding: ^3.0.0
   percent_indicator: ^4.2.3
   flutter_svg: ^2.0.10+1
+  flutter_dotenv: ^5.0.2
+  geolocator: ^9.0.2
 
  
   flutter:
@@ -78,6 +80,7 @@ flutter:
     - assets/logo/
     - assets/icons/
     - assets/MapBubble/
+    - assets/IssueIcons/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
