@@ -85,7 +85,6 @@ class _LandingPageState extends State<LandingPage> {
             right: screenSize.width * 0.02,
             child: ReportMenuButton(onPressed: _ReportMenuClick),
           ),
-          // First AnimatedPositioned widget
           AnimatedPositioned(
             bottom: _isVisible1 ? screenSize.height * 0.15: -500 ,
             right: screenSize.width * 0.02,

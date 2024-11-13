@@ -18,7 +18,7 @@ class CustomBottomNavigationBar extends StatefulWidget {
 
 class _CustomNavigationBar extends State<CustomBottomNavigationBar> {
   late int _currentIndex;
-  List<Widget> _pages = [
+  final List<Widget> _pages = [
     const LandingPage(),
     const IssueCategoryPage(),
   ];

@@ -28,7 +28,7 @@ class _ReportMenuButtonState extends State<ReportMenuButton> with SingleTickerPr
     );
 
     // Define rotation animation: Tween from 0 to 45 degrees
-    _rotationAnimation = Tween<double>(begin: 0, end: 135).animate(
+    _rotationAnimation = Tween<double>(begin: 0, end: 45).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
   }
@@ -39,7 +39,6 @@ class _ReportMenuButtonState extends State<ReportMenuButton> with SingleTickerPr
       _isRotated = !_isRotated;
     });
 
-    // Start or reverse the animation based on current state
     if (_isRotated) {
       _controller.forward();  // Rotate the icon
     } else {
