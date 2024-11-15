@@ -75,7 +75,8 @@ class _ReportMenuButtonState extends State<ReportMenuButton> with SingleTickerPr
             builder: (context, child) {
               // Apply rotation using the animation's value in radians
               return Transform.rotate(
-                angle: _rotationAnimation.value * (3.14159 / 180), // Convert degrees to radians
+
+                angle: _rotationAnimation.value * (-3.14159 / 180), 
                 child: child,
               );
             },

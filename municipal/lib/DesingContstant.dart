@@ -40,7 +40,7 @@ const pothole = 'assets/icons/pothole.png';
 const roadway = 'assets/icons/road.png';
 const sidewalk = 'assets/icons/sidewalk.png';
 const streetSign = 'assets/icons/street-sign.png';
-const trafficSignal = 'assets/icons/traffic-light.png';
+const trafficLight = 'assets/icons/traffic-light.png';
 const treeMaintenance = 'assets/icons/tree.png';
 const warning = 'assets/icons/warning.png';
 
@@ -59,7 +59,7 @@ const trafficLightIcon = 'assets/IssueIcons/TrafficLightIcon.svg';
 const treeMantainaceIcon = 'assets/IssueIcons/TreeMantenanceIcon.svg';
 const waterLeakIcon = 'assets/IssueIcons/WaterLeakIcon.svg';
 
-const double issueCatergoryIconSize = 82;
+ const double issueCatergoryIconSize = 82;
 
 //MapBuble Path
 const pedestrianCrossingBubble = 'assets/MapBubble/CrosswalkBubble.svg';

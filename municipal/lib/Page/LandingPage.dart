@@ -15,26 +15,61 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
+  BitmapDescriptor customMarker = BitmapDescriptor.defaultMarker;
+
   late GoogleMapController mapController;
-  UserLocation userLocation = UserLocation();
-  CameraPosition? _currentCameraPosition;
 
-  bool _isVisible1 = false;
-  bool _isVisible2 = false; // Separate visibility flag for the second image
+
+
+
+   List<Map<String, dynamic>> markerData = [
+    {"name": "pothole", "coordinate": LatLng(30.4076640376, -91.179755360)},
+    {"name": "traffic_light", "coordinate": LatLng(30.4072694,-91.1823936)},
+    {"name": "street_light", "coordinate": LatLng(30.4072093,-91.1839224)},
+    // Add more markers with different names and coordinates
+  ];
+
+  
+  final Map<String, String> markerIconPaths = {
+    "pothole": pothole,
+    "traffic_light":trafficLight,
+    "street_light": streetlight,
+    // Add more mappings for other types
+  };
+
+  Set<Marker> markers = {};
   double position = 1;
+  UserLocation userLocation = UserLocation();
 
-  void _ReportMenuClick() {
-    setState(() {
-      if (_isVisible1) {
-        position = 0.15;
-        _isVisible1 = false;
-        _isVisible2 = false; // Hide the second image when the first one is hidden
-      } else {
-        position = 1;
-        _isVisible1 = true;
-        _isVisible2 = true; // Show the second image when the first one is visible
+  CameraPosition? _currentCameraPosition;
+  bool _isVisible1 = false;
+
+
+  @override
+  void dispose() {
+    userLocation.dispose(); 
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _CustomMarker();
+    super.initState();
+
+    // Start listening for the user's location
+    userLocation.startLocationStream((LatLng position) {
+      // This callback will be triggered each time the location is updated
+      setState(() {
+        _currentCameraPosition = CameraPosition(target: position, zoom: 15);
+      });
+      
+      // Once the first location is available, update the camera position
+      if (mapController != null) {
+        mapController.animateCamera(CameraUpdate.newLatLng(position));
       }
     });
+
+    
   }
 
   void editAccountButtonFunc() {
@@ -46,34 +81,69 @@ class _LandingPageState extends State<LandingPage> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    userLocation.startLocationStream((LatLng position) {
-      setState(() {
-        _currentCameraPosition = CameraPosition(target: position, zoom: 15);
+void _CustomMarker() {
+  for (int i = 0; i < markerData.length; i++) {
+    String markerName = markerData[i]["name"];
+    LatLng coordinate = markerData[i]["coordinate"];
+    String? iconPath = markerIconPaths[markerName];  // Get the icon path
+
+    // Check if the iconPath exists
+    if (iconPath != null) {
+      // Load the icon asynchronously using the asset path
+      BitmapDescriptor.asset(
+        ImageConfiguration(size: Size(20, 20)),
+        iconPath,  // Use the dynamic icon path
+      ).then((icon) {
+          customMarker = icon;
+          markers.add(
+            Marker(
+              markerId: MarkerId('marker_$i'), 
+              position: coordinate,
+              icon: customMarker, 
+            ),
+          );
       });
-      mapController.animateCamera(CameraUpdate.newLatLng(position));
+    } else {
+      print('Icon path not found for marker: $markerName');
+    }
+  }
+}
+
+  void _ReportMenuClick() {
+    setState(() {
+      if (_isVisible1) {
+        position = 0.15;
+        _isVisible1 = false;
+    
+      } else {
+        position = 1;
+        _isVisible1 = true;
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Stack(
         children: [
           GoogleMap(
             zoomControlsEnabled: true,
-            initialCameraPosition: _currentCameraPosition ?? const CameraPosition(
-              target: LatLng(37.7749, -122.4194), // Fallback to San Francisco initially
-              zoom: 15.0,
-            ),
+            initialCameraPosition: _currentCameraPosition ??
+                const CameraPosition(
+                  target: LatLng(37.7749, -122.4194), 
+                  zoom: 15.0,
+                ),
+            trafficEnabled: true,
             onMapCreated: (GoogleMapController controller) {
               mapController = controller;
             },
             myLocationEnabled: true,
             myLocationButtonEnabled: false,
+
+            markers: markers
           ),
           Positioned(
             top: screenSize.height * 0.07,
@@ -86,8 +156,8 @@ class _LandingPageState extends State<LandingPage> {
             child: ReportMenuButton(onPressed: _ReportMenuClick),
           ),
           AnimatedPositioned(
-            bottom: _isVisible1 ? screenSize.height * 0.15: -500 ,
-            right: screenSize.width * 0.02,
+            bottom: screenSize.height * 0.15,
+            right: _isVisible1 ? screenSize.width * 0.02 : -500,
             curve: Curves.easeInOut,
             duration: const Duration(milliseconds: 300),
             child: AnimatedOpacity(
@@ -96,14 +166,15 @@ class _LandingPageState extends State<LandingPage> {
               curve: Curves.easeInOutCubicEmphasized,
               child: const Column(
                 children: [
-                   QuickReportIcon(iconPath: potholeIcon),
+                  QuickReportIcon(iconPath: potholeIcon),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: defaultPadding),
-                    child: QuickReportIcon(iconPath:trafficLightIcon),
+                    child: QuickReportIcon(iconPath: trafficLightIcon),
                   ),
-                  Padding(padding: EdgeInsets.only(bottom: defaultPadding),
-                  child: QuickReportIcon(iconPath: streetLightIcon),)
-
+                  Padding(
+                    padding: EdgeInsets.only(bottom: defaultPadding),
+                    child: QuickReportIcon(iconPath: streetLightIcon),
+                  ),
                 ],
               ),
             ),
@@ -112,10 +183,7 @@ class _LandingPageState extends State<LandingPage> {
       ),
     );
   }
-
-  @override
-  void dispose() {
-    userLocation.dispose(); // Clean up the UserLocation instance
-    super.dispose();
-  }
+  
 }
+
+
