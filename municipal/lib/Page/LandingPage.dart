@@ -24,16 +24,16 @@ class _LandingPageState extends State<LandingPage> {
 
    List<Map<String, dynamic>> markerData = [
     {"name": "pothole", "coordinate": LatLng(30.4076640376, -91.179755360)},
-    {"name": "traffic_light", "coordinate": LatLng(30.42456, -91.189755360)},
-    {"name": "street_light", "coordinate": LatLng(30.4475540376, -91.199755360)},
+    {"name": "traffic_light", "coordinate": LatLng(30.4072694,-91.1823936)},
+    {"name": "street_light", "coordinate": LatLng(30.4072093,-91.1839224)},
     // Add more markers with different names and coordinates
   ];
 
   
   final Map<String, String> markerIconPaths = {
     "pothole": pothole,
-    "traffic_light":drainage,
-    "street_light": graffiti,
+    "traffic_light":trafficLight,
+    "street_light": streetlight,
     // Add more mappings for other types
   };
 
@@ -91,10 +91,9 @@ void _CustomMarker() {
     if (iconPath != null) {
       // Load the icon asynchronously using the asset path
       BitmapDescriptor.asset(
-        ImageConfiguration(size: Size(82, 82)),
+        ImageConfiguration(size: Size(20, 20)),
         iconPath,  // Use the dynamic icon path
       ).then((icon) {
-        setState(() {
           customMarker = icon;
           markers.add(
             Marker(
@@ -103,7 +102,6 @@ void _CustomMarker() {
               icon: customMarker, 
             ),
           );
-        });
       });
     } else {
       print('Icon path not found for marker: $markerName');
