@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:municipal/DesingContstant.dart';
@@ -15,13 +16,28 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
+
+  //Declared Variable 
   BitmapDescriptor customMarker = BitmapDescriptor.defaultMarker;
 
   late GoogleMapController mapController;
+  String _mapstyle = ''; 
+
+  CameraPosition? _currentCameraPosition;
+  bool _isVisible1 = false;
+
+  Set<Marker> markers = {};
+  double position = 1;
+  UserLocation userLocation = UserLocation();
 
 
+//Map Function Stuff
 
+  Future<void> _loadMapStyle() async {
+    _mapstyle = await rootBundle.loadString('municipal/assets/map_styles/map_style.json');
+  }
 
+// Dummy Data
    List<Map<String, dynamic>> markerData = [
     {"name": "pothole", "coordinate": LatLng(30.4076640376, -91.179755360)},
     {"name": "traffic_light", "coordinate": LatLng(30.4072694,-91.1823936)},
@@ -29,47 +45,45 @@ class _LandingPageState extends State<LandingPage> {
     // Add more markers with different names and coordinates
   ];
 
-  
+//Dummy Data
   final Map<String, String> markerIconPaths = {
-    "pothole": pothole,
-    "traffic_light":trafficLight,
-    "street_light": streetlight,
+    "pothole": potholeBubble,
+    "traffic_light":trafficLightBubble,
+    "street_light": streetLightBubble,
     // Add more mappings for other types
   };
 
-  Set<Marker> markers = {};
-  double position = 1;
-  UserLocation userLocation = UserLocation();
+  void _CustomMarker() {
+  for (int i = 0; i < markerData.length; i++) {
+    String markerName = markerData[i]["name"];
+    LatLng coordinate = markerData[i]["coordinate"];
+    String? iconPath = markerIconPaths[markerName];  // Get the icon path
 
-  CameraPosition? _currentCameraPosition;
-  bool _isVisible1 = false;
-
-
-  @override
-  void dispose() {
-    userLocation.dispose(); 
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    _CustomMarker();
-    super.initState();
-
-    // Start listening for the user's location
-    userLocation.startLocationStream((LatLng position) {
-      // This callback will be triggered each time the location is updated
-      setState(() {
-        _currentCameraPosition = CameraPosition(target: position, zoom: 15);
+    if (iconPath != null) {
+      BitmapDescriptor.asset(
+        ImageConfiguration(size: Size(50, 50)),
+        iconPath,  // Use the dynamic icon path
+      ).then((icon) {
+          customMarker = icon;
+          markers.add(
+            Marker(
+              markerId: MarkerId('marker_$i'), 
+              position: coordinate,
+              icon: customMarker, 
+              onTap: () => _mapMarkerButton('marker_$i'),
+            ),
+          );
       });
-      
-      // Once the first location is available, update the camera position
-      if (mapController != null) {
-        mapController.animateCamera(CameraUpdate.newLatLng(position));
-      }
-    });
+    } else {
+      print('Icon path not found for marker: $markerName');
+    }
+  }
+}
 
-    
+//Clickable Button Function
+  void _mapMarkerButton (String name)
+  {
+    print(name);
   }
 
   void editAccountButtonFunc() {
@@ -80,34 +94,6 @@ class _LandingPageState extends State<LandingPage> {
       print('Current position is null');
     }
   }
-
-void _CustomMarker() {
-  for (int i = 0; i < markerData.length; i++) {
-    String markerName = markerData[i]["name"];
-    LatLng coordinate = markerData[i]["coordinate"];
-    String? iconPath = markerIconPaths[markerName];  // Get the icon path
-
-    // Check if the iconPath exists
-    if (iconPath != null) {
-      // Load the icon asynchronously using the asset path
-      BitmapDescriptor.asset(
-        ImageConfiguration(size: Size(20, 20)),
-        iconPath,  // Use the dynamic icon path
-      ).then((icon) {
-          customMarker = icon;
-          markers.add(
-            Marker(
-              markerId: MarkerId('marker_$i'), 
-              position: coordinate,
-              icon: customMarker, 
-            ),
-          );
-      });
-    } else {
-      print('Icon path not found for marker: $markerName');
-    }
-  }
-}
 
   void _ReportMenuClick() {
     setState(() {
@@ -122,6 +108,41 @@ void _CustomMarker() {
     });
   }
 
+  void _quickReportButton()
+  {
+    print("QuickReport");
+  }
+
+//State Management
+  @override
+  void dispose() {
+    userLocation.dispose(); 
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _loadMapStyle();
+    _CustomMarker();
+    super.initState();
+
+    userLocation.startLocationStream((LatLng position) {
+      setState(() {
+        _currentCameraPosition = CameraPosition(target: position, zoom: 15);
+      });
+      
+      // Once the first location is available, update the camera position
+      if (mapController != null) {
+        mapController.animateCamera(CameraUpdate.newLatLng(position));
+      }
+    }); 
+  }
+
+
+
+
+//Widget Build
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -131,18 +152,20 @@ void _CustomMarker() {
         children: [
           GoogleMap(
             zoomControlsEnabled: true,
+
             initialCameraPosition: _currentCameraPosition ??
                 const CameraPosition(
-                  target: LatLng(37.7749, -122.4194), 
+                  target: LatLng(30.4076640376, -91.179755360), 
                   zoom: 15.0,
                 ),
             trafficEnabled: true,
             onMapCreated: (GoogleMapController controller) {
               mapController = controller;
+        
             },
             myLocationEnabled: true,
             myLocationButtonEnabled: false,
-
+            style:_mapstyle ,
             markers: markers
           ),
           Positioned(
@@ -164,16 +187,16 @@ void _CustomMarker() {
               opacity: _isVisible1 ? 1.0 : 0.0,
               duration: const Duration(milliseconds: 150),
               curve: Curves.easeInOutCubicEmphasized,
-              child: const Column(
+              child: Column(
                 children: [
-                  QuickReportIcon(iconPath: potholeIcon),
+                   QuickReportIcon(iconPath: potholeIcon, onPressed: () => _quickReportButton()),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: defaultPadding),
-                    child: QuickReportIcon(iconPath: trafficLightIcon),
+                    padding: const EdgeInsets.symmetric(vertical: defaultPadding),
+                    child: QuickReportIcon(iconPath: trafficLightIcon,onPressed: () => _quickReportButton(),),
                   ),
-                  Padding(
+                   Padding(
                     padding: EdgeInsets.only(bottom: defaultPadding),
-                    child: QuickReportIcon(iconPath: streetLightIcon),
+                    child: QuickReportIcon(iconPath: streetLightIcon ,onPressed: () => _quickReportButton()),
                   ),
                 ],
               ),

@@ -62,19 +62,19 @@ const waterLeakIcon = 'assets/IssueIcons/WaterLeakIcon.svg';
  const double issueCatergoryIconSize = 82;
 
 //MapBuble Path
-const pedestrianCrossingBubble = 'assets/MapBubble/CrosswalkBubble.svg';
-const drainageBubble = 'assets/MapBubble/DrainageBubble.svg';
-const graffitiBubble = 'assets/MapBubble/GraffitiBubble.svg';
-const otherBubble = 'assets/MapBubble/OtherBubble.svg';
-const parkMatainanceBubble = 'assets/MapBubble/ParkBubble.svg';
-const potholeBubble = 'assets/MapBubble/PotholeBubble.svg';
-const roadWayBubble = 'assets/MapBubble/RoadwayBubble.svg';
-const sidewalkBubble = 'assets/MapBubble/SidewalkBubble.svg';
-const streetLightBubble = 'assets/MapBubble/StreetLightBubble.svg';
-const streetSignBubble = 'assets/MapBubble/StreetSignBubble.svg';
-const trafficLightBubble = 'assets/MapBubble/TrafficLightBubble.svg';
-const treeMaintenanceBubble = 'assets/MapBubble/TreeBubble.svg';
-const waterLeakBubble = 'assets/MapBubble/WaterLeakBubble.svg';
+const pedestrianCrossingBubble = 'assets/MapBubble/CrosswalkBubble.png';
+const drainageBubble = 'assets/MapBubble/DrainageBubble.png';
+const graffitiBubble = 'assets/MapBubble/GraffitiBubble.png';
+const otherBubble = 'assets/MapBubble/OtherBubble.png';
+const parkMatainanceBubble = 'assets/MapBubble/ParkBubble.png';
+const potholeBubble = 'assets/MapBubble/PotholeBubble.png';
+const roadWayBubble = 'assets/MapBubble/RoadwayBubble.png';
+const sidewalkBubble = 'assets/MapBubble/SidewalkBubble.png';
+const streetLightBubble = 'assets/MapBubble/StreetLightBubble.png';
+const streetSignBubble = 'assets/MapBubble/StreetSignBubble.png';
+const trafficLightBubble = 'assets/MapBubble/TrafficLightBubble.png';
+const treeMaintenanceBubble = 'assets/MapBubble/TreeBubble.png';
+const waterLeakBubble = 'assets/MapBubble/WaterLeakBubble.png';
 
 //Botom Navigation Scaling,
 
