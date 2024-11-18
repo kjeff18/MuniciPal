@@ -19,7 +19,7 @@ class IssueCategoryPage extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBar(
         title: 'Issue Category',
-        showBackButton: true,
+        showBackButton: false,
       ),
       backgroundColor: backgroundColor,
       body: Padding(
