@@ -23,7 +23,7 @@ String getReportName(String code) {
   return _ReportCheker[code]?['name'] ?? 'Unknown';
 }
 
-dynamic getReportValue(String code) {
+dynamic getReportIconPath(String code) {
   return _ReportCheker[code]?['value'] ?? null;
 }
 

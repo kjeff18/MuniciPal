@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
+import 'package:municipal/Page/ReportPage.dart';
 import 'package:municipal/widgets/CustomAppBar.dart';
 import 'package:municipal/widgets/IssueIcons.dart';
 import 'package:municipal/HelperFunction/ReportNameChecker.dart';
@@ -7,11 +8,19 @@ import 'package:municipal/HelperFunction/ReportNameChecker.dart';
 class IssueCategoryPage extends StatelessWidget {
   const IssueCategoryPage({super.key});
 
-  void _issueIconPressed(String iconName) {
+  void _issueIconPressed(String iconName, BuildContext context) {
     // Implement your button press logic here
     ReportNameChecker checker = ReportNameChecker();
     String reportName = checker.getReportName(iconName);    
     print(reportName);
+    String reportIcon = checker.getReportIconPath(iconName);
+    print(reportIcon);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ReportPage(iconPath:reportIcon, reportName: reportName,)),
+    );
+    
   }
 
   @override
@@ -35,21 +44,21 @@ class IssueCategoryPage extends StatelessWidget {
                   child: Issueicons(
                     iconPath: potholeIcon,
                     iconName: 'Pothole',
-                    onPressed: () => _issueIconPressed('ph'),
+                    onPressed: () => _issueIconPressed('ph', context),
                   ),
                 ),
                 Expanded(
                   child: Issueicons(
                     iconPath: streetLightIcon,
                     iconName: 'Street Light',
-                    onPressed: () => _issueIconPressed('st'),
+                    onPressed: () => _issueIconPressed('st', context),
                   ),
                 ),
                 Expanded(
                   child: Issueicons(
                     iconPath: waterLeakIcon,
                     iconName: 'Water Leak',
-                    onPressed: () => _issueIconPressed('wt'),
+                    onPressed: () => _issueIconPressed('wt', context),
                   ),
                 ),
               ],
@@ -62,21 +71,21 @@ class IssueCategoryPage extends StatelessWidget {
                   child: Issueicons(
                     iconPath: trafficLightIcon,
                     iconName: 'Traffic Light',
-                    onPressed: () => _issueIconPressed('tl'),
+                    onPressed: () => _issueIconPressed('tl', context),
                   ),
                 ),
                 Expanded(
                   child: Issueicons(
                     iconPath: roadwayIcon,
                     iconName: 'Roadway',
-                    onPressed: () => _issueIconPressed('rw'),
+                    onPressed: () => _issueIconPressed('rw', context),
                   ),
                 ),
                 Expanded(
                   child: Issueicons(
                     iconPath: sideWalkIcon,
                     iconName: 'Sidewalk',
-                    onPressed: () => _issueIconPressed('sw'),
+                    onPressed: () => _issueIconPressed('sw', context),
                   ),
                 ),
               ],
@@ -89,21 +98,21 @@ class IssueCategoryPage extends StatelessWidget {
                   child: Issueicons(
                     iconPath: drainageIcon,
                     iconName: 'Drainage',
-                    onPressed: () => _issueIconPressed('dr'),
+                    onPressed: () => _issueIconPressed('dr', context),
                   ),
                 ),
                 Expanded(
                   child: Issueicons(
                     iconPath: streetSignIcon,
                     iconName: 'Street Sign',
-                    onPressed: () => _issueIconPressed('ss'),
+                    onPressed: () => _issueIconPressed('ss', context),
                   ),
                 ),
                 Expanded(
                   child: Issueicons(
                     iconPath: graffitiIcon,
                     iconName: 'Graffiti',
-                    onPressed: () => _issueIconPressed('gr'),
+                    onPressed: () => _issueIconPressed('gr', context),
                   ),
                 ),
               ],
@@ -116,21 +125,21 @@ class IssueCategoryPage extends StatelessWidget {
                   child: Issueicons(
                     iconPath: parkMaintainanceIcon,
                     iconName: 'Park Maintenance',
-                    onPressed: () => _issueIconPressed('pm'),
+                    onPressed: () => _issueIconPressed('pm', context),
                   ),
                 ),
                 Expanded(
                   child: Issueicons(
                     iconPath: treeMantainaceIcon,
                     iconName: 'Tree Maintenance',
-                    onPressed: () => _issueIconPressed('tm'),
+                    onPressed: () => _issueIconPressed('tm', context),
                   ),
                 ),
                 Expanded(
                   child: Issueicons(
                     iconPath: pedestrainIcon,
                     iconName: 'Pedestrian Crossing',
-                    onPressed: () => _issueIconPressed('pc'),
+                    onPressed: () => _issueIconPressed('pc', context),
                   ),
                 ),
               ],
@@ -140,7 +149,7 @@ class IssueCategoryPage extends StatelessWidget {
               child: Issueicons(
                 iconPath: otherIcon,
                 iconName: 'Other',
-                onPressed: () => _issueIconPressed('ot'),
+                onPressed: () => _issueIconPressed('ot', context),
               ),
             ),
           ],

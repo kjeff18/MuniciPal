@@ -29,20 +29,20 @@ const logoText = 'assets/logo/MuniciPalTitle.svg';
 
 //asset icons
 
-const drainage = 'assets/icons/drain.png';
-const graffiti = 'assets/icons/graffiti.png';
-const streetlight = 'assets/icons/lantern.png';
-const more = 'assets/icons/more.png';
-const pedestrianCrossing = 'assets/icons/pedestrians.png';
-const parkMatainance = 'assets/icons/playground.png';
-const waterLeak = 'assets/icons/plumbing.png';
-const pothole = 'assets/icons/pothole.png';
-const roadway = 'assets/icons/road.png';
-const sidewalk = 'assets/icons/sidewalk.png';
-const streetSign = 'assets/icons/street-sign.png';
-const trafficLight = 'assets/icons/traffic-light.png';
-const treeMaintenance = 'assets/icons/tree.png';
-const warning = 'assets/icons/warning.png';
+const drainage = 'assets/icons/drain.svg';
+const graffiti = 'assets/icons/graffiti.svg';
+const streetlight = 'assets/icons/lantern.svg';
+const more = 'assets/icons/more.svg';
+const pedestrianCrossing = 'assets/icons/pedestrians.svg';
+const parkMatainance = 'assets/icons/playground.svg';
+const waterLeak = 'assets/icons/plumbing.svg';
+const pothole = 'assets/icons/pothole.svg';
+const roadway = 'assets/icons/road.svg';
+const sidewalk = 'assets/icons/sidewalk.svg';
+const streetSign = 'assets/icons/street-sign.svg';
+const trafficLight = 'assets/icons/traffic-light.svg';
+const treeMaintenance = 'assets/icons/tree.svg';
+const warning = 'assets/icons/warning.svg';
 
 //Issue Category
 const drainageIcon = 'assets/IssueIcons/DrainageIcon.svg';
@@ -87,5 +87,5 @@ const defaultPadding = 15.0;
 //fontSize
 const double IssueCategoryTextSize = 17;
 const double HeadlineSize = 30;
-const double bodyTextSize = 30;
+const double bodyTextSize = 20;
 const double hintTextSize = 17;
