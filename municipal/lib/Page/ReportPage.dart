@@ -1,7 +1,14 @@
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/widgets/CustomAppBar.dart';
+import 'package:municipal/widgets/CustomButton.dart';
+import 'package:municipal/widgets/ReportPageWidgets/DescriptionSection.dart';
+import 'package:municipal/widgets/ReportPageWidgets/ImagePickerSections.dart';
+import 'package:municipal/widgets/ReportPageWidgets/ReportHeader.dart';
 
 class ReportPage extends StatefulWidget {
   final String iconPath;
@@ -14,86 +21,87 @@ class ReportPage extends StatefulWidget {
 
 class _ReportPageState extends State<ReportPage> {
   final TextEditingController _controller = TextEditingController();
+  final ImagePicker _picker = ImagePicker();
+  File? _image; 
+
+  Future<void> _showCupertinoImagePicker() async {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          title: Text('Choose an Option', style: textFont.copyWith(color: accentColor, fontSize: hintTextSize)),
+          actions: [
+            CupertinoActionSheetAction(
+              child: Text('Take a Photo', style: textFont.copyWith(color: accentColor, fontSize: hintTextSize)),
+              onPressed: () {
+                _pickImage(ImageSource.camera);
+                Navigator.pop(context); // Close the action sheet
+              },
+            ),
+            CupertinoActionSheetAction(
+              child: Text('Choose from Gallery', style: textFont.copyWith(color: accentColor, fontSize: hintTextSize)),
+              onPressed: () {
+                _pickImage(ImageSource.gallery);
+                Navigator.pop(context); // Close the action sheet
+              },
+            ),
+          ],
+          cancelButton: CupertinoActionSheetAction(
+            child: Text('Cancel', style: textFont.copyWith(color: accentColor, fontSize: hintTextSize)),
+            onPressed: () {
+              Navigator.pop(context); // Close the action sheet
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _pickImage(ImageSource source) async {
+    try {
+      final pickedFile = await _picker.pickImage(source: source);
+      if (pickedFile != null) {
+        setState(() {
+          _image = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      print("Error picking image: $e");
+    }
+  }
+
+  void SubmitButton() {
+    // Handle submit action
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(title: 'Report'),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: defaultPadding * 2),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SvgPicture.asset(widget.iconPath, width: 100, height: 100,),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    widget.reportName,
-                    textAlign: TextAlign.center,
-                    style: textFont.copyWith(
-                      fontSize: HeadlineSize,
-                      color: accentColor,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Description',
-                  style: textFont.copyWith(
-                    fontSize: bodyTextSize,
-                    color: accentColor,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  '(${_controller.text.length}/200)',
-                  style: textFont.copyWith(
-                    fontSize: bodyTextSize,
-                    color: accentColor,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Container(
-              width: double.infinity,
-              height: 150,
-              child: TextField(
-                controller: _controller,
-                maxLines: 5,
-                maxLength: 200,
-                textAlignVertical: TextAlignVertical.top,
-                decoration: InputDecoration(
-                  hintText: "Enter your text here...",
-                  border: OutlineInputBorder(
-          
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(
-                      color: accentColor,
-                      width: 2,
-                    ),
-                  ),
-                  contentPadding: const EdgeInsets.all(16),
-                  counterText: "",
-                ),
-                onChanged: (text) {
-                  setState(() {});
-                },
-              ),
-            ),
-          ],
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: defaultPadding * 2),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ReportHeader(iconPath: widget.iconPath, reportName: widget.reportName),
+              const SizedBox(height: 16),
+              DescriptionSection(controller: _controller),
+              const SizedBox(height: 16),
+              ImagePickerSection(onTap: _showCupertinoImagePicker),
+              Spacer(),
+              CustomButton(text: "Submit", onPressed: SubmitButton, blueButton: true),
+              const SizedBox(height: 50)
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
+
+
+
+
