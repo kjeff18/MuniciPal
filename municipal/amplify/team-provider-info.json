@@ -28,7 +28,7 @@
         "municipal6e3c111bPostConfirmation": {
           "GROUP": "",
           "deploymentBucketName": "amplify-municipal-dev-e9c39-deployment",
-          "s3Key": "amplify-builds/municipal6e3c111bPostConfirmation-32656f32347a52395a58-build.zip"
+          "s3Key": "amplify-builds/municipal6e3c111bPostConfirmation-4150534245454847526c-build.zip"
         }
       },
       "api": {
