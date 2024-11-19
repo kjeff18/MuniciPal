@@ -1,11 +1,12 @@
 import React from "react";
-import Home from "./Components/Home";
+import { Authenticator } from "@aws-amplify/ui-react";
+import AppRoutes from "./AppRoutes";
 
 const App = () => {
   return (
-    <div className="overflow-x-hidden bg-white text-dark">
-      <Home />
-    </div>
+    <Authenticator.Provider>
+      <AppRoutes />
+    </Authenticator.Provider>
   );
 };
 
