@@ -1,80 +1,89 @@
-/* Main container for the page with blue background on the sides */
+/* Main container for the page */
 .map-page {
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Stack header and map */
   align-items: center;
-  height: 100vh; /* Adjust height so it doesn't fill the entire page */
+  height: 100vh;
   width: 100vw;
-  background-color: #5AA1BB; /* Blue background on sides */
+  background-color: #ffffff;
   overflow: hidden;
-  padding-top: 30px; /* Optional padding at the top */
-  padding-bottom: 0; /* No padding at the bottom */
+  padding: 10px; /* Add padding to ensure space around the map */
 }
 
-/* Map placeholder area, centered and with rounded top corners */
-.map-placeholder {
-  position: relative;
-  width: 95%;
-  height: 100%;
-  background-color: white;
-  border-radius: 10px 10px 0 0; /* Rounded corners at the top */
-  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
+/* Header container with logo and icons */
+.header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between; /* Space between logo and icons */
   align-items: center;
-}
-
-/* Logo container with white rounded square in the top left */
-.logo-container {
-  position: absolute;
-  top: 15px;
-  left: 15px;
+  width: 100%; /* Full width of the page */
+  padding: 10px 20px;
   background-color: white;
-  padding: 10px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 2;
+  border-radius: 10px; /* Slightly rounded header corners */
+  margin-bottom: 10px; /* Gap between header and map */
+}
+
+/* Logo container */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Increase space between logo and title image */
+  margin-left: 20px; /* Push the entire logo-container to the right */
 }
 
 .logo {
-  width: 40px;
+  width: 50px; /* Adjust logo size */
   height: auto;
+  margin-right: 10px; /* Add space between logo and title image if needed */
 }
 
-/* Menu container with rounded white background */
-.menu-container {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  height: 40px;
-  width: 40px;
-  background-color: white;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+/* Title image styling */
+.title-image {
+  height: 60px; /* Adjust height of the title image */
+  width: auto; /* Maintain aspect ratio */
+}
+
+/* Menu icons container */
+.menu-icons {
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 2;
+  gap: 50px; /* Space between icons */
+  margin-left: auto;
 }
 
-/* Menu button styling inside the container */
-.menu-button {
+.icon-button {
+  display: flex;
+  flex-direction: column; /* Icon above text */
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
-  font-size: 30px;
+  font-size: 12px;
   color: #0B2E60;
   cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-.map-content {
-  width: 100%;
-  height: 100%; /* Adjust as needed */
-  border-radius: 10px;
-  overflow: hidden;
-  z-index: 1;
+.icon-button:hover {
+  color: #0056b3;
 }
+
+.icon {
+  font-size: 20px; /* Icon size */
+  margin-bottom: 5px; /* Space between icon and label */
+}
+
+/* Map placeholder area */
+.map-placeholder {
+  position: relative;
+  width: calc(100% - 40px); /* Reduce width to create space on left and right */
+  height: 100%;
+  background-color: white;
+  border-radius: 20px; /* Rounded edges for the map */
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  flex-grow: 1; /* Allow the map to fill the remaining space */
+  margin: 0 20px; /* Add equal spacing on the left and right */
+}
+
