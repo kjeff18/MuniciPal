@@ -80,7 +80,7 @@ class _ReportPageState extends State<ReportPage> {
       appBar: const CustomAppBar(title: 'Report'),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: defaultPadding * 2),
+          padding: const EdgeInsets.symmetric(horizontal: defaultPadding *2 ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
