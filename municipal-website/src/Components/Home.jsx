@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react"; 
 import "./Home.css"; 
 import { IoMdMenu } from "react-icons/io";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import LoginScreen from "./LoginScreen"; 
+import SignUp from "./SignUp";
+
+// Importing images
 import HeroAvi from "../assets/Hero_Image.avif";
 import BannerPng from "../assets/blob.png";
 import Logo from "../assets/Logo.png";
 import TitleImage from "../assets/MuniciPalTitle.png";
 
-
-
+// Importing icons images
 import PotholeImg from "../assets/pothole.png";
 import StreetLightImg from "../assets/street_light.png";
 import WaterLeakImg from "../assets/water_leak.png";
@@ -46,9 +49,9 @@ const SlideLeft = (delay) => ({
 });
 
 const NavbarMenu = [
-        { id: 1, title: "Home", path: "/" },
-        { id: 2, title: "About Us", path: "#" },
-        { id: 3, title: "Login", path: "#" },
+  { id: 1, title: "Home", path: "/" },
+  { id: 2, title: "About Us", path: "#" },
+  { id: 3, title: "Login", path: "#" },
 ];
 
 const ServicesData = [
@@ -67,48 +70,76 @@ const ServicesData = [
 ];
 
 const Home = () => {
+  const [isLoginOpen, setLoginOpen] = useState(false); // State to control login modal visibility
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
+
+  const handleLoginOpen = () => {
+    console.log("Login button clicked"); // Add this line for debugging
+    setLoginOpen(true); // Open the login modal
+  };
+  
+
+  const handleLoginClose = () => setLoginOpen(false); // Close the login modal
+
+  const handleSignupOpen = () => {
+    setIsSignupOpen(true);
+  };
+
+  const handleSignupClose = () => {
+    setIsSignupOpen(false);
+  };
+
   return (
     <main>
-{/* Navbar */}
-<nav className="w-full py-4 mb-100">
-  <div className="container mx-auto flex justify-between items-center px-10">
-    <div className="flex items-center gap-8">
-      {/* Logo Image */}
-      <img src={Logo} alt="Logo" className="w-10 h-10" /> {/* Adjust size as needed */}
-      {/* Title Image */}
-      <img src={TitleImage} alt="MuniciPal Title" className="w-32 h-auto" /> {/* Adjust width as needed */}
-    </div>
-    {/* Navbar Links */}
-    <div className="hidden lg:flex items-center gap-6">
-          <ul className="flex items-center gap-6">
-            {NavbarMenu.map((menu) => (
-              <li key={menu.id}>
-                {menu.title === "Login" ? (
-                  // Style the "Login" button as an oval with a border
-                  <a
-                    href={menu.path}
-                    className="inline-block py-2 px-5 border-2 border-[#3E7494] text-[#000000] font-bold rounded-full hover:bg-[#3E7494] hover:text-white transition duration-300"
-                  >
-                    {menu.title}
-                  </a>
-                ) : (
-                  <a href={menu.path} className="inline-block py-2 px-3 hover:text-secondary">
-                    {menu.title}
-                  </a>
-                )}
-              </li>
-            ))}
-          </ul>
-          {/* Sign In Button */}
-          <button className="primary-btn ml-4">Sign In</button>
-        </div>
+      {/* Navbar */}
+      <nav className="w-full py-4 mb-100">
+        <div className="container mx-auto flex justify-between items-center px-10">
+          <div className="flex items-center gap-8">
+            {/* Logo Image */}
+            <img src={Logo} alt="Logo" className="w-10 h-10" /> {/* Adjust size as needed */}
+            {/* Title Image */}
+            <img src={TitleImage} alt="MuniciPal Title" className="w-32 h-auto" /> {/* Adjust width as needed */}
+          </div>
+          {/* Navbar Links */}
+          <div className="hidden lg:flex items-center gap-6">
+            <ul className="flex items-center gap-6">
+              {NavbarMenu.map((menu) => (
+                <li key={menu.id}>
+                  {menu.title === "Login" ? (
+                    // Style the "Login" button as an oval with a border
+                    <button
+                      onClick={handleLoginOpen}
+                      className="inline-block py-2 px-5 border-2 border-[#3E7494] text-[#000000] font-bold rounded-full hover:bg-[#3E7494] hover:text-white transition duration-300"
+                    >
+                      {menu.title}
+                    </button>
+                  ) : (
+                    <a href={menu.path} className="inline-block py-2 px-3 hover:text-secondary">
+                      {menu.title}
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
+            {/* Sign In Button */}
+            <button
+              onClick={handleSignupOpen}
+              className="inline-block py-2 px-5 border-2 border-[#0B2E60] text-white font-bold rounded-full hover:bg-opacity-90 transition duration-300"
+              style={{
+                backgroundColor: '#0B2E60',
+              }}
+            >
+               Sign Up
+            </button>
+          </div>
 
-        {/* Mobile Menu Icon */}
-        <div className="lg:hidden">
-          <IoMdMenu className="text-3xl" />
+          {/* Mobile Menu Icon */}
+          <div className="lg:hidden">
+            <IoMdMenu className="text-3xl" />
+          </div>
         </div>
-      </div>
-</nav>
+      </nav>
+
       {/* Hero Section */}
       <section className="bg-light overflow-hidden relative h-screen flex items-center">
         <div className="container grid grid-cols-1 md:grid-cols-2 px-8">
@@ -227,6 +258,11 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Login Modal */}
+      <LoginScreen isOpen={isLoginOpen} onClose={handleLoginClose} />
+      {/* Sign Up Modal */}
+      <SignUp isOpen={isSignupOpen} onClose={handleSignupClose} />
     </main>
   );
 };
