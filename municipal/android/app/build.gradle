@@ -19,18 +19,21 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8
     }
 
-defaultConfig {
-        applicationId "com.example.municipal"
-        minSdkVersion 21     // Set to 21
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+    defaultConfig {
+        // You can update the following values to match your application needs.
+        applicationId = "com.example.municipal"
+        
+        // Overriding the minSdkVersion to 24
+        minSdk = 24  // Change this line to 24
+        
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
     }
 
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
         }
     }
