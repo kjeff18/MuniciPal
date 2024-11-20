@@ -1,0 +1,80 @@
+/* Main container for the page with blue background on the sides */
+.map-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust height so it doesn't fill the entire page */
+  width: 100vw;
+  background-color: #5AA1BB; /* Blue background on sides */
+  overflow: hidden;
+  padding-top: 30px; /* Optional padding at the top */
+  padding-bottom: 0; /* No padding at the bottom */
+}
+
+/* Map placeholder area, centered and with rounded top corners */
+.map-placeholder {
+  position: relative;
+  width: 95%;
+  height: 100%;
+  background-color: white;
+  border-radius: 10px 10px 0 0; /* Rounded corners at the top */
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Logo container with white rounded square in the top left */
+.logo-container {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.logo {
+  width: 40px;
+  height: auto;
+}
+
+/* Menu container with rounded white background */
+.menu-container {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  height: 40px;
+  width: 40px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* Menu button styling inside the container */
+.menu-button {
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: #0B2E60;
+  cursor: pointer;
+}
+
+.map-content {
+  width: 100%;
+  height: 100%; /* Adjust as needed */
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 1;
+}
