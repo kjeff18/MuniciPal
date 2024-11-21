@@ -11,6 +11,10 @@ const hintTextColor = Color(0xFF808080);
 const textFieldBorder = Color(0xFF002E6F);
 const textFieldIconColor = Color(0xFF8D8E8D);
 
+const openProgressColor = Color(0xFF00FF00);
+const inProgressColor = Color(0xFFFFCC00);
+const closedProgressColor = Color(0xFFFF0000);
+
 //TextFont
 TextStyle textFont = GoogleFonts.sourceSans3();
 
@@ -91,5 +95,6 @@ const defaultPadding = 15.0;
 //fontSize
 const double IssueCategoryTextSize = 17;
 const double HeadlineSize = 30;
+const double PostTitleSize = 25;
 const double bodyTextSize = 20;
 const double hintTextSize = 17;

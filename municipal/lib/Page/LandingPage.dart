@@ -4,11 +4,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/Helper/BubbleNamePathChecke.dart';
 import 'package:municipal/Helper/UserLocation.dart';
-import 'package:municipal/widgets/CustomFloatingButton.dart';
+import 'package:municipal/widgets/LandingPadeWidgets/CustomFloatingButton.dart';
 import 'package:municipal/widgets/LandingPadeWidgets/IssueContainer.dart';
 import 'package:municipal/widgets/LandingPadeWidgets/QuickReportSection.dart';
-import 'package:municipal/widgets/QuickReportIcon.dart';
-import 'package:municipal/widgets/ReportMenuButton.dart';
+import 'package:municipal/widgets/LandingPadeWidgets/QuickReportIcon.dart';
+import 'package:municipal/widgets/LandingPadeWidgets/ReportMenuButton.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
