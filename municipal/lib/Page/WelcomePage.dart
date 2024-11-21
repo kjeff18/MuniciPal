@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:municipal/Page/SignUpPage/SignUpPage.dart';
 import 'package:municipal/widgets/CustomAppBar.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'package:municipal/widgets/CustomButton.dart';
@@ -16,6 +17,13 @@ class WelcomePage extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => LogInPage()),
+    );
+  }
+     void SignUpFunc(BuildContext context) {
+    // Navigate to LogInPage
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SignUpPage()),
     );
   }
 
@@ -51,7 +59,7 @@ class WelcomePage extends StatelessWidget {
            Padding(
             padding: const EdgeInsets.symmetric(horizontal: defaultPadding*4, vertical: defaultPadding/2),
             child: CustomButton(text: 'Sign Up', 
-            onPressed: () => loginFunc(context),
+            onPressed: () => SignUpFunc(context),
              blueButton: false
              ), 
            )
