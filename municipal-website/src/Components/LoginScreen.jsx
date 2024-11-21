@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock } from "react-icons/fa";
-import Logo from "../assets/Logo.png"; // Import the logo
-import "./LoginScreen.css"; // Import CSS for styling
+import Logo from "../assets/Logo.png"; 
+import "./LoginScreen.css"; 
 
 const LoginScreen = ({ isOpen, onClose }) => {
+  const navigate = useNavigate(); // Hook for navigation
+  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -12,6 +15,7 @@ const LoginScreen = ({ isOpen, onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Login attempted with:", formData);
+    navigate("/map");
   };
 
   const handleChange = (e) => {
@@ -27,10 +31,7 @@ const LoginScreen = ({ isOpen, onClose }) => {
     <div className="login-modal-overlay">
       <div className="login-modal-container">
         {/* Close button */}
-        <button 
-          onClick={onClose}
-          className="close-button"
-        >
+        <button onClick={() => navigate("/")} className="close-button">
           ×
         </button>
 
@@ -85,17 +86,14 @@ const LoginScreen = ({ isOpen, onClose }) => {
             </div>
 
             {/* Login Button */}
-            <button
-              type="submit"
-              className="login-button"
-            >
+            <button type="submit" className="login-button">
               Log In
             </button>
 
             {/* Sign Up Link */}
             <p className="signup-link-container">
               Don't have an account?{" "}
-              <a href="#" className="signup-link">
+              <a onClick={() => navigate("/signup")} className="signup-link">
                 Sign up!
               </a>
             </p>
