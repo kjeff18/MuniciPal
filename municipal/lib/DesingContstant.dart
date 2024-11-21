@@ -13,6 +13,9 @@ const textFieldIconColor = Color(0xFF8D8E8D);
 //TextFont
 TextStyle textFont = GoogleFonts.sourceSans3();
 
+//animation Duration
+ int animationDuration = 300;
+
 //App Bar Height
 
 const double appBarHeight = 50;
