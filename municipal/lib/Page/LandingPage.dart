@@ -5,6 +5,7 @@ import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/Helper/BubbleNamePathChecke.dart';
 import 'package:municipal/Helper/UserLocation.dart';
 import 'package:municipal/widgets/CustomFloatingButton.dart';
+import 'package:municipal/widgets/LandingPadeWidgets/IssueContainer.dart';
 import 'package:municipal/widgets/LandingPadeWidgets/QuickReportSection.dart';
 import 'package:municipal/widgets/QuickReportIcon.dart';
 import 'package:municipal/widgets/ReportMenuButton.dart';
@@ -23,7 +24,8 @@ class _LandingPageState extends State<LandingPage> {
   String _mapstyle = ''; 
   BubbleNamePathChecker bubbleIconPath = BubbleNamePathChecker();
   CameraPosition? _currentCameraPosition;
-  bool _isVisible1 = false;
+  bool _isQuickReportVisible = false;
+  bool _isIssueContainerVisible = false; // Track visibility of IssueContainer
   Set<Marker> markers = {};
   double position = 1;
   UserLocation userLocation = UserLocation();
@@ -69,6 +71,9 @@ class _LandingPageState extends State<LandingPage> {
 
   void _mapMarkerButton(String name) {
     print(name);
+    setState(() {
+      _isIssueContainerVisible = true;
+    });
   }
 
   void editAccountButtonFunc() {
@@ -80,14 +85,22 @@ class _LandingPageState extends State<LandingPage> {
     }
   }
 
+  void _XButtonIssueContainerClick()
+  {
+    setState(() {
+    _isIssueContainerVisible = false;  
+    });
+    
+  }
+
   void _reportMenuClick() {
     setState(() {
-      if (_isVisible1) {
+      if (_isQuickReportVisible) {
         position = 0.15;
-        _isVisible1 = false;
+        _isQuickReportVisible = false;
       } else {
         position = 1;
-        _isVisible1 = true;
+        _isQuickReportVisible = true;
       }
     });
   }
@@ -126,22 +139,7 @@ class _LandingPageState extends State<LandingPage> {
     return Scaffold(
       body: Stack(
         children: [
-          GoogleMap(
-            zoomControlsEnabled: true,
-            initialCameraPosition: _currentCameraPosition ??
-                const CameraPosition(
-                  target: LatLng(30.4076640376, -91.179755360), 
-                  zoom: 15.0,
-                ),
-            trafficEnabled: true,
-            onMapCreated: (GoogleMapController controller) {
-              mapController = controller;
-            },
-            myLocationEnabled: true,
-            myLocationButtonEnabled: false,
-            style: _mapstyle,
-            markers: markers,
-          ),
+          GoogleMapDisplay(),
           Positioned(
             top: screenSize.height * 0.07,
             right: screenSize.width * 0.02,
@@ -153,11 +151,42 @@ class _LandingPageState extends State<LandingPage> {
             child: ReportMenuButton(onPressed: _reportMenuClick),
           ),
           QuickReportSection(
-            isVisible: _isVisible1,
+            isVisible: _isQuickReportVisible,
             onReportButtonPressed: _quickReportButton,
           ),
+      if (_isIssueContainerVisible)
+              Positioned(
+                bottom: screenSize.height * 0.005,
+                child: Container(
+                  width: screenSize.width, 
+                  height: 330,
+                  child: IssueContainer(onPressed: _XButtonIssueContainerClick,), 
+                ),
+              ),
         ],
       ),
     );
   }
+
+
+
+  GoogleMap GoogleMapDisplay() {
+    return GoogleMap(
+          zoomControlsEnabled: true,
+          initialCameraPosition: _currentCameraPosition ??
+              const CameraPosition(
+                target: LatLng(30.4076640376, -91.179755360), 
+                zoom: 15.0,
+              ),
+          trafficEnabled: true,
+          onMapCreated: (GoogleMapController controller) {
+            mapController = controller;
+          },
+          myLocationEnabled: true,
+          myLocationButtonEnabled: false,
+          style: _mapstyle,
+          markers: markers,
+        );
+  }
 }
+ 
