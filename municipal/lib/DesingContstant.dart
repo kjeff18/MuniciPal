@@ -94,7 +94,7 @@ const defaultPadding = 15.0;
 
 //fontSize
 const double IssueCategoryTextSize = 17;
-const double HeadlineSize = 30;
+const double HeadlineSize = 35;
 const double PostTitleSize = 25;
 const double bodyTextSize = 20;
 const double hintTextSize = 17;

@@ -7,6 +7,10 @@ import 'package:municipal/widgets/FeedPageWidgets/FeedContainer.dart';
 class FeedPage extends StatelessWidget {
   const FeedPage({super.key});
 
+  void postClick(){
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,17 +18,8 @@ class FeedPage extends StatelessWidget {
       backgroundColor: backgroundColor,
       body: ListView(
         children: [
-          FeedContainer(postTitle: 'Pothole', numberOfMilesAway: 4, numberOfVote: 5, issueStatus: IssueStatus.OPEN,  ),
-            FeedContainer(postTitle: 'Pothole', numberOfMilesAway: 4, numberOfVote: 5, issueStatus: IssueStatus.IN_PROGRESS,  ),
-              FeedContainer(postTitle: 'Pothole', numberOfMilesAway: 4, numberOfVote: 5, issueStatus: IssueStatus.CLOSED,  ),
-                FeedContainer(postTitle: 'Pothole', numberOfMilesAway: 4, numberOfVote: 5, issueStatus: IssueStatus.OPEN,  ),
-                  FeedContainer(postTitle: 'Pothole', numberOfMilesAway: 4, numberOfVote: 5, issueStatus: IssueStatus.OPEN,  ),
-                    FeedContainer(postTitle: 'Pothole', numberOfMilesAway: 4, numberOfVote: 5, issueStatus: IssueStatus.OPEN,  ),
-                      FeedContainer(postTitle: 'Pothole', numberOfMilesAway: 4, numberOfVote: 5, issueStatus: IssueStatus.OPEN,  ),
-                        FeedContainer(postTitle: 'Pothole', numberOfMilesAway: 4, numberOfVote: 5, issueStatus: IssueStatus.OPEN,  ),
-                          FeedContainer(postTitle: 'Pothole', numberOfMilesAway: 4, numberOfVote: 5, issueStatus: IssueStatus.OPEN,  ),
-                            FeedContainer(postTitle: 'Pothole', numberOfMilesAway: 4, numberOfVote: 5, issueStatus: IssueStatus.OPEN,  ),
-                              FeedContainer(postTitle: 'Pothole', numberOfMilesAway: 4, numberOfVote: 5, issueStatus: IssueStatus.OPEN,  ),
+          FeedContainer(postTitle: 'Pothole', numberOfMilesAway: 4, numberOfVote: 5, issueStatus: IssueStatus.OPEN, onPressed: () => postClick, ),
+          
         ],
       ),
     );

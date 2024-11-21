@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/Page/FeedPage.dart';
 import 'package:municipal/Page/IssueCategoryPage.dart';
+import 'package:municipal/Page/MyReportPage.dart';
 import 'package:municipal/Page/WelcomePage.dart';
 import 'package:municipal/Page/LandingPage.dart';
 
@@ -23,6 +24,7 @@ class _CustomNavigationBar extends State<CustomBottomNavigationBar> {
     const LandingPage(),
     const IssueCategoryPage(),
     const FeedPage(),
+    const MyReportPage()
   ];
 
   @override
