@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./MapPage.css"; // Reuse the same CSS for consistency
+import "./MapPage.css";
 import Logo from "../assets/Logo.png";
 import TitleImage from "../assets/MuniciPalTitle.png";
 import { FaHome, FaProjectDiagram, FaUserCircle } from "react-icons/fa";
@@ -9,9 +9,9 @@ const MyProjects = () => {
   const navigate = useNavigate(); // Navigation hook
 
   const projects = [
-    { name: "Project Alpha", stage: "Planning", status: "OPEN", lastActivity: "2024-11-19" },
-    { name: "Project Beta", stage: "Execution", status: "IN_PROGRESS", lastActivity: "2024-10-01" },
-    { name: "Project Gamma", stage: "Closure", status: "CLOSED", lastActivity: "2024-09-15" },
+    { name: "Project Alpha", stage: "RFP", status: "OPEN", lastActivity: "2024-11-19" },
+    { name: "Project Beta", stage: "Contract", status: "IN_PROGRESS", lastActivity: "2024-10-01" },
+    { name: "Project Gamma", stage: "RFP", status: "CLOSED", lastActivity: "2024-09-15" },
   ];
 
   return (

@@ -1,5 +1,4 @@
 import React, { useState } from "react"; 
-import { useNavigate } from "react-router-dom";
 import "./Home.css"; 
 import { IoMdMenu } from "react-icons/io";
 import { IoIosArrowRoundForward } from "react-icons/io";
@@ -52,7 +51,7 @@ const SlideLeft = (delay) => ({
 const NavbarMenu = [
   { id: 1, title: "Home", path: "/" },
   { id: 2, title: "About Us", path: "#" },
-  { id: 3, title: "Login", path: "/login" },
+  { id: 3, title: "Login", path: "#" },
 ];
 
 const ServicesData = [
@@ -71,22 +70,18 @@ const ServicesData = [
 ];
 
 const Home = () => {
-
-  const navigate = useNavigate();
-
   const [isLoginOpen, setLoginOpen] = useState(false); // State to control login modal visibility
   const [isSignupOpen, setIsSignupOpen] = useState(false);
 
   const handleLoginOpen = () => {
-    console.log("Navigating to Login");
-    navigate("/login");
+    console.log("Login button clicked"); 
+    setLoginOpen(true); 
   };
   
-  const handleLoginClose = () => setLoginOpen(false); // Close the login modal
+  const handleLoginClose = () => setLoginOpen(false); 
 
   const handleSignupOpen = () => {
-    console.log("Navigating to Sign Up");
-    navigate("/signup"); 
+    setIsSignupOpen(true);
   };
 
   const handleSignupClose = () => {
@@ -262,6 +257,11 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Login Modal */}
+      <LoginScreen isOpen={isLoginOpen} onClose={handleLoginClose} />
+      {/* Sign Up Modal */}
+      <SignUp isOpen={isSignupOpen} onClose={handleSignupClose} />
     </main>
   );
 };

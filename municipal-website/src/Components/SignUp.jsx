@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 import Logo from "../assets/Logo.png";
 import TitleImage from "../assets/MuniciPalTitle.png";
@@ -8,9 +7,7 @@ import ContractorImage from "../assets/ContractorImage.png";
 
 
 const SignUp = ({ isOpen, onClose }) => {
-  const navigate = useNavigate();
   const [userType, setUserType] = useState("government");
-
 
   if (!isOpen) return null;
 
@@ -20,8 +17,8 @@ const SignUp = ({ isOpen, onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Sign-up successful");
-    navigate("/map"); 
+    alert("SignUp Submitted!");
+    onClose();
   };
 
   return (
