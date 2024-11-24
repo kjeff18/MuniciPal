@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "api": {
+      "municipal": [
+        "Query",
+        "Mutation",
+        "Subscription"
+      ]
+    },
+    "storage": {
+      "MuniciPalImages": [
+        "create",
+        "read",
+        "update"
+      ],
+      "Issue:@model(appsync)": [
+        "create",
+        "read",
+        "update"
+      ],
+      "Report:@model(appsync)": [
+        "create",
+        "read",
+        "update"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

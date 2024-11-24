@@ -18,21 +18,23 @@
         "userPoolGroups": {}
       },
       "function": {
-        "municipal6e3c111bCustomMessage": {
-          "REDIRECTURL": "",
-          "EMAILSUBJECT": "Confirm you MuniciPal Account",
-          "EMAILMESSAGE": "Here is the confirmation link for your MuniciPal account",
-          "deploymentBucketName": "amplify-municipal-dev-e9c39-deployment",
-          "s3Key": "amplify-builds/municipal6e3c111bCustomMessage-54695254774d31724864-build.zip"
-        },
         "municipal6e3c111bPostConfirmation": {
           "GROUP": "",
           "deploymentBucketName": "amplify-municipal-dev-e9c39-deployment",
-          "s3Key": "amplify-builds/municipal6e3c111bPostConfirmation-4150534245454847526c-build.zip"
+          "s3Key": "amplify-builds/municipal6e3c111bPostConfirmation-356e48714b677630676a-build.zip"
+        },
+        "AdminQueries336d69e2": {
+          "deploymentBucketName": "amplify-municipal-dev-e9c39-deployment",
+          "s3Key": "amplify-builds/AdminQueries336d69e2-6f4f35516b3444383364-build.zip"
+        },
+        "IssueReportHandler": {
+          "deploymentBucketName": "amplify-municipal-dev-e9c39-deployment",
+          "s3Key": "amplify-builds/IssueReportHandler-496e74365848364f5839-build.zip"
         }
       },
       "api": {
-        "municipal": {}
+        "municipal": {},
+        "AdminQueries": {}
       },
       "storage": {
         "MuniciPalImages": {}

@@ -2,15 +2,17 @@
 type Issue @model
   @auth(rules: [
     { allow: groups, groups: ["Citizen"], operations: [create, read] },
-    { allow: groups, groups: ["Contractor`", "Government"], operations: [read, update, delete] }
+    { allow: groups, groups: ["Contractor`", "Government"], operations: [read, update, delete] },
+    { allow: public, provider: apiKey, operations: [create, read, update] }
   ]) {
-  id: ID!
+  id: ID! @primaryKey
   citizenId: ID!                       # ID of the citizen who created the issue
   description: String!                 # Description of the issue
   imageUrl: String                     # Optional URL of the image uploaded
   category: IssueCategory              # Category of the issue (e.g., Pothole, Street Light, etc.)
   latitude: Float!                     # Geo-location: latitude
   longitude: Float!                    # Geo-location: longitude
+  geoHash: String! @index(name: "byGeoHashCategory", queryField: "issuesByGeoHashCategory", sortKeyFields: ["category"])
   status: IssueStatus!                 # Status of the issue (OPEN, IN_PROGRESS, CLOSED)
   progress: String                     # Progress update field, viewable by citizens
   upvotes: Int!                        # Number of upvotes the issue has received
@@ -42,13 +44,16 @@ enum IssueCategory {
 
 type Report @model
   @auth(rules: [
-    { allow: groups, groups: ["Citizen"], operations: [create, read] }
+    { allow: groups, groups: ["Citizen"], operations: [create, read] },
+    { allow: groups, groups: ["Government", "Contractor"], operations: [read, update, delete] },
+    { allow: public, provider: apiKey, operations: [create, read, update] }
   ]) {
-  id: ID!
+  id: ID! @primaryKey
   citizenId: ID!
-  issueId: ID! @index(name: "byIssue", queryField: "reportsByIssue")
+  issueId: ID! @index(name: "byIssue", queryField: "reportsByIssueId")
   latitude: Float!
   longitude: Float!
+  geoHash: String! @index(name: "byIssueGeoHash", queryField: "reportsByIssueGeoHash", sortKeyFields: ["id"])
   description: String
   imageUrl: String
 }
@@ -158,4 +163,17 @@ type ContractorSubscription @model
   id: ID!
   contractorId: ID!                    # ID of the contractor subscribing to categories
   categories: [IssueCategory]!           # List of categories the contractor is subscribing to
+}
+
+input HandleReportInput {
+  citizenId: ID!
+  latitude: Float!
+  longitude: Float!
+  geoHash: String!
+  description: String
+  imageUrl: String
+}
+
+type Mutation {
+  handleReport(input: HandleReportInput!): String @function(name: "IssueReportHandler-dev")
 }

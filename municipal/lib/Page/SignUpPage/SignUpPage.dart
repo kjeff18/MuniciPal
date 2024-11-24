@@ -4,18 +4,22 @@ import 'package:municipal/widgets/CustomButton.dart';
 import 'package:municipal/widgets/SecondaryBackground.dart';
 import 'package:municipal/widgets/TextField.dart';
 import 'SignUpPage2.dart';
+import 'package:municipal/model/SignUpData.dart';
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
 
+  final SignUpData signUpData = SignUpData();
   final TextEditingController _firstnameController = TextEditingController();
   final TextEditingController _lastnameController = TextEditingController();
 
   void signup2Func(BuildContext context) {
-    // Navigate to SignUpPage
+    signUpData.firstName = _firstnameController.text;
+    signUpData.lastName = _lastnameController.text;
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => SignUpPage2()),
+      MaterialPageRoute(
+          builder: (context) => SignUpPage2(signUpData: signUpData)),
     );
   }
 
@@ -36,24 +40,30 @@ class SignUpPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: defaultPadding),
                           child: Text(
                             "Welcome,",
-                            style: textFont.copyWith(color: textColor, fontSize: HeadlineSize),
+                            style: textFont.copyWith(
+                                color: textColor, fontSize: HeadlineSize),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: defaultPadding),
                           child: Text(
                             'sign up to',
-                            style: textFont.copyWith(color: textColor, fontSize: HeadlineSize),
+                            style: textFont.copyWith(
+                                color: textColor, fontSize: HeadlineSize),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: defaultPadding),
                           child: Text(
                             'become a pal',
-                            style: textFont.copyWith(color: textColor, fontSize: HeadlineSize),
+                            style: textFont.copyWith(
+                                color: textColor, fontSize: HeadlineSize),
                           ),
                         ),
                       ],
@@ -95,7 +105,6 @@ class SignUpPage extends StatelessWidget {
                         hintText: 'Last Name',
                         controller: _lastnameController,
                         icon: Icon(Icons.account_box_rounded),
-                        obscureText: true,
                       ),
                       Spacer(),
                       CustomButton(

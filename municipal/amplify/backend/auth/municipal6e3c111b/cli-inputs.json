@@ -30,24 +30,32 @@
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
-      "email"
+      "given_name",
+      "address",
+      "email",
+      "family_name",
+      "name",
+      "preferred_username"
     ],
     "userpoolClientReadAttributes": [
-      "email"
+      "address",
+      "email",
+      "family_name",
+      "given_name",
+      "name",
+      "preferred_username",
+      "email_verified"
     ],
     "userpoolClientLambdaRole": "munici6e3c111b_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
+    "userpoolClientSetAttributes": true,
     "sharedId": "6e3c111b",
     "resourceName": "municipal6e3c111b",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
+    "useDefault": "manual",
     "usernameAttributes": [
       "email"
     ],
     "triggers": {
-      "CustomMessage": [
-        "verification-link"
-      ],
       "PostConfirmation": [
         "add-to-group"
       ]
@@ -77,15 +85,6 @@
     "dependsOn": [
       {
         "category": "function",
-        "resourceName": "municipal6e3c111bCustomMessage",
-        "triggerProvider": "Cognito",
-        "attributes": [
-          "Arn",
-          "Name"
-        ]
-      },
-      {
-        "category": "function",
         "resourceName": "municipal6e3c111bPostConfirmation",
         "triggerProvider": "Cognito",
         "attributes": [
@@ -97,9 +96,15 @@
     "permissions": [
       "{\n  \"policyName\": \"AddToGroupCognito\",\n  \"trigger\": \"PostConfirmation\",\n  \"effect\": \"Allow\",\n  \"actions\": [\n    \"cognito-idp:AdminAddUserToGroup\",\n    \"cognito-idp:GetGroup\",\n    \"cognito-idp:CreateGroup\"\n  ],\n  \"resource\": {\n    \"paramType\": \"!GetAtt\",\n    \"keys\": [\n      \"UserPool\",\n      \"Arn\"\n    ]\n  }\n}"
     ],
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"CustomMessage\",\n    \"lambdaFunctionName\": \"municipal6e3c111bCustomMessage\"\n  },\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"municipal6e3c111bPostConfirmation\"\n  }\n]",
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"municipal6e3c111bPostConfirmation\"\n  }\n]",
     "parentStack": {
       "Ref": "AWS::StackId"
-    }
+    },
+    "thirdPartyAuth": false,
+    "userPoolGroups": true,
+    "adminQueries": true,
+    "hostedUI": false,
+    "adminQueryGroup": "Admin",
+    "authProviders": []
   }
 }

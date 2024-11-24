@@ -17,6 +17,7 @@ exports.handler = async (event) => {
 
   let groupName;
 
+  console.log(event);
   // Determine the group based on the platform and role
   if (clientMetadata.platform === 'mobile') {
     groupName = 'Citizen';
