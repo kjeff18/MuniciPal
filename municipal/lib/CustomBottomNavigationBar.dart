@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
+import 'package:municipal/Page/FeedPage.dart';
 import 'package:municipal/Page/IssueCategoryPage.dart';
+import 'package:municipal/Page/MyReportPage.dart';
 import 'package:municipal/Page/WelcomePage.dart';
 import 'package:municipal/Page/LandingPage.dart';
 
@@ -21,6 +23,8 @@ class _CustomNavigationBar extends State<CustomBottomNavigationBar> {
   final List<Widget> _pages = [
     const LandingPage(),
     const IssueCategoryPage(),
+    const FeedPage(),
+    const MyReportPage()
   ];
 
   @override
@@ -68,7 +72,7 @@ class _CustomNavigationBar extends State<CustomBottomNavigationBar> {
                 scale: bottomNavIconScale,
                 child: const Icon(Icons.newspaper),
               ),
-              label: 'Search',
+              label: 'Feed',
             ),
             BottomNavigationBarItem(
               icon: Transform.scale(

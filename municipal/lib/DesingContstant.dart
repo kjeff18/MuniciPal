@@ -6,9 +6,14 @@ const backgroundColor = Color(0xFFFFFFFF);
 const secondaryColor = Color(0xFF5AA1BB);
 const accentColor = Color(0xFF0B2E60);
 const textColor = Color(0xFF000000);
+const hintTextColor = Color(0xFF808080);
 
 const textFieldBorder = Color(0xFF002E6F);
 const textFieldIconColor = Color(0xFF8D8E8D);
+
+const openProgressColor = Color(0xFF00FF00);
+const inProgressColor = Color(0xFFFFCC00);
+const closedProgressColor = Color(0xFFFF0000);
 
 //TextFont
 TextStyle textFont = GoogleFonts.sourceSans3();
@@ -63,6 +68,7 @@ const treeMantainaceIcon = 'assets/IssueIcons/TreeMantenanceIcon.svg';
 const waterLeakIcon = 'assets/IssueIcons/WaterLeakIcon.svg';
 
  const double issueCatergoryIconSize = 82;
+ const double iconSize = 50;
 
 //MapBuble Path
 const pedestrianCrossingBubble = 'assets/MapBubble/CrosswalkBubble.png';
@@ -89,6 +95,7 @@ const defaultPadding = 15.0;
 
 //fontSize
 const double IssueCategoryTextSize = 17;
-const double HeadlineSize = 30;
+const double HeadlineSize = 35;
+const double PostTitleSize = 25;
 const double bodyTextSize = 20;
 const double hintTextSize = 17;

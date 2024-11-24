@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:municipal/widgets/QuickReportIcon.dart';
+import 'package:municipal/widgets/LandingPadeWidgets/QuickReportIcon.dart';
 import 'package:municipal/DesingContstant.dart';
 
 class QuickReportSection extends StatelessWidget {
