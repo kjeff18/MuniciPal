@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
+import 'package:municipal/Helper/IssueCatergory.dart';
+import 'package:municipal/models/ModelProvider.dart';
 
 class IssueContainer extends StatelessWidget {
+  final IssueCategory issueCategory;
+  final int destination; 
   final VoidCallback onPressed; 
-  const IssueContainer({super.key, required this.onPressed});
+  const IssueContainer({super.key, required this.issueCategory, required this.destination,required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +71,11 @@ class IssueContainer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Pedestrian Crossing',
+                    ReportType.getReportName(issueCategory),
                     style: textFont.copyWith(color: textColor, fontSize: HeadlineSize),
                   ),
                   Text(
-                    '3 miles away',
+                    '${destination} miles away',
                     style: textFont.copyWith(color: hintTextColor, fontSize: bodyTextSize),
                   ),
                 ],

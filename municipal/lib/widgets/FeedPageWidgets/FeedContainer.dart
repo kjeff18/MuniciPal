@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
+import 'package:municipal/Helper/IssueCatergory.dart';
 import 'package:municipal/models/ModelProvider.dart';
 import 'package:municipal/widgets/FeedPageWidgets/CustomProgressIndicator.dart';
 
 class FeedContainer extends StatelessWidget {
-  String postTitle;
+  IssueCategory issueCategory;
   VoidCallback onPressed;
   double numberOfMilesAway;
   int numberOfVote;
   IssueStatus issueStatus;
   
-   FeedContainer({super.key, required this.onPressed, required this.postTitle, required this.numberOfMilesAway, required this.numberOfVote, required this.issueStatus });
+   FeedContainer({super.key, required this.onPressed, required this.issueCategory, required this.numberOfMilesAway, required this.numberOfVote, required this.issueStatus });
 
 
   @override
@@ -61,7 +62,7 @@ class FeedContainer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${postTitle}',
+                         ReportType.getReportName(issueCategory) ,
                           style: textFont.copyWith(color: accentColor, fontSize: PostTitleSize),
                         ),
                         Text(

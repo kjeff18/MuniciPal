@@ -68,6 +68,7 @@ const treeMantainaceIcon = 'assets/IssueIcons/TreeMantenanceIcon.svg';
 const waterLeakIcon = 'assets/IssueIcons/WaterLeakIcon.svg';
 
  const double issueCatergoryIconSize = 82;
+ const double iconSize = 50;
 
 //MapBuble Path
 const pedestrianCrossingBubble = 'assets/MapBubble/CrosswalkBubble.png';
