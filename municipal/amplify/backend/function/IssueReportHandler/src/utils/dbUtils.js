@@ -1,8 +1,8 @@
-const AWS = require('aws-sdk');
+import AWS from 'aws-sdk';
 const dynamodb = new AWS.DynamoDB();
 
 // Query DynamoDB with the provided parameters
-exports.queryDynamoDB = async (params) => {
+export const queryDynamoDB = async (params) => {
   try {
     const result = await dynamodb.query(params).promise();
     return result.Items || [];

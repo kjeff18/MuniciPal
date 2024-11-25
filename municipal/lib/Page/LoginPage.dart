@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
-import 'package:municipal/Page/IssueCategoryPage.dart';
-import 'package:municipal/CustomBottomNavigationBar.dart';
 import 'package:municipal/widgets/CustomButton.dart';
 import 'package:municipal/widgets/SecondaryBackground.dart';
 import 'package:municipal/widgets/TextField.dart';
-import 'package:municipal/Page/LandingPage.dart'; // Ensure you have this file created with CustomTextField
+import 'package:municipal/Page/LandingPage.dart';
+import 'package:municipal/CustomBottomNavigationBar.dart';
+import 'package:municipal/Service/SignInService.dart';
+import 'package:provider/provider.dart';
 
 class LogInPage extends StatelessWidget {
   LogInPage({super.key});
@@ -13,16 +14,39 @@ class LogInPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void loginFunc(BuildContext context) {
-    // Navigate to LogInPage
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => CustomBottomNavigationBar()),
+  void loginFunc(BuildContext context) async {
+    final signInService = Provider.of<SignInService>(context, listen: false);
+    final email = _emailController.text;
+    final password = _passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please enter both email and password")),
+      );
+      return;
+    }
+
+    final result = await signInService.signIn(email, password);
+
+    result.fold(
+      (error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(error)),
+        );
+      },
+      (success) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const CustomBottomNavigationBar()));
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = Provider.of<SignInService>(context).isLoading;
+
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Column(
@@ -79,9 +103,10 @@ class LogInPage extends StatelessWidget {
                       ),
                       Spacer(),
                       CustomButton(
-                          text: 'Login',
-                          onPressed: () => loginFunc(context),
-                          blueButton: true)
+                        text: isLoading ? 'Logging in...' : 'Login',
+                        onPressed: isLoading ? () {} : () => loginFunc(context),
+                        blueButton: true,
+                      ),
                     ],
                   ),
                 ),

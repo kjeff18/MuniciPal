@@ -29,7 +29,15 @@
         },
         "IssueReportHandler": {
           "deploymentBucketName": "amplify-municipal-dev-e9c39-deployment",
-          "s3Key": "amplify-builds/IssueReportHandler-496e74365848364f5839-build.zip"
+          "s3Key": "amplify-builds/IssueReportHandler-7839734338677a7a4342-build.zip"
+        },
+        "S3Triggerf45c2567": {
+          "deploymentBucketName": "amplify-municipal-dev-e9c39-deployment",
+          "s3Key": "amplify-builds/S3Triggerf45c2567-495064562f2b64426273-build.zip"
+        },
+        "HandleNearbyIssues": {
+          "deploymentBucketName": "amplify-municipal-dev-e9c39-deployment",
+          "s3Key": "amplify-builds/HandleNearbyIssues-445344457059694b7133-build.zip"
         }
       },
       "api": {

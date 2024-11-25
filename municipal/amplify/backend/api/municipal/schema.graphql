@@ -51,6 +51,7 @@ type Report @model
   id: ID! @primaryKey
   citizenId: ID!
   issueId: ID! @index(name: "byIssue", queryField: "reportsByIssueId")
+  category: IssueCategory!
   latitude: Float!
   longitude: Float!
   geoHash: String! @index(name: "byIssueGeoHash", queryField: "reportsByIssueGeoHash", sortKeyFields: ["id"])
@@ -167,6 +168,7 @@ type ContractorSubscription @model
 
 input HandleReportInput {
   citizenId: ID!
+  category: IssueCategory!
   latitude: Float!
   longitude: Float!
   geoHash: String!
@@ -175,5 +177,5 @@ input HandleReportInput {
 }
 
 type Mutation {
-  handleReport(input: HandleReportInput!): String @function(name: "IssueReportHandler-dev")
+  handleReport(input: HandleReportInput!): String @function(name: "IssueReportHandler-${env}")
 }

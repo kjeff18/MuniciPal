@@ -14,14 +14,19 @@ Amplify Params - DO NOT EDIT */
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
-const { queryNearbyIssues } = require('./services/issueService');
-const { findNearbyIssue } = require('./utils/geospatialUtils');
-const { createIssueViaAppSync, createReportViaAppSync } = require('./services/appsyncService');
+import { queryNearbyIssues } from './services/issueService.js';
+import { findNearbyIssue } from './utils/geospatialUtils.js';
+import {
+  createIssueViaAppSync,
+  createReportViaAppSync,
+} from './services/appsyncService.js';
 
-exports.handler = async (event) => {
+
+export const handler = async (event) => {
   try {
+    console.log("Event: ", event)
     // Extract data from the event
-    const { id: reportId, latitude, longitude, category, description, imageUrl } = event;
+    const { citizenId, category, latitude, longitude, geoHash, description, imageUrl } = event.arguments.input;
 
     // Step 1: Query for nearby issues
     const existingIssues = await queryNearbyIssues(latitude, longitude, category);
@@ -36,24 +41,27 @@ exports.handler = async (event) => {
     } else {
       // Step 4: Create a new issue via AppSync
       const newIssue = await createIssueViaAppSync({
-        latitude,
-        longitude,
-        category,
+        citizenId,
         description,
         imageUrl,
+        category,
+        latitude,
+        longitude,
+        geoHash,
       });
       issueId = newIssue.id;
     }
 
     // Step 5: Create a report and associate it with the issue via AppSync
     const newReport = await createReportViaAppSync({
-      id: reportId,
+      citizenId,
+      issueId,
       latitude,
       longitude,
-      category,
+      geoHash,
       description,
       imageUrl,
-      issueId,
+      category
     });
 
     // Return the result

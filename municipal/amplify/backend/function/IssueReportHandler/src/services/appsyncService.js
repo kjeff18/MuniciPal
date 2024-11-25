@@ -1,65 +1,95 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
+import { v4 as uuidv4 } from 'uuid';
 
 // AppSync Endpoint and API Key
-const APPSYNC_URL = process.env.APPSYNC_URL; // Set in Lambda environment variables
-const APPSYNC_API_KEY = process.env.APPSYNC_API_KEY; // Set in Lambda environment variables
+const APPSYNC_URL = process.env.API_MUNICIPAL_GRAPHQLAPIENDPOINTOUTPUT; // Set in Lambda environment variables
+const APPSYNC_API_KEY = process.env.API_MUNICIPAL_GRAPHQLAPIKEYOUTPUT; // Set in Lambda environment variables
 
 // Create a new issue via AppSync
-exports.createIssueViaAppSync = async ({ latitude, longitude, category, description, imageUrl }) => {
+export const createIssueViaAppSync = async ({
+  citizenId,
+  description,
+  imageUrl,
+  category,
+  latitude,
+  longitude,
+  geoHash,
+}) => {
   const query = `
     mutation CreateIssue($input: CreateIssueInput!) {
       createIssue(input: $input) {
         id
-        latitude
-        longitude
-        category
+        citizenId
         description
         imageUrl
+        category
+        latitude
+        longitude
+        geoHash
         status
+        upvotes
       }
     }
   `;
 
   const variables = {
     input: {
-      latitude,
-      longitude,
-      category,
+      id: uuidv4(),
+      citizenId,
       description,
       imageUrl,
+      category,
+      latitude,
+      longitude,
+      geoHash,
       status: 'OPEN',
+      upvotes: 0,
     },
   };
+  console.log("Create Issue via AppSync vars: ", variables)
 
   const response = await sendAppSyncRequest(query, variables);
   return response.createIssue;
 };
 
 // Create a new report via AppSync
-exports.createReportViaAppSync = async ({ id, latitude, longitude, category, description, imageUrl, issueId }) => {
+export const createReportViaAppSync = async ({
+  citizenId,
+  issueId,
+  latitude,
+  longitude,
+  geoHash,
+  description,
+  imageUrl,
+  category
+}) => {
   const query = `
     mutation CreateReport($input: CreateReportInput!) {
       createReport(input: $input) {
         id
+        citizenId
+        issueId
         latitude
         longitude
-        category
+        geoHash
         description
         imageUrl
-        issueId
+        category
       }
     }
   `;
 
   const variables = {
     input: {
-      id,
+      id: uuidv4(),
+      citizenId,
+      issueId,
       latitude,
       longitude,
-      category,
+      geoHash,
       description,
       imageUrl,
-      issueId,
+      category
     },
   };
 

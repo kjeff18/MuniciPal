@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/Page/FeedPage.dart';
 import 'package:municipal/Page/IssueCategoryPage.dart';
-import 'package:municipal/Page/MyReportPage.dart';
+import 'package:municipal/Page/MyReportsPage.dart';
 import 'package:municipal/Page/WelcomePage.dart';
 import 'package:municipal/Page/LandingPage.dart';
 
@@ -24,7 +24,7 @@ class _CustomNavigationBar extends State<CustomBottomNavigationBar> {
     const LandingPage(),
     const IssueCategoryPage(),
     const FeedPage(),
-    const MyReportPage()
+    const MyReportsPage()
   ];
 
   @override
@@ -42,27 +42,27 @@ class _CustomNavigationBar extends State<CustomBottomNavigationBar> {
       ),
       bottomNavigationBar: ClipRect(
         child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed, 
+          type: BottomNavigationBarType.fixed,
           currentIndex: _currentIndex,
           onTap: (index) {
             setState(() {
               _currentIndex = index;
             });
           },
-          iconSize: 45.0, 
+          iconSize: 45.0,
           backgroundColor: backgroundColor,
           elevation: 0.0,
           items: [
             BottomNavigationBarItem(
               icon: Transform.scale(
-                scale: bottomNavIconScale, 
+                scale: bottomNavIconScale,
                 child: const Icon(Icons.home),
               ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: Transform.scale(
-                scale:bottomNavIconScale,
+                scale: bottomNavIconScale,
                 child: const Icon(Icons.assignment_rounded),
               ),
               label: 'Issue Report',

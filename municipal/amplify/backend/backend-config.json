@@ -129,6 +129,22 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "HandleNearbyIssues": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "municipal"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "IssueReportHandler": {
       "build": true,
       "dependsOn": [
@@ -149,6 +165,11 @@
           "resourceName": "MuniciPalImages"
         }
       ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "S3Triggerf45c2567": {
+      "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
@@ -175,6 +196,22 @@
         }
       ]
     },
+    "AMPLIFY_function_HandleNearbyIssues_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "HandleNearbyIssues"
+        }
+      ]
+    },
+    "AMPLIFY_function_HandleNearbyIssues_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "HandleNearbyIssues"
+        }
+      ]
+    },
     "AMPLIFY_function_IssueReportHandler_deploymentBucketName": {
       "usedBy": [
         {
@@ -188,6 +225,22 @@
         {
           "category": "function",
           "resourceName": "IssueReportHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_S3Triggerf45c2567_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Triggerf45c2567"
+        }
+      ]
+    },
+    "AMPLIFY_function_S3Triggerf45c2567_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Triggerf45c2567"
         }
       ]
     },
@@ -218,7 +271,45 @@
   },
   "storage": {
     "MuniciPalImages": {
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ],
+          "category": "function",
+          "resourceName": "S3Triggerf45c2567"
+        },
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "municipal6e3c111b"
+        },
+        {
+          "attributes": [
+            "GovernmentGroupRole"
+          ],
+          "category": "auth",
+          "resourceName": "userPoolGroups"
+        },
+        {
+          "attributes": [
+            "ContractorGroupRole"
+          ],
+          "category": "auth",
+          "resourceName": "userPoolGroups"
+        },
+        {
+          "attributes": [
+            "CitizenGroupRole"
+          ],
+          "category": "auth",
+          "resourceName": "userPoolGroups"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "S3"
     }

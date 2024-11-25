@@ -1,4 +1,5 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:dartz/dartz.dart';
 import 'package:municipal/model/SignUpData.dart';
 
@@ -11,8 +12,7 @@ class SignUpRepo {
       AuthUserAttributeKey.name:
           '${signUpData.firstName} ${signUpData.lastName}',
       AuthUserAttributeKey.preferredUsername: signUpData.email,
-      CognitoUserAttributeKey.address:
-          signUpData.formattedAddress, // Use formatted address
+      CognitoUserAttributeKey.address: signUpData.formattedAddress,
     };
 
     try {
@@ -33,6 +33,14 @@ class SignUpRepo {
       final result = await Amplify.Auth.confirmSignUp(
         username: email,
         confirmationCode: code,
+        options: const ConfirmSignUpOptions(
+          pluginOptions: CognitoConfirmSignUpPluginOptions(
+            clientMetadata: {
+              'platform': 'mobile',
+              'userRole': 'Citizen',
+            },
+          ),
+        ),
       );
 
       return Right(result);

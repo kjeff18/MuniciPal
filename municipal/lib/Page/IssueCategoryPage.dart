@@ -11,16 +11,19 @@ class IssueCategoryPage extends StatelessWidget {
   void _issueIconPressed(String iconName, BuildContext context) {
     // Implement your button press logic here
     ReportNameChecker checker = ReportNameChecker();
-    String reportName = checker.getReportName(iconName);    
+    String reportName = checker.getReportName(iconName);
     print(reportName);
     String reportIcon = checker.getReportIconPath(iconName);
     print(reportIcon);
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ReportPage(iconPath:reportIcon, reportName: reportName,)),
+      MaterialPageRoute(
+          builder: (context) => ReportPage(
+                iconPath: reportIcon,
+                reportName: reportName,
+              )),
     );
-    
   }
 
   @override

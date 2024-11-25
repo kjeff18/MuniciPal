@@ -2,11 +2,28 @@
   "resourceName": "MuniciPalImages",
   "policyUUID": "a9e6d45c",
   "bucketName": "municipaldda0c95ca6ff41c2b9e44568f0cded69",
-  "storageAccess": "auth",
-  "guestAccess": [],
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
   "authAccess": [
     "CREATE_AND_UPDATE",
     "READ"
   ],
-  "triggerFunction": "NONE"
+  "triggerFunction": "S3Triggerf45c2567",
+  "groupAccess": {
+    "Government": [
+      "CREATE_AND_UPDATE",
+      "READ",
+      "DELETE"
+    ],
+    "Contractor": [
+      "CREATE_AND_UPDATE",
+      "READ"
+    ],
+    "Citizen": [
+      "CREATE_AND_UPDATE",
+      "READ"
+    ]
+  }
 }

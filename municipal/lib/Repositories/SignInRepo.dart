@@ -1,7 +1,7 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:dartz/dartz.dart';
 
-class Signinrepo {
+class SignInRepo {
   Future<void> signIn(String username, String password) async {
     try {
       final result = await Amplify.Auth.signIn(
@@ -27,11 +27,13 @@ class Signinrepo {
     return Amplify.Auth.getCurrentUser();
   }
 
-  Future<void> signOut() async {
+  Future<Either<String, SignOutResult>> signOut() async {
     try {
-      await Amplify.Auth.signOut();
+      final result = await Amplify.Auth.signOut();
+      return Right(result);
     } catch (e) {
       print('Sign out failed: $e');
+      return Left('Sign out failed: $e');
     }
   }
 }
