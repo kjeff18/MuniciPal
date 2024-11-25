@@ -113,9 +113,6 @@ class _ReportPageState extends State<ReportPage> {
       final result = await Amplify.Storage.uploadFile(
         localFile: AWSFilePlatform.fromFile(imageFile),
         path: StoragePath.fromString(fileName),
-        options: const StorageUploadFileOptions(
-          accessLevel: StorageAccessLevel.protected,
-        ),
       ).result;
 
       safePrint('Uploaded file: ${result.uploadedItem.path}');
@@ -125,7 +122,7 @@ class _ReportPageState extends State<ReportPage> {
         path: StoragePath.fromString(result.uploadedItem.path),
       ).result;
 
-      return getUrlResult.url.toString(); // Return the file's public URL
+      return getUrlResult.url.toString();
     } on StorageException catch (e) {
       safePrint('Error uploading image to S3: ${e.message}');
       throw Exception('Failed to upload image: ${e.message}');
