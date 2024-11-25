@@ -12,12 +12,14 @@ import 'Repositories/SignUpRepo.dart';
 import 'Service/SignInService.dart';
 import 'Repositories/SignInRepo.dart';
 import 'model/UserState.dart';
+import 'models/ModelProvider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final authPlugin = AmplifyAuthCognito();
-  final apiPlugin = AmplifyAPI();
+  final apiPlugin = AmplifyAPI(
+      options: APIPluginOptions(modelProvider: ModelProvider.instance));
   final storagePlugin = AmplifyStorageS3();
 
   await Amplify.addPlugins([authPlugin, apiPlugin, storagePlugin]);

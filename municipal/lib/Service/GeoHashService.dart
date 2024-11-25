@@ -10,13 +10,16 @@ class GeoHashService {
         listIssues(filter: {geoHash: {beginsWith: "$geoHashPrefix"}}) {
           items {
             id
+            citizenId
             description
-            geoHash
+            imageUrl
             category
             latitude
             longitude
-            imageUrl
+            geoHash
+            status
             progress
+            upvotes
           }
         }
       }

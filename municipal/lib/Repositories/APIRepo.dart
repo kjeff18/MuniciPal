@@ -27,7 +27,13 @@ class APIWrapper {
       final request = ModelQueries.list(modelType, where: filters);
       final response = await Amplify.API.query(request: request).response;
 
-      final items = response.data?.items as List<T>? ?? [];
+      if (response.data == null) {
+        safePrint('Errors during query: ${response.errors}');
+        return [];
+      }
+
+      // Safely cast and filter out null items
+      final items = response.data!.items?.whereType<T>().toList() ?? [];
       if (items.isEmpty) {
         safePrint('No items found or errors: ${response.errors}');
       }

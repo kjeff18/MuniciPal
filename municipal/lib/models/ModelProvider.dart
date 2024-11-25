@@ -45,7 +45,7 @@ export 'Upvote.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "15bca1eb87ffb8571d26d1d2df718bf9";
+  String version = "7062b5c8933a7e4d0e3ea950aaedec96";
   @override
   List<amplify_core.ModelSchema> modelSchemas = [Bid.schema, Contract.schema, ContractorSubscription.schema, GovernmentEntity.schema, Issue.schema, Report.schema, RequestForProposal.schema, Upvote.schema];
   @override
