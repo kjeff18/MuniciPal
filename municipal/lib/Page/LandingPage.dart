@@ -7,6 +7,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart'
 import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/Helper/IssueCategory.dart';
 import 'package:municipal/Helper/UserLocation.dart';
+import 'package:municipal/Page/EditProfile.dart';
+import 'package:municipal/Page/ProfilePage.dart';
 import 'package:municipal/models/ModelProvider.dart';
 import 'package:geohash_plus/geohash_plus.dart';
 import 'package:municipal/Service/GeoHashService.dart';
@@ -170,6 +172,10 @@ class _LandingPageState extends State<LandingPage> {
     } else {
       print('Current position is null');
     }
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ProfilePage()),
+    );
   }
 
   void _XButtonIssueContainerClick() {
@@ -199,12 +205,12 @@ class _LandingPageState extends State<LandingPage> {
           GoogleMapDisplay(),
           Positioned(
             top: screenSize.height * 0.07,
-            right: screenSize.width * 0.02,
+            right: screenSize.width * 0.05,
             child: CustomFloatingButton(onPressed: editAccountButtonFunc),
           ),
           Positioned(
-            bottom: screenSize.height * 0.05,
-            right: screenSize.width * 0.02,
+            bottom: screenSize.height * 0.02,
+            right: screenSize.width * 0.05,
             child: ReportMenuButton(onPressed: _reportMenuClick),
           ),
           QuickReportSection(

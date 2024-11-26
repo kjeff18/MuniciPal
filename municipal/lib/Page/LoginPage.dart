@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/widgets/CustomButton.dart';
 import 'package:municipal/widgets/SecondaryBackground.dart';
-import 'package:municipal/widgets/TextField.dart';
-import 'package:municipal/Page/LandingPage.dart';
+import 'package:municipal/widgets/CustomTextField.dart';
 import 'package:municipal/CustomBottomNavigationBar.dart';
 import 'package:municipal/Service/SignInService.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +13,7 @@ class LogInPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void loginFunc(BuildContext context) async {
+  Future<void> loginFunc(BuildContext context) async {
     final signInService = Provider.of<SignInService>(context, listen: false);
     final email = _emailController.text;
     final password = _passwordController.text;
@@ -36,9 +35,11 @@ class LogInPage extends StatelessWidget {
       },
       (success) {
         Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const CustomBottomNavigationBar()));
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CustomBottomNavigationBar(),
+          ),
+        );
       },
     );
   }
@@ -49,70 +50,84 @@ class LogInPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: Column(
+      body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(defaultPadding),
-                    child: Text(
-                      "Welcome Back,",
-                      style: textFont.copyWith(
-                          color: textColor, fontSize: HeadlineSize),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: defaultPadding),
-                    child: Text(
-                      'Pal',
-                      style: textFont.copyWith(
-                          color: textColor, fontSize: HeadlineSize),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: Stack(
-              children: [
-                Secondarybackground(),
-                Padding(
-                  padding: const EdgeInsets.all(
-                      defaultPadding), // Padding for text fields
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SafeArea(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SizedBox(height: 40),
-                      CustomTextField(
-                        hintText: 'Email',
-                        controller: _emailController,
-                        icon: Icon(Icons.mail),
+                      Padding(
+                        padding: const EdgeInsets.all(defaultPadding),
+                        child: Text(
+                          "Welcome Back,",
+                          style: textFont.copyWith(
+                              color: textColor, fontSize: HeadlineSize),
+                        ),
                       ),
-                      const SizedBox(height: 16),
-                      CustomTextField(
-                        hintText: 'Password',
-                        controller: _passwordController,
-                        icon: Icon(Icons.lock),
-                        obscureText: true,
-                      ),
-                      Spacer(),
-                      CustomButton(
-                        text: isLoading ? 'Logging in...' : 'Login',
-                        onPressed: isLoading ? () {} : () => loginFunc(context),
-                        blueButton: true,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: defaultPadding),
+                        child: Text(
+                          'Pal',
+                          style: textFont.copyWith(
+                              color: textColor, fontSize: HeadlineSize),
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+              Expanded(
+                child: Stack(
+                  children: [
+                    Secondarybackground(),
+                    Padding(
+                      padding: const EdgeInsets.all(
+                          defaultPadding), // Padding for text fields
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 40),
+                          CustomTextField(
+                            hintText: 'Email',
+                            controller: _emailController,
+                            icon: const Icon(Icons.mail),
+                          ),
+                          const SizedBox(height: 16),
+                          CustomTextField(
+                            hintText: 'Password',
+                            controller: _passwordController,
+                            icon: const Icon(Icons.lock),
+                            obscureText: true,
+                          ),
+                          const Spacer(),
+                          CustomButton(
+                            text: 'Login',
+                            onPressed:
+                                isLoading ? null : () => loginFunc(context),
+                            blueButton: true,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
+          if (isLoading)
+            Positioned.fill(
+              child: Container(
+                color: Colors.black.withOpacity(0.5), // Gray overlay
+                child: const Center(
+                  child: CircularProgressIndicator(), // Loading spinner
+                ),
+              ),
+            ),
         ],
       ),
     );

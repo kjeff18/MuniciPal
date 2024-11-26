@@ -19,7 +19,7 @@ const closedProgressColor = Color(0xFFFF0000);
 TextStyle textFont = GoogleFonts.sourceSans3();
 
 //animation Duration
- int animationDuration = 300;
+int animationDuration = 300;
 
 //App Bar Height
 
@@ -67,8 +67,8 @@ const trafficLightIcon = 'assets/IssueIcons/TrafficLightIcon.svg';
 const treeMantainaceIcon = 'assets/IssueIcons/TreeMantenanceIcon.svg';
 const waterLeakIcon = 'assets/IssueIcons/WaterLeakIcon.svg';
 
- const double issueCatergoryIconSize = 82;
- const double iconSize = 50;
+const double issueCatergoryIconSize = 82;
+const double iconSize = 50;
 
 //MapBuble Path
 const pedestrianCrossingBubble = 'assets/MapBubble/CrosswalkBubble.png';
@@ -89,7 +89,6 @@ const waterLeakBubble = 'assets/MapBubble/WaterLeakBubble.png';
 
 const double bottomNavIconScale = 1.3;
 
-
 //Padding
 const defaultPadding = 15.0;
 
@@ -99,3 +98,6 @@ const double HeadlineSize = 35;
 const double PostTitleSize = 25;
 const double bodyTextSize = 20;
 const double hintTextSize = 17;
+
+//Width
+const double defaultButtonWidth = 0.6;

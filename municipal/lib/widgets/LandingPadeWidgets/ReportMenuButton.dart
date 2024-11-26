@@ -5,13 +5,14 @@ class ReportMenuButton extends StatefulWidget {
   final double size;
   final VoidCallback? onPressed;
 
-  const ReportMenuButton({super.key, this.size = 82, this.onPressed});
+  const ReportMenuButton({super.key, this.size = 60, this.onPressed});
 
   @override
   State<ReportMenuButton> createState() => _ReportMenuButtonState();
 }
 
-class _ReportMenuButtonState extends State<ReportMenuButton> with SingleTickerProviderStateMixin {
+class _ReportMenuButtonState extends State<ReportMenuButton>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _rotationAnimation;
 
@@ -20,7 +21,7 @@ class _ReportMenuButtonState extends State<ReportMenuButton> with SingleTickerPr
   @override
   void initState() {
     super.initState();
-    
+
     // Initialize AnimationController with a duration
     _controller = AnimationController(
       vsync: this,
@@ -40,9 +41,9 @@ class _ReportMenuButtonState extends State<ReportMenuButton> with SingleTickerPr
     });
 
     if (_isRotated) {
-      _controller.forward();  // Rotate the icon
+      _controller.forward(); // Rotate the icon
     } else {
-      _controller.reverse();  // Reset the rotation
+      _controller.reverse(); // Reset the rotation
     }
 
     // Call external onPressed if available
@@ -75,14 +76,13 @@ class _ReportMenuButtonState extends State<ReportMenuButton> with SingleTickerPr
             builder: (context, child) {
               // Apply rotation using the animation's value in radians
               return Transform.rotate(
-
-                angle: _rotationAnimation.value * (-3.14159 / 180), 
+                angle: _rotationAnimation.value * (-3.14159 / 180),
                 child: child,
               );
             },
             child: Icon(
               Icons.add,
-              size: widget.size * 0.75, // Icon size
+              size: widget.size, // Icon size
               color: backgroundColor, // Icon color
             ),
           ),

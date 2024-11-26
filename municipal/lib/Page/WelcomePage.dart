@@ -46,23 +46,15 @@ class WelcomePage extends StatelessWidget {
             Text('Get Started',
                 style: textFont.copyWith(color: accentColor, fontSize: 15)),
             const SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: defaultPadding * 4, vertical: defaultPadding / 2),
-              child: CustomButton(
-                text: 'Login',
-                onPressed: () => loginFunc(context),
-                blueButton: true,
-              ),
+            CustomButton(
+              text: 'Login',
+              onPressed: () => loginFunc(context),
+              blueButton: true,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: defaultPadding * 4, vertical: defaultPadding / 2),
-              child: CustomButton(
-                  text: 'Sign Up',
-                  onPressed: () => SignUpFunc(context),
-                  blueButton: false),
-            )
+            CustomButton(
+                text: 'Sign Up',
+                onPressed: () => SignUpFunc(context),
+                blueButton: false),
           ],
         ));
   }
