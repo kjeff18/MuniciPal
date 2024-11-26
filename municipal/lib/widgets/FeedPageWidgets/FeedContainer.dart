@@ -3,23 +3,20 @@ import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/Helper/IssueCategory.dart';
 import 'package:municipal/models/ModelProvider.dart';
 import 'package:municipal/widgets/FeedPageWidgets/CustomProgressIndicator.dart';
+import 'package:municipal/Helper/DistanceCalculator.dart';
+import 'package:municipal/Helper/UserLocation.dart';
+import 'package:municipal/Page/PostPage.dart';
 
 class FeedContainer extends StatelessWidget {
-  final IssueCategory issueCategory;
+  final Issue issue; // Pass the entire Issue object
+  final UserLocation userLocation;
   final VoidCallback onPressed;
-  final double numberOfMilesAway;
-  final int numberOfVote;
-  final IssueStatus issueStatus;
-  final String imageUrl; // New parameter for image URL
 
   FeedContainer({
     super.key,
+    required this.issue,
+    required this.userLocation,
     required this.onPressed,
-    required this.issueCategory,
-    required this.numberOfMilesAway,
-    required this.numberOfVote,
-    required this.issueStatus,
-    required this.imageUrl, // Required for displaying the image
   });
 
   @override
@@ -27,7 +24,14 @@ class FeedContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(defaultPadding),
       child: GestureDetector(
-        onTap: onPressed,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PostPage(issue: issue),
+            ),
+          );
+        },
         child: Container(
           height: 304,
           decoration: BoxDecoration(
@@ -49,7 +53,7 @@ class FeedContainer extends StatelessWidget {
                       width: double.infinity,
                       color: Colors.grey[300], // Placeholder background color
                       child: Image.network(
-                        imageUrl,
+                        issue.imageUrls!.first,
                         fit: BoxFit.cover,
                         width: double.infinity,
                         height: 200,
@@ -72,7 +76,7 @@ class FeedContainer extends StatelessWidget {
                     ),
                   ),
                   CustomProgressIndicator(
-                    issueStatus: issueStatus,
+                    issueStatus: issue.status,
                   ),
                 ],
               ),
@@ -94,12 +98,19 @@ class FeedContainer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            ReportType.getReportName(issueCategory),
+                            ReportType.getReportName(issue.category!),
                             style: textFont.copyWith(
                                 color: accentColor, fontSize: PostTitleSize),
                           ),
                           Text(
-                            '${numberOfMilesAway.toStringAsFixed(1)} miles away',
+                            '${userLocation.currentPosition == null ? "0.0" : DistanceCalculator.calculateDistanceInMiles(
+                                  userLatitude:
+                                      userLocation.currentPosition!.latitude,
+                                  userLongitude:
+                                      userLocation.currentPosition!.longitude,
+                                  issueLatitude: issue.latitude,
+                                  issueLongitude: issue.longitude,
+                                ) ?? "0.0"} miles away',
                             style: textFont.copyWith(
                                 color: hintTextColor, fontSize: bodyTextSize),
                           ),
@@ -111,7 +122,7 @@ class FeedContainer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          "$numberOfVote upvotes",
+                          "${issue.upvotes} upvotes",
                           style: textFont.copyWith(
                               color: accentColor, fontSize: bodyTextSize),
                         ),

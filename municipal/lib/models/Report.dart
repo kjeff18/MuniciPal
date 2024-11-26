@@ -28,6 +28,7 @@ class Report extends amplify_core.Model {
   static const classType = const _ReportModelType();
   final String id;
   final String? _citizenId;
+  final String? _citizenName;
   final String? _issueId;
   final IssueCategory? _category;
   final double? _latitude;
@@ -54,6 +55,19 @@ class Report extends amplify_core.Model {
   String get citizenId {
     try {
       return _citizenId!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  String get citizenName {
+    try {
+      return _citizenName!;
     } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
           amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -145,12 +159,13 @@ class Report extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Report._internal({required this.id, required citizenId, required issueId, required category, required latitude, required longitude, required geoHash, description, imageUrl, createdAt, updatedAt}): _citizenId = citizenId, _issueId = issueId, _category = category, _latitude = latitude, _longitude = longitude, _geoHash = geoHash, _description = description, _imageUrl = imageUrl, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Report._internal({required this.id, required citizenId, required citizenName, required issueId, required category, required latitude, required longitude, required geoHash, description, imageUrl, createdAt, updatedAt}): _citizenId = citizenId, _citizenName = citizenName, _issueId = issueId, _category = category, _latitude = latitude, _longitude = longitude, _geoHash = geoHash, _description = description, _imageUrl = imageUrl, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Report({String? id, required String citizenId, required String issueId, required IssueCategory category, required double latitude, required double longitude, required String geoHash, String? description, String? imageUrl}) {
+  factory Report({String? id, required String citizenId, required String citizenName, required String issueId, required IssueCategory category, required double latitude, required double longitude, required String geoHash, String? description, String? imageUrl}) {
     return Report._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       citizenId: citizenId,
+      citizenName: citizenName,
       issueId: issueId,
       category: category,
       latitude: latitude,
@@ -170,6 +185,7 @@ class Report extends amplify_core.Model {
     return other is Report &&
       id == other.id &&
       _citizenId == other._citizenId &&
+      _citizenName == other._citizenName &&
       _issueId == other._issueId &&
       _category == other._category &&
       _latitude == other._latitude &&
@@ -189,6 +205,7 @@ class Report extends amplify_core.Model {
     buffer.write("Report {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("citizenId=" + "$_citizenId" + ", ");
+    buffer.write("citizenName=" + "$_citizenName" + ", ");
     buffer.write("issueId=" + "$_issueId" + ", ");
     buffer.write("category=" + (_category != null ? amplify_core.enumToString(_category)! : "null") + ", ");
     buffer.write("latitude=" + (_latitude != null ? _latitude!.toString() : "null") + ", ");
@@ -203,10 +220,11 @@ class Report extends amplify_core.Model {
     return buffer.toString();
   }
   
-  Report copyWith({String? citizenId, String? issueId, IssueCategory? category, double? latitude, double? longitude, String? geoHash, String? description, String? imageUrl}) {
+  Report copyWith({String? citizenId, String? citizenName, String? issueId, IssueCategory? category, double? latitude, double? longitude, String? geoHash, String? description, String? imageUrl}) {
     return Report._internal(
       id: id,
       citizenId: citizenId ?? this.citizenId,
+      citizenName: citizenName ?? this.citizenName,
       issueId: issueId ?? this.issueId,
       category: category ?? this.category,
       latitude: latitude ?? this.latitude,
@@ -218,6 +236,7 @@ class Report extends amplify_core.Model {
   
   Report copyWithModelFieldValues({
     ModelFieldValue<String>? citizenId,
+    ModelFieldValue<String>? citizenName,
     ModelFieldValue<String>? issueId,
     ModelFieldValue<IssueCategory>? category,
     ModelFieldValue<double>? latitude,
@@ -229,6 +248,7 @@ class Report extends amplify_core.Model {
     return Report._internal(
       id: id,
       citizenId: citizenId == null ? this.citizenId : citizenId.value,
+      citizenName: citizenName == null ? this.citizenName : citizenName.value,
       issueId: issueId == null ? this.issueId : issueId.value,
       category: category == null ? this.category : category.value,
       latitude: latitude == null ? this.latitude : latitude.value,
@@ -242,6 +262,7 @@ class Report extends amplify_core.Model {
   Report.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
       _citizenId = json['citizenId'],
+      _citizenName = json['citizenName'],
       _issueId = json['issueId'],
       _category = amplify_core.enumFromString<IssueCategory>(json['category'], IssueCategory.values),
       _latitude = (json['latitude'] as num?)?.toDouble(),
@@ -253,12 +274,13 @@ class Report extends amplify_core.Model {
       _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'citizenId': _citizenId, 'issueId': _issueId, 'category': amplify_core.enumToString(_category), 'latitude': _latitude, 'longitude': _longitude, 'geoHash': _geoHash, 'description': _description, 'imageUrl': _imageUrl, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'citizenId': _citizenId, 'citizenName': _citizenName, 'issueId': _issueId, 'category': amplify_core.enumToString(_category), 'latitude': _latitude, 'longitude': _longitude, 'geoHash': _geoHash, 'description': _description, 'imageUrl': _imageUrl, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
     'id': id,
     'citizenId': _citizenId,
+    'citizenName': _citizenName,
     'issueId': _issueId,
     'category': _category,
     'latitude': _latitude,
@@ -273,6 +295,7 @@ class Report extends amplify_core.Model {
   static final amplify_core.QueryModelIdentifier<ReportModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<ReportModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final CITIZENID = amplify_core.QueryField(fieldName: "citizenId");
+  static final CITIZENNAME = amplify_core.QueryField(fieldName: "citizenName");
   static final ISSUEID = amplify_core.QueryField(fieldName: "issueId");
   static final CATEGORY = amplify_core.QueryField(fieldName: "category");
   static final LATITUDE = amplify_core.QueryField(fieldName: "latitude");
@@ -324,6 +347,12 @@ class Report extends amplify_core.Model {
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
       key: Report.CITIZENID,
+      isRequired: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: Report.CITIZENNAME,
       isRequired: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
     ));

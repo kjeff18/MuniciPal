@@ -30,7 +30,7 @@ class Issue extends amplify_core.Model {
   final String id;
   final String? _citizenId;
   final String? _description;
-  final String? _imageUrl;
+  final List<String>? _imageUrls;
   final IssueCategory? _category;
   final double? _latitude;
   final double? _longitude;
@@ -81,8 +81,8 @@ class Issue extends amplify_core.Model {
     }
   }
   
-  String? get imageUrl {
-    return _imageUrl;
+  List<String>? get imageUrls {
+    return _imageUrls;
   }
   
   IssueCategory? get category {
@@ -170,14 +170,14 @@ class Issue extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Issue._internal({required this.id, required citizenId, required description, imageUrl, category, required latitude, required longitude, required geoHash, required status, progress, required upvotes, reports, createdAt, updatedAt}): _citizenId = citizenId, _description = description, _imageUrl = imageUrl, _category = category, _latitude = latitude, _longitude = longitude, _geoHash = geoHash, _status = status, _progress = progress, _upvotes = upvotes, _reports = reports, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Issue._internal({required this.id, required citizenId, required description, imageUrls, category, required latitude, required longitude, required geoHash, required status, progress, required upvotes, reports, createdAt, updatedAt}): _citizenId = citizenId, _description = description, _imageUrls = imageUrls, _category = category, _latitude = latitude, _longitude = longitude, _geoHash = geoHash, _status = status, _progress = progress, _upvotes = upvotes, _reports = reports, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Issue({String? id, required String citizenId, required String description, String? imageUrl, IssueCategory? category, required double latitude, required double longitude, required String geoHash, required IssueStatus status, String? progress, required int upvotes, List<Report>? reports}) {
+  factory Issue({String? id, required String citizenId, required String description, List<String>? imageUrls, IssueCategory? category, required double latitude, required double longitude, required String geoHash, required IssueStatus status, String? progress, required int upvotes, List<Report>? reports}) {
     return Issue._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       citizenId: citizenId,
       description: description,
-      imageUrl: imageUrl,
+      imageUrls: imageUrls != null ? List<String>.unmodifiable(imageUrls) : imageUrls,
       category: category,
       latitude: latitude,
       longitude: longitude,
@@ -199,7 +199,7 @@ class Issue extends amplify_core.Model {
       id == other.id &&
       _citizenId == other._citizenId &&
       _description == other._description &&
-      _imageUrl == other._imageUrl &&
+      DeepCollectionEquality().equals(_imageUrls, other._imageUrls) &&
       _category == other._category &&
       _latitude == other._latitude &&
       _longitude == other._longitude &&
@@ -221,7 +221,7 @@ class Issue extends amplify_core.Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("citizenId=" + "$_citizenId" + ", ");
     buffer.write("description=" + "$_description" + ", ");
-    buffer.write("imageUrl=" + "$_imageUrl" + ", ");
+    buffer.write("imageUrls=" + (_imageUrls != null ? _imageUrls!.toString() : "null") + ", ");
     buffer.write("category=" + (_category != null ? amplify_core.enumToString(_category)! : "null") + ", ");
     buffer.write("latitude=" + (_latitude != null ? _latitude!.toString() : "null") + ", ");
     buffer.write("longitude=" + (_longitude != null ? _longitude!.toString() : "null") + ", ");
@@ -236,12 +236,12 @@ class Issue extends amplify_core.Model {
     return buffer.toString();
   }
   
-  Issue copyWith({String? citizenId, String? description, String? imageUrl, IssueCategory? category, double? latitude, double? longitude, String? geoHash, IssueStatus? status, String? progress, int? upvotes, List<Report>? reports}) {
+  Issue copyWith({String? citizenId, String? description, List<String>? imageUrls, IssueCategory? category, double? latitude, double? longitude, String? geoHash, IssueStatus? status, String? progress, int? upvotes, List<Report>? reports}) {
     return Issue._internal(
       id: id,
       citizenId: citizenId ?? this.citizenId,
       description: description ?? this.description,
-      imageUrl: imageUrl ?? this.imageUrl,
+      imageUrls: imageUrls ?? this.imageUrls,
       category: category ?? this.category,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
@@ -255,7 +255,7 @@ class Issue extends amplify_core.Model {
   Issue copyWithModelFieldValues({
     ModelFieldValue<String>? citizenId,
     ModelFieldValue<String>? description,
-    ModelFieldValue<String?>? imageUrl,
+    ModelFieldValue<List<String>?>? imageUrls,
     ModelFieldValue<IssueCategory?>? category,
     ModelFieldValue<double>? latitude,
     ModelFieldValue<double>? longitude,
@@ -269,7 +269,7 @@ class Issue extends amplify_core.Model {
       id: id,
       citizenId: citizenId == null ? this.citizenId : citizenId.value,
       description: description == null ? this.description : description.value,
-      imageUrl: imageUrl == null ? this.imageUrl : imageUrl.value,
+      imageUrls: imageUrls == null ? this.imageUrls : imageUrls.value,
       category: category == null ? this.category : category.value,
       latitude: latitude == null ? this.latitude : latitude.value,
       longitude: longitude == null ? this.longitude : longitude.value,
@@ -285,7 +285,7 @@ class Issue extends amplify_core.Model {
     : id = json['id'],
       _citizenId = json['citizenId'],
       _description = json['description'],
-      _imageUrl = json['imageUrl'],
+      _imageUrls = json['imageUrls']?.cast<String>(),
       _category = amplify_core.enumFromString<IssueCategory>(json['category'], IssueCategory.values),
       _latitude = (json['latitude'] as num?)?.toDouble(),
       _longitude = (json['longitude'] as num?)?.toDouble(),
@@ -310,14 +310,14 @@ class Issue extends amplify_core.Model {
       _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'citizenId': _citizenId, 'description': _description, 'imageUrl': _imageUrl, 'category': amplify_core.enumToString(_category), 'latitude': _latitude, 'longitude': _longitude, 'geoHash': _geoHash, 'status': amplify_core.enumToString(_status), 'progress': _progress, 'upvotes': _upvotes, 'reports': _reports?.map((Report? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'citizenId': _citizenId, 'description': _description, 'imageUrls': _imageUrls, 'category': amplify_core.enumToString(_category), 'latitude': _latitude, 'longitude': _longitude, 'geoHash': _geoHash, 'status': amplify_core.enumToString(_status), 'progress': _progress, 'upvotes': _upvotes, 'reports': _reports?.map((Report? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
     'id': id,
     'citizenId': _citizenId,
     'description': _description,
-    'imageUrl': _imageUrl,
+    'imageUrls': _imageUrls,
     'category': _category,
     'latitude': _latitude,
     'longitude': _longitude,
@@ -334,7 +334,7 @@ class Issue extends amplify_core.Model {
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final CITIZENID = amplify_core.QueryField(fieldName: "citizenId");
   static final DESCRIPTION = amplify_core.QueryField(fieldName: "description");
-  static final IMAGEURL = amplify_core.QueryField(fieldName: "imageUrl");
+  static final IMAGEURLS = amplify_core.QueryField(fieldName: "imageUrls");
   static final CATEGORY = amplify_core.QueryField(fieldName: "category");
   static final LATITUDE = amplify_core.QueryField(fieldName: "latitude");
   static final LONGITUDE = amplify_core.QueryField(fieldName: "longitude");
@@ -357,7 +357,8 @@ class Issue extends amplify_core.Model {
         provider: amplify_core.AuthRuleProvider.USERPOOLS,
         operations: const [
           amplify_core.ModelOperation.CREATE,
-          amplify_core.ModelOperation.READ
+          amplify_core.ModelOperation.READ,
+          amplify_core.ModelOperation.UPDATE
         ]),
       amplify_core.AuthRule(
         authStrategy: amplify_core.AuthStrategy.GROUPS,
@@ -399,9 +400,10 @@ class Issue extends amplify_core.Model {
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Issue.IMAGEURL,
+      key: Issue.IMAGEURLS,
       isRequired: false,
-      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
+      isArray: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.collection, ofModelName: amplify_core.ModelFieldTypeEnum.string.name)
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(

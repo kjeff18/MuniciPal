@@ -19,6 +19,7 @@ import { findNearbyIssue } from './utils/geospatialUtils.js';
 import {
   createIssueViaAppSync,
   createReportViaAppSync,
+  incrementIssueUpvotesAndUrlsViaAppSync
 } from './services/appsyncService.js';
 
 
@@ -26,18 +27,23 @@ export const handler = async (event) => {
   try {
     console.log("Event: ", event)
     // Extract data from the event
-    const { citizenId, category, latitude, longitude, geoHash, description, imageUrl } = event.arguments.input;
+    let { citizenId, citizenName, category, latitude, longitude, geoHash, description, imageUrl } = event.arguments.input;
+    imageUrl = imageUrl.split('?')[0];
 
     // Step 1: Query for nearby issues
     const existingIssues = await queryNearbyIssues(latitude, longitude, category);
 
     // Step 2: Determine if an existing issue is within 10 meters
     const nearbyIssue = findNearbyIssue(existingIssues, latitude, longitude);
+    console.log("Nearby Issue: ", nearbyIssue)
 
     let issueId;
+    let incrementUpvotes = false
     if (nearbyIssue) {
       // Step 3: Use the existing issue ID
       issueId = nearbyIssue.id;
+      incrementUpvotes = true
+      console.log("Issue ID: ", issueId)
     } else {
       // Step 4: Create a new issue via AppSync
       const newIssue = await createIssueViaAppSync({
@@ -55,6 +61,7 @@ export const handler = async (event) => {
     // Step 5: Create a report and associate it with the issue via AppSync
     const newReport = await createReportViaAppSync({
       citizenId,
+      citizenName,
       issueId,
       latitude,
       longitude,
@@ -63,6 +70,11 @@ export const handler = async (event) => {
       imageUrl,
       category
     });
+
+    if (incrementUpvotes) {
+      console.log("Issue ID: ", issueId, ", Issue Version: ", nearbyIssue._version, "Issue Upvotes: ", nearbyIssue.upvotes, "Issue Image Urls: ", [...nearbyIssue.imageUrls, imageUrl])
+      const incrementResponse = incrementIssueUpvotesAndUrlsViaAppSync({id: issueId, _version: nearbyIssue._version, upvotes: nearbyIssue.upvotes, imageUrls: [...nearbyIssue.imageUrls, imageUrl]})
+    }
 
     // Return the result
     return {

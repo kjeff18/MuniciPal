@@ -117,20 +117,20 @@ class _FeedPageState extends State<FeedPage> {
                       itemCount: issues.length,
                       itemBuilder: (context, index) {
                         final issue = issues[index];
-                        final distance =
-                            DistanceCalculator.calculateDistanceInMiles(
-                          userLatitude: currentPosition!.latitude,
-                          userLongitude: currentPosition!.longitude,
-                          issueLatitude: issue.latitude,
-                          issueLongitude: issue.longitude,
-                        );
+                        final distance = currentPosition == null
+                            ? null // Handle the case when currentPosition is null
+                            : DistanceCalculator.calculateDistanceInMiles(
+                                userLatitude: currentPosition!.latitude,
+                                userLongitude: currentPosition!.longitude,
+                                issueLatitude: issue
+                                    .latitude, // Provide a default value for issue.latitude
+                                issueLongitude: issue
+                                    .longitude, // Provide a default value for issue.longitude
+                              );
 
                         return FeedContainer(
-                          issueCategory: issue.category!,
-                          numberOfMilesAway: distance,
-                          numberOfVote: issue.upvotes,
-                          issueStatus: issue.status,
-                          imageUrl: issue.imageUrl!,
+                          issue: issue,
+                          userLocation: userLocation,
                           onPressed: () => print("Clicked on ${issue.id}"),
                         );
                       },

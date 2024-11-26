@@ -1,14 +1,14 @@
 # The Issue model tracks reports from citizens, including their geo-location, optional description, optional images, and upvotes.
 type Issue @model
   @auth(rules: [
-    { allow: groups, groups: ["Citizen"], operations: [create, read] },
+    { allow: groups, groups: ["Citizen"], operations: [create, read, update] },
     { allow: groups, groups: ["Contractor`", "Government"], operations: [read, update, delete] },
     { allow: public, provider: apiKey, operations: [create, read, update] }
   ]) {
   id: ID! @primaryKey
   citizenId: ID!                       # ID of the citizen who created the issue
   description: String!                 # Description of the issue
-  imageUrl: String                     # Optional URL of the image uploaded
+  imageUrls: [String]                  # Optional URL of the image uploaded
   category: IssueCategory              # Category of the issue (e.g., Pothole, Street Light, etc.)
   latitude: Float!                     # Geo-location: latitude
   longitude: Float!                    # Geo-location: longitude
@@ -50,6 +50,7 @@ type Report @model
   ]) {
   id: ID! @primaryKey
   citizenId: ID!
+  citizenName: String!
   issueId: ID! @index(name: "byIssue", queryField: "reportsByIssueId")
   category: IssueCategory!
   latitude: Float!
@@ -168,6 +169,7 @@ type ContractorSubscription @model
 
 input HandleReportInput {
   citizenId: ID!
+  citizenName: String!
   category: IssueCategory!
   latitude: Float!
   longitude: Float!

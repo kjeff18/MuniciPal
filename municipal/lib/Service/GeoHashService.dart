@@ -12,7 +12,7 @@ class GeoHashService {
             id
             citizenId
             description
-            imageUrl
+            imageUrls
             category
             latitude
             longitude

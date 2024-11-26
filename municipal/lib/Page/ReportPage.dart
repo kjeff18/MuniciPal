@@ -184,6 +184,8 @@ class _ReportPageState extends State<ReportPage> {
       final variables = {
         "input": {
           "citizenId": authUser.userId,
+          "citizenName":
+              Provider.of<UserState>(context, listen: false).getUserName(),
           "latitude": latitude,
           "longitude": longitude,
           "geoHash": geoHash,

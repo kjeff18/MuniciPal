@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/Helper/IssueCategory.dart';
 import 'package:municipal/models/ModelProvider.dart';
+import 'package:municipal/Page/PostPage.dart';
 
 class IssueContainer extends StatelessWidget {
   final Issue issue;
@@ -39,9 +40,9 @@ class IssueContainer extends StatelessWidget {
                     topLeft: Radius.circular(textFieldBorderRadius),
                     topRight: Radius.circular(textFieldBorderRadius),
                   ),
-                  child: issue.imageUrl != null && issue.imageUrl!.isNotEmpty
+                  child: issue.imageUrls != null && issue.imageUrls!.isNotEmpty
                       ? Image.network(
-                          issue.imageUrl!,
+                          issue.imageUrls!.first,
                           fit: BoxFit.cover,
                           width: double.infinity,
                           height: 200,
@@ -95,32 +96,53 @@ class IssueContainer extends StatelessWidget {
                 ),
               ],
             ),
-            Container(
-              width: double.infinity,
-              height: 100,
-              decoration: const BoxDecoration(
-                color: backgroundColor,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(textFieldBorderRadius),
-                  bottomRight: Radius.circular(textFieldBorderRadius),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PostPage(issue: issue),
+                  ),
+                );
+              },
+              child: Container(
+                width: double.infinity,
+                height: 100,
+                decoration: const BoxDecoration(
+                  color: backgroundColor,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(textFieldBorderRadius),
+                    bottomRight: Radius.circular(textFieldBorderRadius),
+                  ),
                 ),
-              ),
-              padding: const EdgeInsets.all(textFieldBorderRadius),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    issue.category.toString().split('.').last ??
-                        "Unknown Category",
-                    style: textFont.copyWith(
-                        color: textColor, fontSize: HeadlineSize),
-                  ),
-                  Text(
-                    '${destination} miles away',
-                    style: textFont.copyWith(
-                        color: hintTextColor, fontSize: bodyTextSize),
-                  ),
-                ],
+                padding: const EdgeInsets.all(textFieldBorderRadius),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          issue.category.toString().split('.').last ??
+                              "Unknown Category",
+                          style: textFont.copyWith(
+                              color: textColor, fontSize: HeadlineSize),
+                        ),
+                        Text(
+                          '${destination} miles away',
+                          style: textFont.copyWith(
+                              color: hintTextColor, fontSize: bodyTextSize),
+                        ),
+                      ],
+                    ),
+                    const Icon(
+                      Icons.chevron_right,
+                      color: hintTextColor,
+                      size: 40,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

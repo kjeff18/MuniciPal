@@ -1,4 +1,4 @@
-import { queryDynamoDB } from '../utils/dbUtils.js';
+import { fetchNearbyIssuesFromAppSync } from '../services/appsyncService.js';
 import { calculateGeohash } from '../utils/geospatialUtils.js';
 import { getDistance } from 'geolib';
 
@@ -9,18 +9,15 @@ const GSI_NAME = 'byGeoHashCategory';
 export const queryNearbyIssues = async (latitude, longitude, category) => {
   try {
     const geohash = calculateGeohash(latitude, longitude, 7);
+    const geoHashPrefix = geohash.slice(0, 5);
 
-    const params = {
-      TableName: ISSUE_TABLE_NAME,
-      IndexName: GSI_NAME,
-      KeyConditionExpression: 'geoHash = :geoHash AND category = :category',
-      ExpressionAttributeValues: {
-        ':geoHash': { S: geohash.slice(0, 5) }, // Ensure correct type
-        ':category': { S: category },          // Ensure correct type
-      },
-    };
+    // Fetch issues from AppSync
+    const issues = await fetchNearbyIssuesFromAppSync(geoHashPrefix);
 
-    return await queryDynamoDB(params);
+    // Optionally, filter issues by category (if AppSync filtering by category is not sufficient)
+    const filteredIssues = issues.filter((issue) => issue.category === category);
+
+    return filteredIssues;
   } catch (error) {
     console.error('Error querying nearby issues:', error);
     throw new Error('Failed to query nearby issues');

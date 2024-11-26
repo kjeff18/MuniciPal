@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/Page/ReportPage.dart';
 import 'package:municipal/widgets/CustomAppBar.dart';
-import 'package:municipal/widgets/IssueCaterogryPageWidgets/IssueIcons.dart';
+import 'package:municipal/widgets/IssueCategoryPageWidgets/IssueIcons.dart';
 import 'package:municipal/Helper/ReportNameChecker.dart';
 
 class IssueCategoryPage extends StatelessWidget {

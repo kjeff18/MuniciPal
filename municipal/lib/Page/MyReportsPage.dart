@@ -7,6 +7,7 @@ import 'package:municipal/widgets/FeedPageWidgets/FeedContainer.dart';
 import 'package:municipal/Repositories/APIRepo.dart';
 import 'package:provider/provider.dart';
 import 'package:municipal/model/UserState.dart';
+import 'package:municipal/Helper/UserLocation.dart';
 
 class MyReportsPage extends StatefulWidget {
   const MyReportsPage({super.key});
@@ -19,6 +20,7 @@ class _MyReportsPageState extends State<MyReportsPage> {
   bool isLoading = true; // Indicates if data is being fetched
   bool hasError = false; // Tracks if an error occurred during data retrieval
   List<Issue> myReports = []; // List of retrieved reports
+  final UserLocation userLocation = UserLocation();
 
   @override
   void initState() {
@@ -92,11 +94,8 @@ class _MyReportsPageState extends State<MyReportsPage> {
                       itemBuilder: (context, index) {
                         final report = myReports[index];
                         return FeedContainer(
-                          issueCategory: report.category!,
-                          numberOfMilesAway: 0, // Distance is not relevant here
-                          numberOfVote: report.upvotes,
-                          issueStatus: report.status,
-                          imageUrl: report.imageUrl!,
+                          issue: report,
+                          userLocation: userLocation,
                           onPressed: () => print("Clicked on ${report.id}"),
                         );
                       },
