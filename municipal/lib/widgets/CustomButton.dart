@@ -17,37 +17,40 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Color textColor = blueButton ? Colors.white : accentColor;
     Color buttonColor = blueButton ? accentColor : Colors.white;
-    return GestureDetector(
-      onTap: onPressed, 
-      child: Container(
-        decoration:  BoxDecoration(
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.all(Radius.circular(secondaryBackgroundBorderRadius)), 
-          color: buttonColor,
-         boxShadow: const [
-          BoxShadow(
-            color: Colors.black26, 
-            blurRadius: 4.0, 
-            offset: Offset(2.0, 2.0), 
-            spreadRadius: 1.0,
-          ),
-        ],
-        border: Border.all(
-          color: accentColor,
-          width: 2.0
-          )
-        ), 
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: defaultPadding,vertical: defaultPadding/2),
-          child: Center(
-            child: Text(
-              text,
-              style: textFont.copyWith(color: textColor
-              , fontSize:30 )
-              )
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding),
+      child: GestureDetector(
+        onTap: onPressed, 
+        child: Container(
+          decoration:  BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.all(Radius.circular(secondaryBackgroundBorderRadius)), 
+            color: buttonColor,
+           boxShadow: const [
+            BoxShadow(
+              color: Colors.black26, 
+              blurRadius: 4.0, 
+              offset: Offset(2.0, 2.0), 
+              spreadRadius: 1.0,
+            ),
+          ],
+          border: Border.all(
+            color: accentColor,
+            width: 2.0
+            )
+          ), 
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: defaultPadding,vertical: defaultPadding/2),
+            child: Center(
+              child: Text(
+                text,
+                style: textFont.copyWith(color: textColor
+                , fontSize:30 )
+                )
+              ),
             ),
           ),
         ),
-      );
+    );
   }
 }

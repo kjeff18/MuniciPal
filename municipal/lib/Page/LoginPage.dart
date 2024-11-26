@@ -4,7 +4,7 @@ import 'package:municipal/Page/IssueCategoryPage.dart';
 import 'package:municipal/CustomBottomNavigationBar.dart';
 import 'package:municipal/widgets/CustomButton.dart';
 import 'package:municipal/widgets/SecondaryBackground.dart';
-import 'package:municipal/widgets/TextField.dart';
+import 'package:municipal/widgets/CustomTextField.dart';
 import 'package:municipal/Page/LandingPage.dart'; // Ensure you have this file created with CustomTextField
 
 class LogInPage extends StatelessWidget {
@@ -78,6 +78,7 @@ class LogInPage extends StatelessWidget {
                         obscureText: true,
                       ),
                       Spacer(),
+
                       CustomButton(
                           text: 'Login',
                           onPressed: () => loginFunc(context),

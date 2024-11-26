@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/widgets/CustomButton.dart';
 import 'package:municipal/widgets/SecondaryBackground.dart';
-import 'package:municipal/widgets/TextField.dart';
+import 'package:municipal/widgets/CustomTextField.dart';
 import 'SignUpPage3.dart';
 class SignUpPage2 extends StatelessWidget {
   SignUpPage2({super.key});

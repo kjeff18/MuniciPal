@@ -4,6 +4,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/Helper/IssueCatergory.dart';
 import 'package:municipal/Helper/UserLocation.dart';
+import 'package:municipal/Page/EditProfile.dart';
+import 'package:municipal/Page/Profile.dart';
 import 'package:municipal/models/ModelProvider.dart';
 import 'package:municipal/widgets/LandingPadeWidgets/CustomFloatingButton.dart';
 import 'package:municipal/widgets/LandingPadeWidgets/IssueContainer.dart';
@@ -84,6 +86,10 @@ class _LandingPageState extends State<LandingPage> {
     } else {
       print('Current position is null');
     }
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Profile()),
+    );
   }
 
   void _XButtonIssueContainerClick()
