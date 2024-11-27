@@ -6,8 +6,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart'
     as google_maps_flutter;
 import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/Helper/IssueCategory.dart';
-import 'package:municipal/Helper/UserLocation.dart';
-import 'package:municipal/Page/EditProfile.dart';
 import 'package:municipal/Page/ProfilePage.dart';
 import 'package:municipal/models/ModelProvider.dart';
 import 'package:geohash_plus/geohash_plus.dart';
@@ -15,9 +13,10 @@ import 'package:municipal/Service/GeoHashService.dart';
 import 'package:municipal/widgets/LandingPadeWidgets/CustomFloatingButton.dart';
 import 'package:municipal/widgets/LandingPadeWidgets/IssueContainer.dart';
 import 'package:municipal/widgets/LandingPadeWidgets/QuickReportSection.dart';
-import 'package:municipal/widgets/LandingPadeWidgets/QuickReportIcon.dart';
 import 'package:municipal/widgets/LandingPadeWidgets/ReportMenuButton.dart';
 import 'package:municipal/Helper/DistanceCalculator.dart';
+import 'package:provider/provider.dart';
+import 'package:municipal/Helper/UserLocation.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -38,17 +37,18 @@ class _LandingPageState extends State<LandingPage> {
       {};
 
   google_maps_flutter.CameraPosition? _currentCameraPosition;
+  bool isMapControllerInitialized = false;
   bool _isQuickReportVisible = false;
-  bool _isIssueContainerVisible = false; // Track visibility of IssueContainer
-  bool _isUserInteractingWithMap = false; // Prevent recentering when true
+  bool _isIssueContainerVisible = false;
+  bool _isUserInteractingWithMap = false;
   Timer? _recenterTimer;
 
   Set<google_maps_flutter.Marker> markers = {};
   double position = 1;
-  UserLocation userLocation = UserLocation();
 
   @override
   void dispose() {
+    final userLocation = Provider.of<UserLocation>(context, listen: false);
     userLocation.dispose();
     _recenterTimer?.cancel();
     super.dispose();
@@ -56,31 +56,39 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   void initState() {
+    super.initState();
     _loadMapStyle();
     _preloadMarkerIcons();
-    super.initState();
+    startLocationUpdates();
+  }
 
+  void startLocationUpdates() {
+    final userLocation = Provider.of<UserLocation>(context, listen: false);
     userLocation.startLocationStream((google_maps_flutter.LatLng position) {
-      if (!_isUserInteractingWithMap) {
+      if (!_isUserInteractingWithMap && _currentCameraPosition != null) {
         setState(() {
           _currentCameraPosition =
               google_maps_flutter.CameraPosition(target: position, zoom: 15);
         });
 
-        if (mapController != null) {
+        if (isMapControllerInitialized) {
           mapController.animateCamera(
-              google_maps_flutter.CameraUpdate.newLatLng(position));
+            google_maps_flutter.CameraUpdate.newLatLng(position),
+          );
         }
       }
     });
   }
 
   Future<void> _loadMapStyle() async {
-    _mapstyle = await rootBundle
-        .loadString('municipal/assets/map_styles/map_style.json');
+    try {
+      _mapstyle =
+          await rootBundle.loadString('assets/map_styles/map_style.json');
+    } catch (e) {
+      _mapstyle = ''; // Fallback to no styling
+    }
   }
 
-  /// Preload marker icons for all categories
   Future<void> _preloadMarkerIcons() async {
     for (var category in IssueCategory.values) {
       final iconPath = ReportType.getBubbleIconPath(category);
@@ -130,9 +138,9 @@ class _LandingPageState extends State<LandingPage> {
   }
 
   int getGeoHashPrefixLength(double zoomLevel) {
-    if (zoomLevel >= 15) return 5; // High zoom: more granular geohash
-    if (zoomLevel >= 10) return 3; // Medium zoom: moderate geohash
-    return 1; // Low zoom: broader geohash
+    if (zoomLevel >= 15) return 5;
+    if (zoomLevel >= 10) return 3;
+    return 1;
   }
 
   void _updateMarkers(List<Issue> issues) {
@@ -164,17 +172,9 @@ class _LandingPageState extends State<LandingPage> {
   }
 
   void editAccountButtonFunc() {
-    google_maps_flutter.LatLng? currentPosition =
-        userLocation.getCurrentPosition();
-    if (currentPosition != null) {
-      print(
-          'Current position: ${currentPosition.latitude}, ${currentPosition.longitude}');
-    } else {
-      print('Current position is null');
-    }
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ProfilePage()),
+      MaterialPageRoute(builder: (context) => const ProfilePage()),
     );
   }
 
@@ -197,12 +197,13 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final userLocation = Provider.of<UserLocation>(context);
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
       body: Stack(
         children: [
-          GoogleMapDisplay(),
+          GoogleMapDisplay(userLocation: userLocation),
           Positioned(
             top: screenSize.height * 0.07,
             right: screenSize.width * 0.05,
@@ -219,7 +220,7 @@ class _LandingPageState extends State<LandingPage> {
           ),
           if (_isIssueContainerVisible)
             Positioned(
-              bottom: screenSize.height * 0.005,
+              bottom: screenSize.height * 0.004,
               child: Container(
                 width: screenSize.width,
                 height: 330,
@@ -243,18 +244,20 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
-  google_maps_flutter.GoogleMap GoogleMapDisplay() {
+  google_maps_flutter.GoogleMap GoogleMapDisplay(
+      {required UserLocation userLocation}) {
     return google_maps_flutter.GoogleMap(
       zoomControlsEnabled: true,
       initialCameraPosition: _currentCameraPosition ??
           google_maps_flutter.CameraPosition(
             target: userLocation.getCurrentPosition() ??
-                const google_maps_flutter.LatLng(0.0, 0.0),
+                const google_maps_flutter.LatLng(30.408773, -91.17815),
             zoom: 15.0,
           ),
       trafficEnabled: false,
       onMapCreated: (google_maps_flutter.GoogleMapController controller) {
         mapController = controller;
+        isMapControllerInitialized = true;
       },
       onCameraMove: onCameraMove,
       onCameraIdle: onCameraIdle,

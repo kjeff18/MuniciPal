@@ -6,19 +6,25 @@ import 'package:municipal/widgets/FeedPageWidgets/CustomProgressIndicator.dart';
 import 'package:municipal/Helper/DistanceCalculator.dart';
 import 'package:municipal/Helper/UserLocation.dart';
 import 'package:municipal/Page/PostPage.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-class FeedContainer extends StatelessWidget {
-  final Issue issue; // Pass the entire Issue object
+class FeedContainer extends StatefulWidget {
+  Issue issue;
+  final ValueChanged<Issue> onIssueUpdated;
   final UserLocation userLocation;
-  final VoidCallback onPressed;
 
   FeedContainer({
     super.key,
     required this.issue,
+    required this.onIssueUpdated,
     required this.userLocation,
-    required this.onPressed,
   });
 
+  @override
+  State<FeedContainer> createState() => _FeedContainerState();
+}
+
+class _FeedContainerState extends State<FeedContainer> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,11 +32,18 @@ class FeedContainer extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PostPage(issue: issue),
-            ),
-          );
+              context,
+              MaterialPageRoute(
+                builder: (context) => PostPage(
+                  issue: widget.issue,
+                  onIssueUpdated: (updatedIssue) {
+                    setState(() {
+                      // Replace the updated issue in the list
+                      widget.issue = updatedIssue;
+                    });
+                  },
+                ),
+              ));
         },
         child: Container(
           height: 304,
@@ -52,31 +65,26 @@ class FeedContainer extends StatelessWidget {
                       height: 200, // Maintain consistent height
                       width: double.infinity,
                       color: Colors.grey[300], // Placeholder background color
-                      child: Image.network(
-                        issue.imageUrls!.first,
+                      child: CachedNetworkImage(
+                        imageUrl: widget.issue.imageUrls!.first,
                         fit: BoxFit.cover,
                         width: double.infinity,
                         height: 200,
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        },
-                        errorBuilder: (context, error, stackTrace) {
-                          return const Center(
-                            child: Icon(
-                              Icons.broken_image,
-                              size: 50,
-                              color: Colors.grey,
-                            ),
-                          );
-                        },
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        errorWidget: (context, url, error) => const Center(
+                          child: Icon(
+                            Icons.broken_image,
+                            size: 50,
+                            color: Colors.grey,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                   CustomProgressIndicator(
-                    issueStatus: issue.status,
+                    issueStatus: widget.issue.status,
                   ),
                 ],
               ),
@@ -98,18 +106,18 @@ class FeedContainer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            ReportType.getReportName(issue.category!),
+                            ReportType.getReportName(widget.issue.category!),
                             style: textFont.copyWith(
                                 color: accentColor, fontSize: PostTitleSize),
                           ),
                           Text(
-                            '${userLocation.currentPosition == null ? "0.0" : DistanceCalculator.calculateDistanceInMiles(
-                                  userLatitude:
-                                      userLocation.currentPosition!.latitude,
-                                  userLongitude:
-                                      userLocation.currentPosition!.longitude,
-                                  issueLatitude: issue.latitude,
-                                  issueLongitude: issue.longitude,
+                            '${widget.userLocation.currentPosition == null ? "0.0" : DistanceCalculator.calculateDistanceInMiles(
+                                  userLatitude: widget
+                                      .userLocation.currentPosition!.latitude,
+                                  userLongitude: widget
+                                      .userLocation.currentPosition!.longitude,
+                                  issueLatitude: widget.issue.latitude,
+                                  issueLongitude: widget.issue.longitude,
                                 ) ?? "0.0"} miles away',
                             style: textFont.copyWith(
                                 color: hintTextColor, fontSize: bodyTextSize),
@@ -122,7 +130,7 @@ class FeedContainer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          "${issue.upvotes} upvotes",
+                          "${widget.issue.upvotes} upvotes",
                           style: textFont.copyWith(
                               color: accentColor, fontSize: bodyTextSize),
                         ),

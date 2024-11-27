@@ -44,7 +44,7 @@ dependencies:
   geolocator: ^9.0.2
   permission_handler: ^10.0.0 # Check for the latest version
   image_picker: ^0.8.7+4
-
+  cached_network_image: ^3.2.3
  
   flutter:
     sdk: flutter

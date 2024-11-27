@@ -13,41 +13,61 @@ import 'Service/SignInService.dart';
 import 'Repositories/SignInRepo.dart';
 import 'model/UserState.dart';
 import 'models/ModelProvider.dart';
+import 'Helper/UserLocation.dart';
+import 'dart:async';
+import 'dart:developer';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final authPlugin = AmplifyAuthCognito();
-  final apiPlugin = AmplifyAPI(
-      options: APIPluginOptions(modelProvider: ModelProvider.instance));
-  final storagePlugin = AmplifyStorageS3();
+  // Capture uncaught Flutter framework and Dart errors
+  runZonedGuarded(() async {
+    FlutterError.onError = (FlutterErrorDetails details) {
+      // Log Flutter framework errors
+      FlutterError.dumpErrorToConsole(details);
+      log('FlutterError: ${details.exceptionAsString()}');
+    };
+    CacheManager.logLevel = CacheManagerLogLevel.debug;
 
-  await Amplify.addPlugins([authPlugin, apiPlugin, storagePlugin]);
+    // Initialize Amplify plugins
+    final authPlugin = AmplifyAuthCognito();
+    final apiPlugin = AmplifyAPI(
+        options: APIPluginOptions(modelProvider: ModelProvider.instance));
+    final storagePlugin = AmplifyStorageS3();
 
-  try {
-    await Amplify.configure(amplifyconfig);
-    print('Amplify configured successfully');
-  } catch (e) {
-    print('Amplify configuration failed: $e');
-  }
+    try {
+      await Amplify.addPlugins([authPlugin, apiPlugin, storagePlugin]);
+      await Amplify.configure(amplifyconfig);
+      log('Amplify configured successfully');
+    } catch (e) {
+      log('Amplify configuration failed: $e');
+    }
 
-  runApp(
-    MultiProvider(
-      providers: [
-        // Provide SignUpService as a dependency
-        ChangeNotifierProvider(
-          create: (_) => SignUpService(SignUpRepo()),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => SignInService(SignInRepo()),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => UserState()..loadCurrentUser(),
-        ),
-      ],
-      child: const MyApp(),
-    ),
-  );
+    // Run the app
+    runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (_) => SignUpService(SignUpRepo()),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => SignInService(SignInRepo()),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => UserState()..loadCurrentUser(),
+          ),
+          ChangeNotifierProvider(create: (_) => UserLocation()),
+        ],
+        child: const MyApp(),
+      ),
+    );
+  }, (error, stackTrace) {
+    // Log any uncaught Dart errors
+    log('Uncaught error: $error', stackTrace: stackTrace);
+    debugPrint('Uncaught error: $error');
+    debugPrint(stackTrace.toString());
+  });
 }
 
 class MyApp extends StatelessWidget {

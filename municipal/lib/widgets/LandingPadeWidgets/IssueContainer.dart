@@ -3,19 +3,25 @@ import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/Helper/IssueCategory.dart';
 import 'package:municipal/models/ModelProvider.dart';
 import 'package:municipal/Page/PostPage.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-class IssueContainer extends StatelessWidget {
-  final Issue issue;
+class IssueContainer extends StatefulWidget {
+  Issue issue;
   final double destination;
   final VoidCallback onPressed;
 
-  const IssueContainer({
+  IssueContainer({
     super.key,
     required this.issue,
     required this.destination,
     required this.onPressed,
   });
 
+  @override
+  State<IssueContainer> createState() => _IssueContainerState();
+}
+
+class _IssueContainerState extends State<IssueContainer> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,33 +46,29 @@ class IssueContainer extends StatelessWidget {
                     topLeft: Radius.circular(textFieldBorderRadius),
                     topRight: Radius.circular(textFieldBorderRadius),
                   ),
-                  child: issue.imageUrls != null && issue.imageUrls!.isNotEmpty
-                      ? Image.network(
-                          issue.imageUrls!.first,
+                  child: widget.issue.imageUrls != null &&
+                          widget.issue.imageUrls!.isNotEmpty
+                      ? CachedNetworkImage(
+                          imageUrl: widget.issue.imageUrls!.first,
                           fit: BoxFit.cover,
                           width: double.infinity,
                           height: 200,
-                          loadingBuilder: (context, child, progress) {
-                            if (progress == null) return child;
-                            return Container(
-                              width: double.infinity,
-                              height: 200,
-                              color: Colors.grey[200],
-                              child: const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                            );
-                          },
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              width: double.infinity,
-                              height: 200,
-                              color: Colors.grey[200],
-                              child: const Center(
-                                child: Icon(Icons.broken_image, size: 50),
-                              ),
-                            );
-                          },
+                          placeholder: (context, url) => Container(
+                            width: double.infinity,
+                            height: 200,
+                            color: Colors.grey[200],
+                            child: const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => Container(
+                            width: double.infinity,
+                            height: 200,
+                            color: Colors.grey[200],
+                            child: const Center(
+                              child: Icon(Icons.broken_image, size: 50),
+                            ),
+                          ),
                         )
                       : Container(
                           width: double.infinity,
@@ -90,7 +92,7 @@ class IssueContainer extends StatelessWidget {
                         Icons.close,
                         color: Colors.grey,
                       ),
-                      onPressed: onPressed,
+                      onPressed: widget.onPressed,
                     ),
                   ),
                 ),
@@ -101,7 +103,14 @@ class IssueContainer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PostPage(issue: issue),
+                    builder: (context) => PostPage(
+                      issue: widget.issue,
+                      onIssueUpdated: (updatedIssue) {
+                        setState(() {
+                          widget.issue = updatedIssue;
+                        });
+                      },
+                    ),
                   ),
                 );
               },
@@ -124,13 +133,13 @@ class IssueContainer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          issue.category.toString().split('.').last ??
+                          widget.issue.category.toString().split('.').last ??
                               "Unknown Category",
                           style: textFont.copyWith(
                               color: textColor, fontSize: HeadlineSize),
                         ),
                         Text(
-                          '${destination} miles away',
+                          '${widget.destination} miles away',
                           style: textFont.copyWith(
                               color: hintTextColor, fontSize: bodyTextSize),
                         ),

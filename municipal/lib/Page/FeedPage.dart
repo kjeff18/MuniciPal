@@ -113,27 +113,37 @@ class _FeedPageState extends State<FeedPage> {
                 )
               : issues.isEmpty
                   ? const Center(child: Text("No issues found nearby."))
-                  : ListView.builder(
-                      itemCount: issues.length,
-                      itemBuilder: (context, index) {
-                        final issue = issues[index];
-                        final distance = currentPosition == null
-                            ? null // Handle the case when currentPosition is null
-                            : DistanceCalculator.calculateDistanceInMiles(
-                                userLatitude: currentPosition!.latitude,
-                                userLongitude: currentPosition!.longitude,
-                                issueLatitude: issue
-                                    .latitude, // Provide a default value for issue.latitude
-                                issueLongitude: issue
-                                    .longitude, // Provide a default value for issue.longitude
-                              );
-
-                        return FeedContainer(
-                          issue: issue,
-                          userLocation: userLocation,
-                          onPressed: () => print("Clicked on ${issue.id}"),
-                        );
+                  : RefreshIndicator(
+                      onRefresh: () async {
+                        await fetchLocationAndIssues(); // Refresh data on pull
                       },
+                      child: ListView.builder(
+                        itemCount: issues.length,
+                        itemBuilder: (context, index) {
+                          final issue = issues[index];
+                          final distance = currentPosition == null
+                              ? null // Handle the case when currentPosition is null
+                              : DistanceCalculator.calculateDistanceInMiles(
+                                  userLatitude: currentPosition!.latitude,
+                                  userLongitude: currentPosition!.longitude,
+                                  issueLatitude: issue
+                                      .latitude, // Provide a default value for issue.latitude
+                                  issueLongitude: issue
+                                      .longitude, // Provide a default value for issue.longitude
+                                );
+
+                          return FeedContainer(
+                            key: PageStorageKey(issue.id),
+                            issue: issue,
+                            userLocation: userLocation,
+                            onIssueUpdated: (updatedIssue) {
+                              setState(() {
+                                issues[index] = updatedIssue;
+                              });
+                            },
+                          );
+                        },
+                      ),
                     ),
     );
   }

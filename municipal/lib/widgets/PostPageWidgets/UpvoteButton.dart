@@ -9,8 +9,11 @@ import 'dart:convert';
 
 class UpvoteButton extends StatefulWidget {
   final Issue issue;
+  final ValueChanged<int> onUpvoteChange;
 
-  const UpvoteButton({Key? key, required this.issue}) : super(key: key);
+  const UpvoteButton(
+      {Key? key, required this.issue, required this.onUpvoteChange})
+      : super(key: key);
 
   @override
   _UpvoteButtonState createState() => _UpvoteButtonState();
@@ -19,6 +22,7 @@ class UpvoteButton extends StatefulWidget {
 class _UpvoteButtonState extends State<UpvoteButton> {
   bool hasUpvoted = false;
   String? upvoteId;
+  int? upvoteVersion;
   @override
   void initState() {
     super.initState();
@@ -35,6 +39,7 @@ class _UpvoteButtonState extends State<UpvoteButton> {
           listUpvotes(filter: \$filter) {
             items {
               id
+              _version
             }
           }
         }
@@ -48,6 +53,7 @@ class _UpvoteButtonState extends State<UpvoteButton> {
                 'filter': {
                   'citizenId': {'eq': authUser.userId},
                   'issueId': {'eq': widget.issue.id},
+                  '_deleted': {'ne': true},
                 },
               },
             ),
@@ -60,9 +66,11 @@ class _UpvoteButtonState extends State<UpvoteButton> {
       }
       final Map<String, dynamic> jsonData = jsonDecode(response.data!);
       final upvotes = jsonData['listUpvotes']['items'];
+      print("Upvote Status: ${upvotes.isNotEmpty}");
       setState(() {
         hasUpvoted = upvotes.isNotEmpty;
         upvoteId = hasUpvoted ? upvotes.first['id'] : null;
+        upvoteVersion = hasUpvoted ? upvotes.first['_version'] : null;
       });
     } catch (e) {
       print("Error in checkIfUpvoted: $e");
@@ -81,7 +89,7 @@ class _UpvoteButtonState extends State<UpvoteButton> {
 
     try {
       // Fetch the latest issue
-      final fetchQuery = '''
+      const fetchQuery = '''
         query GetIssue(\$id: ID!) {
           getIssue(id: \$id) {
             id
@@ -112,7 +120,7 @@ class _UpvoteButtonState extends State<UpvoteButton> {
 
       if (hasUpvoted) {
         // Decrement upvotes
-        final updateMutation = '''
+        const updateMutation = '''
           mutation UpdateIssue(\$input: UpdateIssueInput!) {
             updateIssue(input: \$input) {
               id
@@ -143,24 +151,36 @@ class _UpvoteButtonState extends State<UpvoteButton> {
         }
 
         // Delete the upvote
-        final deleteMutation = '''
+        const deleteMutation = '''
           mutation DeleteUpvote(\$input: DeleteUpvoteInput!) {
             deleteUpvote(input: \$input) {
               id
+              _version
             }
           }
         ''';
+        // Add a small delay to ensure consistency
+        await Future.delayed(const Duration(milliseconds: 300));
 
         final deleteResponse = await Amplify.API
             .mutate(
               request: GraphQLRequest<String>(
                 document: deleteMutation,
                 variables: {
-                  'input': {'id': upvoteId}, // Pass only the ID of the upvote
+                  'input': {'id': upvoteId, '_version': upvoteVersion},
                 },
               ),
             )
             .response;
+
+        widget.onUpvoteChange(currentUpvotes - 1);
+
+        setState(() {
+          hasUpvoted = false;
+          upvoteId = null;
+          upvoteVersion = null;
+        });
+        print("Upvote Status: $hasUpvoted");
 
         if (deleteResponse.errors.isNotEmpty) {
           throw Exception(
@@ -168,7 +188,7 @@ class _UpvoteButtonState extends State<UpvoteButton> {
         }
       } else {
         // Increment upvotes
-        final updateMutation = '''
+        const updateMutation = '''
           mutation UpdateIssue(\$input: UpdateIssueInput!) {
             updateIssue(input: \$input) {
               id
@@ -199,12 +219,13 @@ class _UpvoteButtonState extends State<UpvoteButton> {
         }
 
         // Create the upvote
-        final createMutation = '''
+        const createMutation = '''
           mutation CreateUpvote(\$input: CreateUpvoteInput!) {
             createUpvote(input: \$input) {
               id
               citizenId
               issueId
+              _version
             }
           }
         ''';
@@ -223,21 +244,21 @@ class _UpvoteButtonState extends State<UpvoteButton> {
             )
             .response;
 
+        widget.onUpvoteChange(currentUpvotes + 1);
+        final Map<String, dynamic> jsonData = jsonDecode(createResponse.data!);
+        final newUpvote = jsonData['createUpvote'];
+        upvoteId = newUpvote['id'];
+        upvoteVersion = newUpvote['_version'];
+
+        setState(() {
+          hasUpvoted = true;
+        });
+
         if (createResponse.errors.isNotEmpty) {
           throw Exception(
               "Error creating upvote: ${createResponse.errors.first.message}");
         }
       }
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content:
-              Text(hasUpvoted ? "Upvote removed." : "Upvoted successfully."),
-        ),
-      );
-
-      // Refresh state
-      await checkIfUpvoted();
     } catch (e) {
       print("Error in upVoteButton: $e");
       ScaffoldMessenger.of(context).showSnackBar(

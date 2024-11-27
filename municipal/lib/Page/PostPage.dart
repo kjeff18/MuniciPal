@@ -13,9 +13,14 @@ import 'package:provider/provider.dart';
 import 'package:municipal/widgets/PostPageWidgets/UpvoteButton.dart';
 
 class PostPage extends StatefulWidget {
-  final Issue issue;
+  Issue issue;
+  final ValueChanged<Issue> onIssueUpdated;
 
-  const PostPage({super.key, required this.issue});
+  PostPage({
+    super.key,
+    required this.issue,
+    required this.onIssueUpdated,
+  });
 
   @override
   State<PostPage> createState() => _PostPageState();
@@ -79,7 +84,15 @@ class _PostPageState extends State<PostPage> {
             const SizedBox(height: 16),
             Row(
               children: [
-                UpvoteButton(issue: widget.issue),
+                UpvoteButton(
+                  issue: widget.issue,
+                  onUpvoteChange: (upvotes) {
+                    setState(() {
+                      widget.issue = widget.issue.copyWith(upvotes: upvotes);
+                    });
+                    widget.onIssueUpdated(widget.issue);
+                  },
+                ),
                 Text(
                   "${widget.issue.upvotes} upvotes",
                   style: textFont.copyWith(

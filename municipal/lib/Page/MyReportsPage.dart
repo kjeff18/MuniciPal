@@ -89,16 +89,25 @@ class _MyReportsPageState extends State<MyReportsPage> {
                 )
               : myReports.isEmpty
                   ? const Center(child: Text("You have no reports."))
-                  : ListView.builder(
-                      itemCount: myReports.length,
-                      itemBuilder: (context, index) {
-                        final report = myReports[index];
-                        return FeedContainer(
-                          issue: report,
-                          userLocation: userLocation,
-                          onPressed: () => print("Clicked on ${report.id}"),
-                        );
+                  : RefreshIndicator(
+                      onRefresh: () async {
+                        await fetchUserReports(); // Refresh data on pull
                       },
+                      child: ListView.builder(
+                        itemCount: myReports.length,
+                        itemBuilder: (context, index) {
+                          final report = myReports[index];
+                          return FeedContainer(
+                            issue: report,
+                            userLocation: userLocation,
+                            onIssueUpdated: (updatedIssue) {
+                              setState(() {
+                                myReports[index] = updatedIssue;
+                              });
+                            },
+                          );
+                        },
+                      ),
                     ),
     );
   }
