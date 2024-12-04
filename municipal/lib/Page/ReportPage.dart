@@ -309,7 +309,7 @@ class _ReportPageState extends State<ReportPage> {
                           ),
                         ),
                       ),
-                      ImagePickerSection(onTap: _showCupertinoImagePicker),
+                      ImagePickerSection(onTap: _showCupertinoImagePicker, selectedImage: _image,),
                       CustomButton(
                           text: "Submit",
                           onPressed: _submitReport,
