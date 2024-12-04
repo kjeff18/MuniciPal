@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart'
-    as google_maps_flutter;
+import 'package:google_maps_flutter/google_maps_flutter.dart' as google_maps_flutter;
 import 'package:municipal/DesingContstant.dart';
-import 'package:municipal/Helper/IssueCategory.dart';
+import 'package:municipal/Helper/ReportType.dart';
 import 'package:municipal/Page/ProfilePage.dart';
 import 'package:municipal/models/ModelProvider.dart';
 import 'package:geohash_plus/geohash_plus.dart';
@@ -28,7 +27,7 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   double offTheScreenPos = -500;
   late IssueCategory issueCategoryClick;
-  late Issue selectedIssue;
+  Issue? selectedIssue;  // Initialize as nullable
   google_maps_flutter.BitmapDescriptor customMarker =
       google_maps_flutter.BitmapDescriptor.defaultMarker;
   late google_maps_flutter.GoogleMapController mapController;
@@ -39,7 +38,7 @@ class _LandingPageState extends State<LandingPage> {
   google_maps_flutter.CameraPosition? _currentCameraPosition;
   bool isMapControllerInitialized = false;
   bool _isQuickReportVisible = false;
-  bool _isIssueContainerVisible = false;
+  bool _isIssueContainerVisible = false;  // Controls visibility
   bool _isUserInteractingWithMap = false;
   bool _hasCenteredOnUser = false;
   Timer? _recenterTimer;
@@ -171,9 +170,19 @@ class _LandingPageState extends State<LandingPage> {
 
   void _mapMarkerButton(Issue issue) {
     setState(() {
-      issueCategoryClick = issue.category!;
       selectedIssue = issue;
-      _isIssueContainerVisible = true;
+    });
+    // Only show the issue container after the issue is selected
+    if (selectedIssue != null) {
+      setState(() {
+        _isIssueContainerVisible = true;
+      });
+    }
+  }
+
+  void _XButtonIssueContainerClick() {
+    setState(() {
+      _isIssueContainerVisible = false;  // Hide the issue container
     });
   }
 
@@ -184,21 +193,11 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
-  void _XButtonIssueContainerClick() {
-    setState(() {
-      _isIssueContainerVisible = false;
-    });
-  }
-
   void _reportMenuClick() {
     setState(() {
       _isQuickReportVisible = !_isQuickReportVisible;
       position = _isQuickReportVisible ? 1 : 0.15;
     });
-  }
-
-  void _quickReportButton(String quickReportIssueType) {
-    print(quickReportIssueType);
   }
 
   @override
@@ -222,29 +221,43 @@ class _LandingPageState extends State<LandingPage> {
           ),
           QuickReportSection(
             isVisible: _isQuickReportVisible,
-            onReportButtonPressed: _quickReportButton,
+            onReportButtonPressed: (issueType) {
+              print(issueType);
+            },
           ),
-          if (_isIssueContainerVisible)
-            Positioned(
-              bottom: screenSize.height * 0.004,
+          // IssueContainer Animation
+         AnimatedPositioned(
+          duration:  Duration(milliseconds: animationDuration ),
+          curve: Curves.easeInOut,
+          bottom: _isIssueContainerVisible ? screenSize.height * 0.02 : -100,
+          left: 0,
+          right: 0,
+          child: AnimatedOpacity(
+            duration:  Duration(milliseconds: animationDuration),
+            opacity: _isIssueContainerVisible ? 1.0 : 0.0,
+            curve: Curves.bounceIn,
+            child: Visibility(
+              visible: _isIssueContainerVisible && selectedIssue != null,
               child: Container(
                 width: screenSize.width,
                 height: 330,
-                child: IssueContainer(
-                  issue: selectedIssue,
-                  destination: userLocation.currentPosition != null
-                      ? DistanceCalculator.calculateDistanceInMiles(
+                child: selectedIssue != null && userLocation.currentPosition != null
+                    ? IssueContainer(
+                        issue: selectedIssue!,
+                        destination: DistanceCalculator.calculateDistanceInMiles(
                           userLatitude: userLocation.currentPosition!.latitude,
-                          userLongitude:
-                              userLocation.currentPosition!.longitude,
-                          issueLatitude: selectedIssue.latitude,
-                          issueLongitude: selectedIssue.longitude,
-                        )
-                      : 0.0,
-                  onPressed: _XButtonIssueContainerClick,
-                ),
-              ),
-            ),
+                          userLongitude: userLocation.currentPosition!.longitude,
+                          issueLatitude: selectedIssue!.latitude,
+                          issueLongitude: selectedIssue!.longitude,
+                        ),
+                        onPressed: _XButtonIssueContainerClick,
+                      )
+                    : SizedBox.shrink(), // Returns an empty widget if either is null
+      ),
+    ),
+  ),
+)
+
         ],
       ),
     );
