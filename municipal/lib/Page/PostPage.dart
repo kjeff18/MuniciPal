@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
-import 'package:municipal/Helper/IssueCategory.dart';
+import 'package:municipal/Helper/ReportType.dart';
 import 'package:municipal/models/ModelProvider.dart';
 import 'package:municipal/widgets/CustomAppBar.dart';
 import 'package:municipal/widgets/FeedPageWidgets/CustomProgressIndicator.dart';
@@ -170,7 +170,7 @@ class _PostPageState extends State<PostPage> {
                                       }
                                       return SimilarPostDescription(
                                         username:
-                                            report.citizenName ?? "Anonymous",
+                                            report.citizenName,
                                         description: report.description!,
                                         createdAt: report.createdAt.toString(),
                                       );

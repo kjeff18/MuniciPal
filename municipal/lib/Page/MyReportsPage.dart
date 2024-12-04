@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
+import 'package:municipal/Page/UpdatePage.dart';
 import 'package:municipal/models/IssueStatus.dart';
 import 'package:municipal/models/ModelProvider.dart';
 import 'package:municipal/widgets/CustomAppBar.dart';
@@ -49,15 +50,19 @@ class _MyReportsPageState extends State<MyReportsPage> {
       );
       debugPrint("Reports retrieved: ${reports.length}");
 
-      setState(() {
-        myReports = reports;
-        isLoading = false;
-      });
+      if (mounted) {  // Ensure the widget is still mounted before calling setState
+        setState(() {
+          myReports = reports;
+          isLoading = false;
+        });
+      }
     } catch (e) {
-      setState(() {
-        hasError = true;
-        isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          hasError = true;
+          isLoading = false;
+        });
+      }
       debugPrint("Error fetching reports: $e");
     }
   }
@@ -68,7 +73,13 @@ class _MyReportsPageState extends State<MyReportsPage> {
       appBar: CustomAppBar(
         title: "My Reports",
         showBellIcon: true,
-        onPressed: () => print("Bell icon pressed"),
+        onPressed: () =>
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const UpdatePage(),
+            ),
+          ),
       ),
       backgroundColor: backgroundColor,
       body: isLoading

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as google_maps_flutter;
 import 'package:municipal/DesingContstant.dart';
-import 'package:municipal/Helper/IssueCategory.dart';
+import 'package:municipal/Helper/ReportType.dart';
 import 'package:municipal/models/ModelProvider.dart';
 
 class PostNMapContainer extends StatefulWidget {
