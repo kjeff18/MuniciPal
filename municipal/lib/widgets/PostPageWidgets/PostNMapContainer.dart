@@ -1,34 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart'
-    as google_maps_flutter;
+import 'package:google_maps_flutter/google_maps_flutter.dart' as google_maps_flutter;
 import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/Helper/IssueCategory.dart';
 import 'package:municipal/models/ModelProvider.dart';
 
-class PostNMapContainer extends StatelessWidget {
+class PostNMapContainer extends StatefulWidget {
   final Issue issue;
 
   const PostNMapContainer({super.key, required this.issue});
 
+  @override
+  _PostNMapContainerState createState() => _PostNMapContainerState();
+}
+
+class _PostNMapContainerState extends State<PostNMapContainer> {
+  google_maps_flutter.Marker? _cachedMarker;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadMarker();
+  }
+
+  Future<void> _loadMarker() async {
+    // Only load the marker once to avoid fetching it every time the widget rebuilds
+    if (_cachedMarker == null) {
+      final marker = await getMarker();
+      setState(() {
+        _cachedMarker = marker;
+      });
+    }
+  }
+
   Future<google_maps_flutter.Marker> getMarker() async {
-    if (issue.category != null &&
-        IssueCategory.values.contains(issue.category)) {
-      final iconPath = ReportType.getBubbleIconPath(issue.category!);
+    if (widget.issue.category != null &&
+        IssueCategory.values.contains(widget.issue.category)) {
+      final iconPath = ReportType.getBubbleIconPath(widget.issue.category!);
       if (iconPath != null) {
         final icon = await google_maps_flutter.BitmapDescriptor.asset(
-          const ImageConfiguration(size: Size(48, 48)),
+          const ImageConfiguration(size: Size(50, 50)),
           iconPath,
         );
         return google_maps_flutter.Marker(
-          markerId: google_maps_flutter.MarkerId(issue.id),
-          position: google_maps_flutter.LatLng(issue.latitude, issue.longitude),
+          markerId: google_maps_flutter.MarkerId(widget.issue.id),
+          position: google_maps_flutter.LatLng(widget.issue.latitude, widget.issue.longitude),
           icon: icon,
         );
       }
     }
+    // If no icon path is found, just return a default marker without an icon
     return google_maps_flutter.Marker(
-      markerId: google_maps_flutter.MarkerId(issue.id),
-      position: google_maps_flutter.LatLng(issue.latitude, issue.longitude),
+      markerId: google_maps_flutter.MarkerId(widget.issue.id),
+      position: google_maps_flutter.LatLng(widget.issue.latitude, widget.issue.longitude),
     );
   }
 
@@ -45,33 +68,19 @@ class PostNMapContainer extends StatelessWidget {
           Radius.circular(textFieldBorderRadius),
         ),
       ),
-      child: FutureBuilder<google_maps_flutter.Marker>(
-        future: getMarker(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // Show a loading spinner while the marker is being resolved
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            // Handle errors
-            return const Center(
-              child: Text("Failed to load marker."),
-            );
-          } else if (snapshot.hasData) {
-            final marker = snapshot.data!;
-            return PageView(
+      child: _cachedMarker == null
+          ? const Center(child: CircularProgressIndicator()) // Show a loading spinner until the marker is available
+          : PageView(
               controller: PageController(viewportFraction: 1),
               scrollDirection: Axis.horizontal,
               children: [
                 // First page - Image carousel
-                if (issue.imageUrls != null && issue.imageUrls!.isNotEmpty)
-                  ...issue.imageUrls!.map((url) {
+                if (widget.issue.imageUrls != null && widget.issue.imageUrls!.isNotEmpty)
+                  ...widget.issue.imageUrls!.map((url) {
                     return Image.network(
                       url,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) =>
-                          const Center(
+                      errorBuilder: (context, error, stackTrace) => const Center(
                         child: Icon(
                           Icons.broken_image,
                           color: Colors.grey,
@@ -88,12 +97,12 @@ class PostNMapContainer extends StatelessWidget {
                 google_maps_flutter.GoogleMap(
                   initialCameraPosition: google_maps_flutter.CameraPosition(
                     target: google_maps_flutter.LatLng(
-                      issue.latitude,
-                      issue.longitude,
+                      widget.issue.latitude,
+                      widget.issue.longitude,
                     ),
                     zoom: 15,
                   ),
-                  markers: {marker},
+                  markers: {_cachedMarker!},
                   zoomControlsEnabled: false,
                   rotateGesturesEnabled: false,
                   tiltGesturesEnabled: false,
@@ -101,15 +110,7 @@ class PostNMapContainer extends StatelessWidget {
                   mapType: google_maps_flutter.MapType.normal,
                 ),
               ],
-            );
-          } else {
-            // Handle unexpected cases
-            return const Center(
-              child: Text("No marker data available."),
-            );
-          }
-        },
-      ),
+            ),
     );
   }
 }
