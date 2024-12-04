@@ -96,7 +96,7 @@ class RequestForProposal extends amplify_core.Model {
     }
   }
   
-  RFPStatus get status {
+ RFPStatus get status {
     try {
       return _status!;
     } catch(e) {
@@ -230,7 +230,7 @@ class RequestForProposal extends amplify_core.Model {
     ModelFieldValue<String?>? description,
     ModelFieldValue<String>? pdfUrl,
     ModelFieldValue<amplify_core.TemporalDateTime>? deadline,
-    ModelFieldValue<RFPStatus>? status,
+    ModelFieldValue <RFPStatus>? status,
     ModelFieldValue<String>? governmentId,
     ModelFieldValue<String?>? contractId,
     ModelFieldValue<List<Bid>?>? bids,

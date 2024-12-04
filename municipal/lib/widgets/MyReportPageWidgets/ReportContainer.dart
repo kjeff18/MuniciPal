@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
-import 'package:municipal/Helper/IssueCategory.dart';
+import 'package:municipal/Helper/ReportType.dart';
 import 'package:municipal/models/ModelProvider.dart';
 import 'package:municipal/widgets/FeedPageWidgets/CustomProgressIndicator.dart';
 import 'package:municipal/Helper/DistanceCalculator.dart';
