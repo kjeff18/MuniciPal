@@ -41,6 +41,7 @@ class _LandingPageState extends State<LandingPage> {
   bool _isQuickReportVisible = false;
   bool _isIssueContainerVisible = false;
   bool _isUserInteractingWithMap = false;
+  bool _hasCenteredOnUser = false;
   Timer? _recenterTimer;
 
   Set<google_maps_flutter.Marker> markers = {};
@@ -65,17 +66,22 @@ class _LandingPageState extends State<LandingPage> {
   void startLocationUpdates() {
     final userLocation = Provider.of<UserLocation>(context, listen: false);
     userLocation.startLocationStream((google_maps_flutter.LatLng position) {
-      if (!_isUserInteractingWithMap && _currentCameraPosition != null) {
+      if (!_hasCenteredOnUser && isMapControllerInitialized) {
+        // Center the map only once when the location is first loaded
+        mapController.animateCamera(
+          google_maps_flutter.CameraUpdate.newCameraPosition(
+            google_maps_flutter.CameraPosition(target: position, zoom: 15),
+          ),
+        );
+        _hasCenteredOnUser = true; // Mark that the map has been centered
+      }
+
+      // Update the camera position only if the user is not interacting
+      if (!_isUserInteractingWithMap) {
         setState(() {
           _currentCameraPosition =
               google_maps_flutter.CameraPosition(target: position, zoom: 15);
         });
-
-        if (isMapControllerInitialized) {
-          mapController.animateCamera(
-            google_maps_flutter.CameraUpdate.newLatLng(position),
-          );
-        }
       }
     });
   }

@@ -7,9 +7,14 @@ class UserLocation extends ChangeNotifier {
   StreamSubscription<Position>? _positionStreamSubscription;
   LatLng? currentPosition;
 
+  // Mock location for testing
+  static const LatLng mockLocation =
+      LatLng(30.407470560318153, -91.18010735074873);
+
   UserLocation() {
     startLocationStream((LatLng position) {
       currentPosition = position;
+      notifyListeners();
     });
   }
 
@@ -28,7 +33,13 @@ class UserLocation extends ChangeNotifier {
         }
       },
       onError: (e) {
-        print(e); // Handle errors
+        print("Error fetching location: $e");
+        if (currentPosition == null) {
+          // Use fallback location if location data is not available
+          currentPosition = mockLocation;
+          onLocationUpdate(currentPosition!);
+          notifyListeners();
+        }
       },
     );
   }
