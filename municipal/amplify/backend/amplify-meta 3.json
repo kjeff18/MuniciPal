@@ -1,0 +1,260 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-municipal-dev-e9c39-authRole",
+      "UnauthRoleArn": "arn:aws:iam::471112514403:role/amplify-municipal-dev-e9c39-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::471112514403:role/amplify-municipal-dev-e9c39-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-municipal-dev-e9c39-deployment",
+      "UnauthRoleName": "amplify-municipal-dev-e9c39-unauthRole",
+      "StackName": "amplify-municipal-dev-e9c39",
+      "StackId": "arn:aws:cloudformation:us-east-2:471112514403:stack/amplify-municipal-dev-e9c39/efb5bbf0-84b0-11ef-8866-0239578d3975",
+      "AmplifyAppId": "d1ebndlaaqcnwm",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-municipal-dev-e9c39-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    }
+  },
+  "function": {
+    "municipal6e3c111bPostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "lastBuildTimeStamp": "2024-11-24T02:26:29.348Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2024-11-24T02:26:29.544Z",
+      "distZipFilename": "municipal6e3c111bPostConfirmation-356e48714b677630676a-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-municipal-dev-e9c39-deployment",
+        "s3Key": "amplify-builds/municipal6e3c111bPostConfirmation-356e48714b677630676a-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-municipal-dev-e9c39-deployment/amplify-cfn-templates/function/municipal6e3c111bPostConfirmation-cloudformation-template.json",
+        "logicalId": "functionmunicipal6e3c111bPostConfirmation"
+      },
+      "lastPushTimeStamp": "2024-11-24T02:42:34.206Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::471112514403:role/municipal6e3c111bPostConfirmation-dev",
+        "Region": "us-east-2",
+        "Arn": "arn:aws:lambda:us-east-2:471112514403:function:municipal6e3c111bPostConfirmation-dev",
+        "Name": "municipal6e3c111bPostConfirmation-dev",
+        "LambdaExecutionRole": "municipal6e3c111bPostConfirmation-dev"
+      },
+      "lastPushDirHash": "gC0d1vPlw6zr4j7KDNnyVxvL+uw="
+    },
+    "AdminQueries336d69e2": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true,
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "municipal6e3c111b",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "lastBuildTimeStamp": "2024-11-24T02:26:27.829Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2024-11-24T02:26:28.457Z",
+      "distZipFilename": "AdminQueries336d69e2-6f4f35516b3444383364-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-municipal-dev-e9c39-deployment",
+        "s3Key": "amplify-builds/AdminQueries336d69e2-6f4f35516b3444383364-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-municipal-dev-e9c39-deployment/amplify-cfn-templates/function/AdminQueries336d69e2-cloudformation-template.json",
+        "logicalId": "functionAdminQueries336d69e2"
+      },
+      "lastPushTimeStamp": "2024-11-24T02:42:34.208Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::471112514403:role/AdminQueries336d69e2LambdaRole-dev",
+        "Region": "us-east-2",
+        "Arn": "arn:aws:lambda:us-east-2:471112514403:function:AdminQueries336d69e2-dev",
+        "Name": "AdminQueries336d69e2-dev",
+        "LambdaExecutionRole": "AdminQueries336d69e2LambdaRole-dev"
+      },
+      "lastPushDirHash": "CS44Te5qK37nj0AQtpJBySUeXRs="
+    }
+  },
+  "auth": {
+    "municipal6e3c111b": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "municipal6e3c111bPostConfirmation",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "ADDRESS",
+          "EMAIL",
+          "FAMILY_NAME",
+          "NAME",
+          "PREFERRED_USERNAME"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "lastPushTimeStamp": "2024-11-24T02:42:34.734Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-municipal-dev-e9c39-deployment/amplify-cfn-templates/auth/municipal6e3c111b-cloudformation-template.json",
+        "logicalId": "authmunicipal6e3c111b"
+      },
+      "output": {
+        "UserPoolId": "us-east-2_gnAJYjcAI",
+        "AppClientIDWeb": "58jq4hbpi3mthi32ntbo9rhe23",
+        "AppClientID": "76j7pk36gvnauho6iorjgfca48",
+        "IdentityPoolId": "us-east-2:11cf5e10-2c2f-4cee-9b25-c5b599f2734b",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-2:471112514403:userpool/us-east-2_gnAJYjcAI",
+        "IdentityPoolName": "municipal6e3c111b_identitypool_6e3c111b__dev",
+        "UserPoolName": "municipal6e3c111b_userpool_6e3c111b"
+      },
+      "lastPushDirHash": "p/rYYjsndOMTXskCAUEAQN0Qgyc="
+    },
+    "userPoolGroups": {
+      "service": "Cognito-UserPool-Groups",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "municipal6e3c111b",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ]
+        }
+      ],
+      "lastPushTimeStamp": "2024-11-24T02:42:34.210Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-municipal-dev-e9c39-deployment/amplify-cfn-templates/auth/userPoolGroups-cloudformation-template.json",
+        "logicalId": "authuserPoolGroups"
+      },
+      "output": {
+        "GovernmentsGroupRole": "arn:aws:iam::471112514403:role/us-east-2_gnAJYjcAI-GovernmentsGroupRole",
+        "CitizensGroupRole": "arn:aws:iam::471112514403:role/us-east-2_gnAJYjcAI-CitizensGroupRole",
+        "ContractorsGroupRole": "arn:aws:iam::471112514403:role/us-east-2_gnAJYjcAI-ContractorsGroupRole",
+        "GovernmentGroupRole": "arn:aws:iam::471112514403:role/us-east-2_gnAJYjcAI-GovernmentGroupRole",
+        "ContractorGroupRole": "arn:aws:iam::471112514403:role/us-east-2_gnAJYjcAI-ContractorGroupRole",
+        "CitizenGroupRole": "arn:aws:iam::471112514403:role/us-east-2_gnAJYjcAI-CitizenGroupRole"
+      },
+      "lastPushDirHash": "OPj9PqRB7vptV3XhKJGRL0bmHnM="
+    }
+  },
+  "api": {
+    "municipal": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "municipal6e3c111b",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authmunicipal6e3c111b"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 180,
+                "apiKeyExpirationDate": "2025-04-05T13:58:37.972Z",
+                "description": "MuniciPal GraphQL API key"
+              }
+            }
+          ]
+        },
+        "GraphQLAPIIdOutput": "h75tcs7mlvhjbku6qx6jn4cbsy",
+        "GraphQLAPIEndpointOutput": "https://pvue6drwyzeffg4uvtercps5v4.appsync-api.us-east-2.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-5einfipcmrglplao4cqpinlm3u"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-municipal-dev-e9c39-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apimunicipal"
+      },
+      "lastPushTimeStamp": "2024-11-24T02:42:34.210Z",
+      "lastPushDirHash": "/EBYC/iABqQcTxJ61MVXKjG8GCM="
+    },
+    "AdminQueries": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "municipal6e3c111b",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "AdminQueries336d69e2",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-municipal-dev-e9c39-deployment/amplify-cfn-templates/api/AdminQueries-cloudformation-template.json",
+        "logicalId": "apiAdminQueries"
+      },
+      "lastPushTimeStamp": "2024-11-24T02:42:34.211Z",
+      "output": {
+        "ApiName": "AdminQueries",
+        "RootUrl": "https://eh4g633a82.execute-api.us-east-2.amazonaws.com/dev",
+        "ApiId": "eh4g633a82"
+      },
+      "lastPushDirHash": "HZS6UVFmVsOiVj66WPs7YwkTrVI="
+    }
+  },
+  "storage": {
+    "MuniciPalImages": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "lastPushTimeStamp": "2024-11-24T02:42:34.212Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-municipal-dev-e9c39-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
+        "logicalId": "storageMuniciPalImages"
+      },
+      "output": {
+        "BucketName": "municipaldda0c95ca6ff41c2b9e44568f0cded69e9c39-dev",
+        "Region": "us-east-2"
+      },
+      "lastPushDirHash": "VhZvUOmQvrt96fXmjW/QsODnx1M="
+    }
+  }
+}
