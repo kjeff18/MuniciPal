@@ -3,7 +3,7 @@ import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/models/IssueStatus.dart';
 import 'package:municipal/models/ModelProvider.dart';
 import 'package:municipal/widgets/CustomAppBar.dart';
-import 'package:municipal/widgets/FeedPageWidgets/FeedContainer.dart';
+import 'package:municipal/widgets/MyReportPageWidgets/ReportContainer.dart';
 import 'package:municipal/Repositories/APIRepo.dart';
 import 'package:provider/provider.dart';
 import 'package:municipal/model/UserState.dart';
@@ -19,7 +19,7 @@ class MyReportsPage extends StatefulWidget {
 class _MyReportsPageState extends State<MyReportsPage> {
   bool isLoading = true; // Indicates if data is being fetched
   bool hasError = false; // Tracks if an error occurred during data retrieval
-  List<Issue> myReports = []; // List of retrieved reports
+  List<Report> myReports = []; // List of retrieved reports
   final UserLocation userLocation = UserLocation();
 
   @override
@@ -43,11 +43,19 @@ class _MyReportsPageState extends State<MyReportsPage> {
       debugPrint("Authenticated user ID: ${authUser.userId}");
 
       // Fetch reports where citizenId matches the user's ID
-      final reports = await APIWrapper().readData<Issue>(
-        Issue.classType,
-        filters: Issue.CITIZENID.eq(authUser.userId),
+      final reports = await APIWrapper().readData<Report>(
+        Report.classType,
+        filters: Report.CITIZENID.eq(authUser.userId),
       );
       debugPrint("Reports retrieved: ${reports.length}");
+
+      // Sort reports by createdAt in descending order (most recent first)
+      reports.sort((a, b) {
+        if (a.createdAt == null && b.createdAt == null) return 0;
+        if (a.createdAt == null) return 1; // Nulls go last
+        if (b.createdAt == null) return -1;
+        return b.createdAt!.compareTo(a.createdAt!);
+      });
 
       setState(() {
         myReports = reports;
@@ -97,14 +105,9 @@ class _MyReportsPageState extends State<MyReportsPage> {
                         itemCount: myReports.length,
                         itemBuilder: (context, index) {
                           final report = myReports[index];
-                          return FeedContainer(
-                            issue: report,
+                          return ReportContainer(
+                            report: report,
                             userLocation: userLocation,
-                            onIssueUpdated: (updatedIssue) {
-                              setState(() {
-                                myReports[index] = updatedIssue;
-                              });
-                            },
                           );
                         },
                       ),

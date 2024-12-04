@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart'
 import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/Helper/IssueCategory.dart';
 import 'package:municipal/models/ModelProvider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class PostNMapContainer extends StatelessWidget {
   final Issue issue;
@@ -67,11 +68,10 @@ class PostNMapContainer extends StatelessWidget {
                 // First page - Image carousel
                 if (issue.imageUrls != null && issue.imageUrls!.isNotEmpty)
                   ...issue.imageUrls!.map((url) {
-                    return Image.network(
-                      url,
+                    return CachedNetworkImage(
+                      imageUrl: url,
                       fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) =>
-                          const Center(
+                      errorWidget: (context, error, stackTrace) => const Center(
                         child: Icon(
                           Icons.broken_image,
                           color: Colors.grey,
@@ -79,7 +79,7 @@ class PostNMapContainer extends StatelessWidget {
                         ),
                       ),
                     );
-                  }).toList()
+                  })
                 else
                   const Center(
                     child: Text("No images available."),
