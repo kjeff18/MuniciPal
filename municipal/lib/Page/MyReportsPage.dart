@@ -8,6 +8,7 @@ import 'package:municipal/Repositories/APIRepo.dart';
 import 'package:provider/provider.dart';
 import 'package:municipal/model/UserState.dart';
 import 'package:municipal/Helper/UserLocation.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class MyReportsPage extends StatefulWidget {
   const MyReportsPage({super.key});
@@ -56,6 +57,13 @@ class _MyReportsPageState extends State<MyReportsPage> {
         if (b.createdAt == null) return -1;
         return b.createdAt!.compareTo(a.createdAt!);
       });
+
+      for (final report in reports) {
+        if (report.imageUrl != null && report.imageUrl!.isNotEmpty) {
+          CachedNetworkImageProvider(report.imageUrl!)
+              .resolve(const ImageConfiguration());
+        }
+      }
 
       setState(() {
         myReports = reports;
@@ -106,6 +114,7 @@ class _MyReportsPageState extends State<MyReportsPage> {
                         itemBuilder: (context, index) {
                           final report = myReports[index];
                           return ReportContainer(
+                            key: ValueKey(report.id),
                             report: report,
                             userLocation: userLocation,
                           );
