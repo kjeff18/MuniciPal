@@ -1,61 +1,75 @@
 /* Main container for the page */
 .map-page {
   display: flex;
-  flex-direction: column; /* Stack header and map */
+  flex-direction: column;
+  /* Stack header and map */
   align-items: center;
   height: 100vh;
 
   width: 100vw;
   background-color: #ffffff;
   overflow: hidden;
-  padding: 10px; /* Add padding to ensure space around the map */
+  padding: 10px;
+  /* Add padding to ensure space around the map */
 }
 
 /* Header container with logo and icons */
 .header {
   display: flex;
-  justify-content: space-between; /* Space between logo and icons */
+  justify-content: space-between;
+  /* Space between logo and icons */
   align-items: center;
-  width: 98%; /* Full width of the page */
+  width: 98%;
+  /* Full width of the page */
   padding: 10px 20px;
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 2;
-  border-radius: 10px; /* Slightly rounded header corners */
-  margin-bottom: 15px; /* Gap between header and map */
+  border-radius: 10px;
+  /* Slightly rounded header corners */
+  margin-bottom: 15px;
+  /* Gap between header and map */
 }
 
 /* Logo container */
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 20px; /* Increase space between logo and title image */
-  margin-left: 20px; /* Push the entire logo-container to the right */
+  gap: 20px;
+  /* Increase space between logo and title image */
+  margin-left: 20px;
+  /* Push the entire logo-container to the right */
 }
 
 .logo {
-  width: 50px; /* Adjust logo size */
+  width: 50px;
+  /* Adjust logo size */
   height: auto;
-  margin-right: 10px; /* Add space between logo and title image if needed */
+  margin-right: 10px;
+  /* Add space between logo and title image if needed */
 }
 
 /* Title image styling */
 .title-image {
-  height: 60px; /* Adjust height of the title image */
-  width: auto; /* Maintain aspect ratio */
+  height: 60px;
+  /* Adjust height of the title image */
+  width: auto;
+  /* Maintain aspect ratio */
 }
 
 /* Menu icons container */
 .menu-icons {
   display: flex;
   align-items: center;
-  gap: 50px; /* Space between icons */
+  gap: 50px;
+  /* Space between icons */
   margin-left: auto;
 }
 
 .icon-button {
   display: flex;
-  flex-direction: column; /* Icon above text */
+  flex-direction: column;
+  /* Icon above text */
   align-items: center;
   justify-content: center;
   background: none;
@@ -68,8 +82,10 @@
 
 /* Highlight the active icon */
 .icon-button.active {
-  color: #0056b3; /* Highlighted color */
-  font-weight: bold; /* Make the label bold */
+  color: #0056b3;
+  /* Highlighted color */
+  font-weight: bold;
+  /* Make the label bold */
 }
 
 .icon-button:hover {
@@ -77,8 +93,10 @@
 }
 
 .icon {
-  font-size: 20px; /* Icon size */
-  margin-bottom: 5px; /* Space between icon and label */
+  font-size: 20px;
+  /* Icon size */
+  margin-bottom: 5px;
+  /* Space between icon and label */
 }
 
 .account-menu {
@@ -95,7 +113,8 @@
 
 .dropdown-menu {
   position: absolute;
-  top: 110%; /* Slightly below the button */
+  top: 110%;
+  /* Slightly below the button */
   right: 0;
   background-color: #ffffff;
   border-radius: 8px;
@@ -127,14 +146,19 @@
 /* Map placeholder area */
 .map-placeholder {
   position: relative;
-  width: calc(100% - 40px); /* Reduce width to create space on left and right */
+  width: calc(100% - 40px);
+  /* Reduce width to create space on left and right */
   height: 100%;
   background-color: white;
-  border-radius: 20px; /* Rounded edges for the map */
+  border-radius: 20px;
+  /* Rounded edges for the map */
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  flex-grow: 1; /* Allow the map to fill the remaining space */
-  margin: 0 20px; /* Add equal spacing on the left and right */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow */
+  flex-grow: 1;
+  /* Allow the map to fill the remaining space */
+  margin: 0 20px;
+  /* Add equal spacing on the left and right */
 }
 
 /*MyProjects
@@ -143,20 +167,25 @@
 .table-container {
   margin-top: 20px;
   width: 95%;
-  overflow-x: auto; /* Allow horizontal scroll for smaller screens */
+  overflow-x: auto;
+  /* Allow horizontal scroll for smaller screens */
 }
 
 /* Table container */
 .table-container {
-  margin-top: 20px; /* Adds gap between the header and the table */
-  width: 100%; /* Ensures table spans full width */
+  margin-top: 20px;
+  /* Adds gap between the header and the table */
+  width: 100%;
+  /* Ensures table spans full width */
   display: flex;
-  justify-content: center; /* Centers the table horizontally */
+  justify-content: center;
+  /* Centers the table horizontally */
 }
 
 /* Projects table */
 .projects-table {
-  width: 95%; /* Table takes most of the container width */
+  width: 95%;
+  /* Table takes most of the container width */
   border-collapse: collapse;
   background-color: white;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -166,7 +195,8 @@
 
 .projects-table th,
 .projects-table td {
-  padding: 16px; /* Adds padding for readability */
+  padding: 16px;
+  /* Adds padding for readability */
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
@@ -188,8 +218,10 @@
 /* Status container styles */
 .status {
   display: inline-block;
-  padding: 5px 10px; /* Add padding for the badge-like appearance */
-  border-radius: 50px; /* Rounded corners */
+  padding: 5px 10px;
+  /* Add padding for the badge-like appearance */
+  border-radius: 50px;
+  /* Rounded corners */
   font-size: 14px;
   font-weight: bold;
   text-align: center;
@@ -197,36 +229,49 @@
 
 /* Specific status styles */
 .status-open {
-  background-color: #d4edda; /* Light pastel green */
-  color: #155724; /* Darker green text */
+  background-color: #d4edda;
+  /* Light pastel green */
+  color: #155724;
+  /* Darker green text */
 }
 
 .status-in-progress {
-  background-color: #d1ecf1; /* Light pastel blue */
-  color: #0c5460; /* Darker blue text */
+  background-color: #d1ecf1;
+  /* Light pastel blue */
+  color: #0c5460;
+  /* Darker blue text */
 }
 
 .status-closed {
-  background-color: #f8d7da; /* Light pastel red */
-  color: #721c24; /* Darker red text */
+  background-color: #f8d7da;
+  /* Light pastel red */
+  color: #721c24;
+  /* Darker red text */
 }
 
 /* Slide-Over Container */
 /* Light Icon on Map */
 .light-icon-on-map {
   position: absolute;
-  top: 50%; /* Position at the center of the map vertically */
-  left: 50%; /* Position at the center of the map horizontally */
-  transform: translate(-50%, -50%); /* Adjust for exact center */
-  width: 40px; /* Icon size */
+  top: 50%;
+  /* Position at the center of the map vertically */
+  left: 50%;
+  /* Position at the center of the map horizontally */
+  transform: translate(-50%, -50%);
+  /* Adjust for exact center */
+  width: 40px;
+  /* Icon size */
   height: 40px;
   cursor: pointer;
-  z-index: 10; /* Ensure it appears above the map */
-  transition: transform 0.2s ease; /* Smooth hover effect */
+  z-index: 10;
+  /* Ensure it appears above the map */
+  transition: transform 0.2s ease;
+  /* Smooth hover effect */
 }
 
 .light-icon-on-map:hover {
-  transform: translate(-50%, -50%) scale(1.1); /* Slightly enlarge on hover */
+  transform: translate(-50%, -50%) scale(1.1);
+  /* Slightly enlarge on hover */
 }
 
 /* Slide-Over Container */
@@ -248,7 +293,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent background */
   cursor: pointer;
 }
 
@@ -289,10 +335,110 @@
   color: #555;
 }
 
+.report-card {
+  width: 265px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.report-type {
+  justify-content: center;
+  background: #0B2E60;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.report-image {
+  display: flex;
+  width: 20%;
+  height: auto;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.report-content {
+  padding: 15px;
+}
+
+.upvotes {
+  margin-right: 10px;
+  font-size: .8em;
+  color: #0B2E60;
+  font-weight: bold;
+}
+
+.download-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0px;
+  padding: 0px;
+  background: #f9f9f9;
+  border-top: 1px solid #eee;
+}
+
+.download-section img {
+  width: 75px;
+  margin-top: 5px;
+  margin-right: 8px;
+  box-shadow: #0B2E60;
+}
+
+.download-section a {
+  text-decoration: none;
+  color: #0B2E60;
+  font-weight: bold;
+}
+
+.download-section a:hover {
+  text-decoration: underline;
+}
+
+.report-text {
+  color: #0B2E60;
+  margin-top: 25px;
+  margin-left: 10px;
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+.report-name {
+  display: flex;
+}
+
+.light-png {
+  margin-top: 20px;
+  border: 20px;
+}
+
+.light-png img {
+  border: 2px solid #0b2e60;
+  border-radius: 20px;
+}
+
+.contract-icon img {
+  margin-top: 50px;
+}
+
+.description {
+  margin-left: 15px;
+  margin-top: 7px;
+  font-weight: bold;
+  font-size: .8em;
+}
+
 @keyframes slideIn {
   from {
     transform: translateX(100%);
   }
+
   to {
     transform: translateX(0);
   }
