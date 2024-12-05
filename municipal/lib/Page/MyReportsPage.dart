@@ -82,12 +82,18 @@ class _MyReportsPageState extends State<MyReportsPage> {
       appBar: CustomAppBar(
         title: "My Reports",
         showBellIcon: true,
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const UpdatePage(),
-          ),
-        ),
+        onPressed: () {
+          // Extract list of issueIds
+          final issueIds = myReports.map((report) => report.issueId).toList();
+
+          // Navigate to UpdatePage with the issueIds
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => UpdatePage(issueIds: issueIds),
+            ),
+          );
+        },
       ),
       backgroundColor: backgroundColor,
       body: isLoading
