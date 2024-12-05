@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock } from "react-icons/fa";
+const Auth = (await import("aws-amplify")).Auth;
 import Logo from "../assets/Logo.png"; // Import the logo
 import "./LoginScreen.css"; // Import CSS for styling
 
@@ -9,15 +11,33 @@ const LoginScreen = ({ isOpen, onClose }) => {
     password: "",
   });
 
-  const handleSubmit = (e) => {
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login attempted with:", formData);
+    setLoading(true);
+    setError("");
+
+    try {
+      // Authenticate user with Amplify
+      const user = await Auth.signIn(formData.email, formData.password);
+      console.log("Login successful:", user);
+      alert("Login successful!");
+      navigate("/map");
+      // Redirect or handle post-login logic here
+    } catch (err) {
+      console.error("Login failed:", err);
+      setError(err.message || "Login failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -27,10 +47,7 @@ const LoginScreen = ({ isOpen, onClose }) => {
     <div className="login-modal-overlay">
       <div className="login-modal-container">
         {/* Close button */}
-        <button 
-          onClick={onClose}
-          className="close-button"
-        >
+        <button onClick={onClose} className="close-button">
           ×
         </button>
 
@@ -77,6 +94,9 @@ const LoginScreen = ({ isOpen, onClose }) => {
               </div>
             </div>
 
+            {/* Error Message */}
+            {error && <p className="error-message">{error}</p>}
+
             {/* Forgot Password Link */}
             <div className="forgot-password-container">
               <a href="#" className="forgot-password-link">
@@ -88,8 +108,9 @@ const LoginScreen = ({ isOpen, onClose }) => {
             <button
               type="submit"
               className="login-button"
+              disabled={loading}
             >
-              Log In
+              {loading ? "Logging in..." : "Log In"}
             </button>
 
             {/* Sign Up Link */}
