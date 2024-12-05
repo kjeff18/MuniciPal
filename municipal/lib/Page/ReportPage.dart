@@ -134,11 +134,24 @@ class _ReportPageState extends State<ReportPage> {
     if (_isSubmitting) return;
     print("Starting report submission...");
     if (_controller.text.isEmpty || _image == null) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Please provide a description and an image."),
-      ));
+       CoolAlert.show(
+          context: context,
+          type: CoolAlertType.error, 
+          autoCloseDuration: Duration(seconds: 3),
+          title: 'Error', 
+          titleTextStyle: textFont.copyWith(color: accentColor, fontSize: HeadlineSize),
+          text: 'Please provide a description and an image.', 
+          textTextStyle: textFont.copyWith(color: accentColor, fontSize: bodyTextSize),
+          confirmBtnText: 'OK',
+          confirmBtnColor: accentColor, 
+          backgroundColor: secondaryColor, 
+          onConfirmBtnTap: () {
+          },
+          barrierDismissible: false,  
+        );
       return;
     }
+       // content: Text("Please provide a description and an image."),
 
     // Fetch authenticated user
     print("Fetching authenticated user...");
@@ -156,12 +169,23 @@ class _ReportPageState extends State<ReportPage> {
       // Get user's current location
       final position = await _userLocation.getCurrentLocation();
       if (position == null) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content:
-              Text("Unable to get location. Please enable location services."),
-        ));
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.error, 
+          title: 'Error', 
+          titleTextStyle: textFont.copyWith(color: accentColor, fontSize: HeadlineSize),
+          text: 'Unable to get location. Please enable location services.', 
+          textTextStyle: textFont.copyWith(color: accentColor, fontSize: bodyTextSize),
+          confirmBtnText: 'OK',
+          confirmBtnColor: accentColor, 
+          backgroundColor: secondaryColor, 
+          onConfirmBtnTap: () {
+          },
+          barrierDismissible: false,  
+        );
         return;
       }
+              //Text("Unable to get location. Please enable location services."),
       print("User location: ${position.latitude}, ${position.longitude}");
 
       final latitude = position.latitude;
@@ -210,39 +234,51 @@ class _ReportPageState extends State<ReportPage> {
       if (response.errors.isNotEmpty) {
         throw Exception('GraphQL Error: ${response.errors.first.message}');
       }
-  CoolAlert.show(
-      context: context,
-      type: CoolAlertType.success, // You can use success, error, info, warning
-      title: 'Success!', titleTextStyle: textFont.copyWith(color: accentColor, fontSize: HeadlineSize),
-      text: 'Your report has been submitted successfully.', textTextStyle: textFont.copyWith(color: accentColor, fontSize: bodyTextSize) ,
-      confirmBtnText: 'OK',
-      confirmBtnColor: accentColor,
-      backgroundColor: secondaryColor, // Customize background color if needed
-      onConfirmBtnTap: () {
-        Navigator.pop(context);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const CustomBottomNavigationBar( initialIndex: 0,),
-          ),
-        );
-      },
-      
-      barrierDismissible: false, 
-    );
-
-     
-
+            CoolAlert.show(
+              context: context,
+              type: CoolAlertType.success,
+              title: 'Success!',
+              titleTextStyle: textFont.copyWith(color: accentColor, fontSize: HeadlineSize),
+              text: 'Your report has been submitted successfully.',
+              textTextStyle: textFont.copyWith(color: accentColor, fontSize: bodyTextSize),
+              confirmBtnText: 'OK',
+              confirmBtnColor: accentColor,
+              backgroundColor: secondaryColor,
+              onConfirmBtnTap: () {
+                Future.delayed(Duration(milliseconds: 300), () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CustomBottomNavigationBar(initialIndex: 0),
+                    ),
+                  );
+                });
+              },
+              barrierDismissible: false,
+            );
       // Clear form
       _controller.clear();
       setState(() {
         _image = null;
       });
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error submitting report: $e"),
-      ));
-    } finally {
+    }catch (e) {
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.error, 
+          title: 'Error', 
+          titleTextStyle: textFont.copyWith(color: accentColor, fontSize: HeadlineSize),
+          text: 'Error submitting report: $e', 
+          textTextStyle: textFont.copyWith(color: accentColor, fontSize: bodyTextSize),
+          confirmBtnText: 'OK',
+          confirmBtnColor: accentColor, 
+          backgroundColor: secondaryColor, 
+          onConfirmBtnTap: () {
+          },
+          barrierDismissible: false,  
+        );
+}
+ 
+    finally {
       setState(() {
         _isSubmitting = false;
       });

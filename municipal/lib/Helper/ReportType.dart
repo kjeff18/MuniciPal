@@ -3,7 +3,7 @@ import 'package:municipal/models/ModelProvider.dart';
 
 class ReportType {
 
-  static String getReportName(IssueCategory issueCategory) {
+  static String getReportName(IssueCategory? issueCategory) {
     switch (issueCategory) {
       case IssueCategory.Pothole:
         return "Pothole";
@@ -36,7 +36,7 @@ class ReportType {
     }
   }
 
-  static String? getBubbleIconPath (IssueCategory issueCategory)
+  static String? getBubbleIconPath (IssueCategory? issueCategory)
   {
         switch (issueCategory) {
       case IssueCategory.Pothole:
