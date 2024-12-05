@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -209,18 +210,28 @@ class _ReportPageState extends State<ReportPage> {
       if (response.errors.isNotEmpty) {
         throw Exception('GraphQL Error: ${response.errors.first.message}');
       }
+  CoolAlert.show(
+      context: context,
+      type: CoolAlertType.success, // You can use success, error, info, warning
+      title: 'Success!', titleTextStyle: textFont.copyWith(color: accentColor, fontSize: HeadlineSize),
+      text: 'Your report has been submitted successfully.', textTextStyle: textFont.copyWith(color: accentColor, fontSize: bodyTextSize) ,
+      confirmBtnText: 'OK',
+      confirmBtnColor: accentColor,
+      backgroundColor: secondaryColor, // Customize background color if needed
+      onConfirmBtnTap: () {
+        Navigator.pop(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CustomBottomNavigationBar( initialIndex: 0,),
+          ),
+        );
+      },
+      
+      barrierDismissible: false, 
+    );
 
-      print("Report submitted successfully!");
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Report submitted successfully!")),
-      );
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => CustomBottomNavigationBar(initialIndex: 0),
-        ),
-      );
+     
 
       // Clear form
       _controller.clear();
@@ -309,7 +320,7 @@ class _ReportPageState extends State<ReportPage> {
                           ),
                         ),
                       ),
-                      ImagePickerSection(onTap: _showCupertinoImagePicker),
+                      ImagePickerSection(onTap: _showCupertinoImagePicker, selectedImage: _image,),
                       CustomButton(
                           text: "Submit",
                           onPressed: _submitReport,

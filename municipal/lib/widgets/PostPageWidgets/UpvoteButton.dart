@@ -23,6 +23,9 @@ class _UpvoteButtonState extends State<UpvoteButton> {
   bool hasUpvoted = false;
   String? upvoteId;
   int? upvoteVersion;
+  bool _isCooldownActive = false;
+  final int cooldownDuration = 500; 
+
   @override
   void initState() {
     super.initState();
@@ -78,6 +81,23 @@ class _UpvoteButtonState extends State<UpvoteButton> {
   }
 
   Future<void> upVoteButton() async {
+    // Check if cooldown is active
+    if (_isCooldownActive) {
+      return;
+    }
+
+    // Activate cooldown
+    setState(() {
+      _isCooldownActive = true;
+    });
+
+    // Start a timer to disable the button for a specific period (cooldown)
+    Future.delayed(Duration(milliseconds: cooldownDuration), () {
+      setState(() {
+        _isCooldownActive = false;
+      });
+    });
+
     final authUser = Provider.of<UserState>(context, listen: false).authUser;
 
     if (authUser == null || authUser.userId.isEmpty) {

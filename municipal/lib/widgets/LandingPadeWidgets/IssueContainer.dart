@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
-import 'package:municipal/Helper/IssueCategory.dart';
+import 'package:municipal/Helper/ReportType.dart';
 import 'package:municipal/models/ModelProvider.dart';
 import 'package:municipal/Page/PostPage.dart';
 import 'package:cached_network_image/cached_network_image.dart';

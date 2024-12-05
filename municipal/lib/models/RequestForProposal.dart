@@ -23,6 +23,7 @@ import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'package:collection/collection.dart';
 
+
 /** This is an auto generated class representing the RequestForProposal type in your schema. */
 class RequestForProposal extends amplify_core.Model {
   static const classType = const _RequestForProposalModelType();
@@ -41,480 +42,397 @@ class RequestForProposal extends amplify_core.Model {
 
   @override
   getInstanceType() => classType;
-
-  @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+  
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
-
+  
   RequestForProposalModelIdentifier get modelIdentifier {
-    return RequestForProposalModelIdentifier(id: id);
+      return RequestForProposalModelIdentifier(
+        id: id
+      );
   }
-
+  
   String get title {
     try {
       return _title!;
-    } catch (e) {
+    } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
     }
   }
-
+  
   String? get description {
     return _description;
   }
-
+  
   String get pdfUrl {
     try {
       return _pdfUrl!;
-    } catch (e) {
+    } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
     }
   }
-
+  
   amplify_core.TemporalDateTime get deadline {
     try {
       return _deadline!;
-    } catch (e) {
+    } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
     }
   }
-
-  RFPStatus get status {
+  
+ RFPStatus get status {
     try {
       return _status!;
-    } catch (e) {
+    } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
     }
   }
-
+  
   String get governmentId {
     try {
       return _governmentId!;
-    } catch (e) {
+    } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
     }
   }
-
+  
   String? get contractId {
     return _contractId;
   }
-
+  
   List<Bid>? get bids {
     return _bids;
   }
-
+  
   List<IssueCategory> get categories {
     try {
       return _categories!;
-    } catch (e) {
+    } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
     }
   }
-
+  
   amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
-
+  
   amplify_core.TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-
-  const RequestForProposal._internal(
-      {required this.id,
-      required title,
-      description,
-      required pdfUrl,
-      required deadline,
-      required status,
-      required governmentId,
-      contractId,
-      bids,
-      required categories,
-      createdAt,
-      updatedAt})
-      : _title = title,
-        _description = description,
-        _pdfUrl = pdfUrl,
-        _deadline = deadline,
-        _status = status,
-        _governmentId = governmentId,
-        _contractId = contractId,
-        _bids = bids,
-        _categories = categories,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
-
-  factory RequestForProposal(
-      {String? id,
-      required String title,
-      String? description,
-      required String pdfUrl,
-      required amplify_core.TemporalDateTime deadline,
-      required RFPStatus status,
-      required String governmentId,
-      String? contractId,
-      List<Bid>? bids,
-      required List<IssueCategory> categories}) {
+  
+  const RequestForProposal._internal({required this.id, required title, description, required pdfUrl, required deadline, required status, required governmentId, contractId, bids, required categories, createdAt, updatedAt}): _title = title, _description = description, _pdfUrl = pdfUrl, _deadline = deadline, _status = status, _governmentId = governmentId, _contractId = contractId, _bids = bids, _categories = categories, _createdAt = createdAt, _updatedAt = updatedAt;
+  
+  factory RequestForProposal({String? id, required String title, String? description, required String pdfUrl, required amplify_core.TemporalDateTime deadline, required RFPStatus status, required String governmentId, String? contractId, List<Bid>? bids, required List<IssueCategory> categories}) {
     return RequestForProposal._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        title: title,
-        description: description,
-        pdfUrl: pdfUrl,
-        deadline: deadline,
-        status: status,
-        governmentId: governmentId,
-        contractId: contractId,
-        bids: bids != null ? List<Bid>.unmodifiable(bids) : bids,
-        categories: categories != null
-            ? List<IssueCategory>.unmodifiable(categories)
-            : categories);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      title: title,
+      description: description,
+      pdfUrl: pdfUrl,
+      deadline: deadline,
+      status: status,
+      governmentId: governmentId,
+      contractId: contractId,
+      bids: bids != null ? List<Bid>.unmodifiable(bids) : bids,
+      categories: categories != null ? List<IssueCategory>.unmodifiable(categories) : categories);
   }
-
+  
   bool equals(Object other) {
     return this == other;
   }
-
+  
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is RequestForProposal &&
-        id == other.id &&
-        _title == other._title &&
-        _description == other._description &&
-        _pdfUrl == other._pdfUrl &&
-        _deadline == other._deadline &&
-        _status == other._status &&
-        _governmentId == other._governmentId &&
-        _contractId == other._contractId &&
-        DeepCollectionEquality().equals(_bids, other._bids) &&
-        DeepCollectionEquality().equals(_categories, other._categories);
+      id == other.id &&
+      _title == other._title &&
+      _description == other._description &&
+      _pdfUrl == other._pdfUrl &&
+      _deadline == other._deadline &&
+      _status == other._status &&
+      _governmentId == other._governmentId &&
+      _contractId == other._contractId &&
+      DeepCollectionEquality().equals(_bids, other._bids) &&
+      DeepCollectionEquality().equals(_categories, other._categories);
   }
-
+  
   @override
   int get hashCode => toString().hashCode;
-
+  
   @override
   String toString() {
     var buffer = new StringBuffer();
-
+    
     buffer.write("RequestForProposal {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title" + ", ");
     buffer.write("description=" + "$_description" + ", ");
     buffer.write("pdfUrl=" + "$_pdfUrl" + ", ");
-    buffer.write("deadline=" +
-        (_deadline != null ? _deadline!.format() : "null") +
-        ", ");
-    buffer.write("status=" +
-        (_status != null ? amplify_core.enumToString(_status)! : "null") +
-        ", ");
+    buffer.write("deadline=" + (_deadline != null ? _deadline!.format() : "null") + ", ");
+    buffer.write("status=" + (_status != null ? amplify_core.enumToString(_status)! : "null") + ", ");
     buffer.write("governmentId=" + "$_governmentId" + ", ");
     buffer.write("contractId=" + "$_contractId" + ", ");
-    buffer.write("categories=" +
-        (_categories != null
-            ? _categories!.map((e) => amplify_core.enumToString(e)).toString()
-            : "null") +
-        ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt!.format() : "null") +
-        ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("categories=" + (_categories != null ? _categories!.map((e) => amplify_core.enumToString(e)).toString() : "null") + ", ");
+    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
-
+    
     return buffer.toString();
   }
-
-  RequestForProposal copyWith(
-      {String? title,
-      String? description,
-      String? pdfUrl,
-      amplify_core.TemporalDateTime? deadline,
-      RFPStatus? status,
-      String? governmentId,
-      String? contractId,
-      List<Bid>? bids,
-      List<IssueCategory>? categories}) {
+  
+  RequestForProposal copyWith({String? title, String? description, String? pdfUrl, amplify_core.TemporalDateTime? deadline, RFPStatus? status, String? governmentId, String? contractId, List<Bid>? bids, List<IssueCategory>? categories}) {
     return RequestForProposal._internal(
-        id: id,
-        title: title ?? this.title,
-        description: description ?? this.description,
-        pdfUrl: pdfUrl ?? this.pdfUrl,
-        deadline: deadline ?? this.deadline,
-        status: status ?? this.status,
-        governmentId: governmentId ?? this.governmentId,
-        contractId: contractId ?? this.contractId,
-        bids: bids ?? this.bids,
-        categories: categories ?? this.categories);
+      id: id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      pdfUrl: pdfUrl ?? this.pdfUrl,
+      deadline: deadline ?? this.deadline,
+      status: status ?? this.status,
+      governmentId: governmentId ?? this.governmentId,
+      contractId: contractId ?? this.contractId,
+      bids: bids ?? this.bids,
+      categories: categories ?? this.categories);
   }
-
-  RequestForProposal copyWithModelFieldValues(
-      {ModelFieldValue<String>? title,
-      ModelFieldValue<String?>? description,
-      ModelFieldValue<String>? pdfUrl,
-      ModelFieldValue<amplify_core.TemporalDateTime>? deadline,
-      ModelFieldValue<RFPStatus>? status,
-      ModelFieldValue<String>? governmentId,
-      ModelFieldValue<String?>? contractId,
-      ModelFieldValue<List<Bid>?>? bids,
-      ModelFieldValue<List<IssueCategory>?>? categories}) {
+  
+  RequestForProposal copyWithModelFieldValues({
+    ModelFieldValue<String>? title,
+    ModelFieldValue<String?>? description,
+    ModelFieldValue<String>? pdfUrl,
+    ModelFieldValue<amplify_core.TemporalDateTime>? deadline,
+    ModelFieldValue <RFPStatus>? status,
+    ModelFieldValue<String>? governmentId,
+    ModelFieldValue<String?>? contractId,
+    ModelFieldValue<List<Bid>?>? bids,
+    ModelFieldValue<List<IssueCategory>?>? categories
+  }) {
     return RequestForProposal._internal(
-        id: id,
-        title: title == null ? this.title : title.value,
-        description: description == null ? this.description : description.value,
-        pdfUrl: pdfUrl == null ? this.pdfUrl : pdfUrl.value,
-        deadline: deadline == null ? this.deadline : deadline.value,
-        status: status == null ? this.status : status.value,
-        governmentId:
-            governmentId == null ? this.governmentId : governmentId.value,
-        contractId: contractId == null ? this.contractId : contractId.value,
-        bids: bids == null ? this.bids : bids.value,
-        categories: categories == null ? this.categories : categories.value);
+      id: id,
+      title: title == null ? this.title : title.value,
+      description: description == null ? this.description : description.value,
+      pdfUrl: pdfUrl == null ? this.pdfUrl : pdfUrl.value,
+      deadline: deadline == null ? this.deadline : deadline.value,
+      status: status == null ? this.status : status.value,
+      governmentId: governmentId == null ? this.governmentId : governmentId.value,
+      contractId: contractId == null ? this.contractId : contractId.value,
+      bids: bids == null ? this.bids : bids.value,
+      categories: categories == null ? this.categories : categories.value
+    );
   }
-
-  RequestForProposal.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _title = json['title'],
-        _description = json['description'],
-        _pdfUrl = json['pdfUrl'],
-        _deadline = json['deadline'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['deadline'])
-            : null,
-        _status = amplify_core.enumFromString<RFPStatus>(
-            json['status'], RFPStatus.values),
-        _governmentId = json['governmentId'],
-        _contractId = json['contractId'],
-        _bids = json['bids'] is Map
-            ? (json['bids']['items'] is List
-                ? (json['bids']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) => Bid.fromJson(new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['bids'] is List
-                ? (json['bids'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => Bid.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
-        _categories = json['categories'] is List
-            ? (json['categories'] as List)
-                .map((e) => amplify_core.enumFromString<IssueCategory>(
-                    e, IssueCategory.values)!)
-                .toList()
-            : null,
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
-
+  
+  RequestForProposal.fromJson(Map<String, dynamic> json)  
+    : id = json['id'],
+      _title = json['title'],
+      _description = json['description'],
+      _pdfUrl = json['pdfUrl'],
+      _deadline = json['deadline'] != null ? amplify_core.TemporalDateTime.fromString(json['deadline']) : null,
+      _status = amplify_core.enumFromString<RFPStatus>(json['status'], RFPStatus.values),
+      _governmentId = json['governmentId'],
+      _contractId = json['contractId'],
+      _bids = json['bids']  is Map
+        ? (json['bids']['items'] is List
+          ? (json['bids']['items'] as List)
+              .where((e) => e != null)
+              .map((e) => Bid.fromJson(new Map<String, dynamic>.from(e)))
+              .toList()
+          : null)
+        : (json['bids'] is List
+          ? (json['bids'] as List)
+              .where((e) => e?['serializedData'] != null)
+              .map((e) => Bid.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
+              .toList()
+          : null),
+      _categories = json['categories'] is List
+        ? (json['categories'] as List)
+          .map((e) => amplify_core.enumFromString<IssueCategory>(e, IssueCategory.values)!)
+          .toList()
+        : null,
+      _createdAt = json['createdAt'] != null ? amplify_core.TemporalDateTime.fromString(json['createdAt']) : null,
+      _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
+  
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': _title,
-        'description': _description,
-        'pdfUrl': _pdfUrl,
-        'deadline': _deadline?.format(),
-        'status': amplify_core.enumToString(_status),
-        'governmentId': _governmentId,
-        'contractId': _contractId,
-        'bids': _bids?.map((Bid? e) => e?.toJson()).toList(),
-        'categories':
-            _categories?.map((e) => amplify_core.enumToString(e)).toList(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
-
+    'id': id, 'title': _title, 'description': _description, 'pdfUrl': _pdfUrl, 'deadline': _deadline?.format(), 'status': amplify_core.enumToString(_status), 'governmentId': _governmentId, 'contractId': _contractId, 'bids': _bids?.map((Bid? e) => e?.toJson()).toList(), 'categories': _categories?.map((e) => amplify_core.enumToString(e)).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+  };
+  
   Map<String, Object?> toMap() => {
-        'id': id,
-        'title': _title,
-        'description': _description,
-        'pdfUrl': _pdfUrl,
-        'deadline': _deadline,
-        'status': _status,
-        'governmentId': _governmentId,
-        'contractId': _contractId,
-        'bids': _bids,
-        'categories': _categories,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'title': _title,
+    'description': _description,
+    'pdfUrl': _pdfUrl,
+    'deadline': _deadline,
+    'status': _status,
+    'governmentId': _governmentId,
+    'contractId': _contractId,
+    'bids': _bids,
+    'categories': _categories,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt
+  };
 
-  static final amplify_core
-      .QueryModelIdentifier<RequestForProposalModelIdentifier>
-      MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<RequestForProposalModelIdentifier>();
+  static final amplify_core.QueryModelIdentifier<RequestForProposalModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<RequestForProposalModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final TITLE = amplify_core.QueryField(fieldName: "title");
   static final DESCRIPTION = amplify_core.QueryField(fieldName: "description");
   static final PDFURL = amplify_core.QueryField(fieldName: "pdfUrl");
   static final DEADLINE = amplify_core.QueryField(fieldName: "deadline");
   static final STATUS = amplify_core.QueryField(fieldName: "status");
-  static final GOVERNMENTID =
-      amplify_core.QueryField(fieldName: "governmentId");
+  static final GOVERNMENTID = amplify_core.QueryField(fieldName: "governmentId");
   static final CONTRACTID = amplify_core.QueryField(fieldName: "contractId");
   static final BIDS = amplify_core.QueryField(
-      fieldName: "bids",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Bid'));
+    fieldName: "bids",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Bid'));
   static final CATEGORIES = amplify_core.QueryField(fieldName: "categories");
-  static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+  static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "RequestForProposal";
     modelSchemaDefinition.pluralName = "RequestForProposals";
-
+    
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
-          authStrategy: amplify_core.AuthStrategy.GROUPS,
-          groupClaim: "cognito:groups",
-          groups: ["Government"],
-          provider: amplify_core.AuthRuleProvider.USERPOOLS,
-          operations: const [
-            amplify_core.ModelOperation.CREATE,
-            amplify_core.ModelOperation.READ,
-            amplify_core.ModelOperation.UPDATE,
-            amplify_core.ModelOperation.DELETE
-          ]),
+        authStrategy: amplify_core.AuthStrategy.GROUPS,
+        groupClaim: "cognito:groups",
+        groups: [ "Government" ],
+        provider: amplify_core.AuthRuleProvider.USERPOOLS,
+        operations: const [
+          amplify_core.ModelOperation.CREATE,
+          amplify_core.ModelOperation.READ,
+          amplify_core.ModelOperation.UPDATE,
+          amplify_core.ModelOperation.DELETE
+        ]),
       amplify_core.AuthRule(
-          authStrategy: amplify_core.AuthStrategy.GROUPS,
-          groupClaim: "cognito:groups",
-          groups: ["Contractor"],
-          provider: amplify_core.AuthRuleProvider.USERPOOLS,
-          operations: const [
-            amplify_core.ModelOperation.READ,
-            amplify_core.ModelOperation.CREATE
-          ]),
+        authStrategy: amplify_core.AuthStrategy.GROUPS,
+        groupClaim: "cognito:groups",
+        groups: [ "Contractor" ],
+        provider: amplify_core.AuthRuleProvider.USERPOOLS,
+        operations: const [
+          amplify_core.ModelOperation.READ,
+          amplify_core.ModelOperation.CREATE
+        ]),
       amplify_core.AuthRule(
-          authStrategy: amplify_core.AuthStrategy.GROUPS,
-          groupClaim: "cognito:groups",
-          groups: ["Citizen"],
-          provider: amplify_core.AuthRuleProvider.USERPOOLS,
-          operations: const [amplify_core.ModelOperation.READ])
+        authStrategy: amplify_core.AuthStrategy.GROUPS,
+        groupClaim: "cognito:groups",
+        groups: [ "Citizen" ],
+        provider: amplify_core.AuthRuleProvider.USERPOOLS,
+        operations: const [
+          amplify_core.ModelOperation.READ
+        ])
     ];
-
+    
     modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(
-          fields: const ["governmentId"], name: "byGovernment")
+      amplify_core.ModelIndex(fields: const ["governmentId"], name: "byGovernment")
     ];
-
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
-
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: RequestForProposal.TITLE,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
-
+      key: RequestForProposal.TITLE,
+      isRequired: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: RequestForProposal.DESCRIPTION,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
-
+      key: RequestForProposal.DESCRIPTION,
+      isRequired: false,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: RequestForProposal.PDFURL,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
-
+      key: RequestForProposal.PDFURL,
+      isRequired: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: RequestForProposal.DEADLINE,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.dateTime)));
-
+      key: RequestForProposal.DEADLINE,
+      isRequired: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: RequestForProposal.STATUS,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.enumeration)));
-
+      key: RequestForProposal.STATUS,
+      isRequired: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.enumeration)
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: RequestForProposal.GOVERNMENTID,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
-
+      key: RequestForProposal.GOVERNMENTID,
+      isRequired: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: RequestForProposal.CONTRACTID,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
-
+      key: RequestForProposal.CONTRACTID,
+      isRequired: false,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: RequestForProposal.BIDS,
-        isRequired: false,
-        ofModelName: 'Bid',
-        associatedKey: Bid.RFPID));
-
+      key: RequestForProposal.BIDS,
+      isRequired: false,
+      ofModelName: 'Bid',
+      associatedKey: Bid.RFPID
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: RequestForProposal.CATEGORIES,
-        isRequired: true,
-        isArray: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.collection,
-            ofModelName: amplify_core.ModelFieldTypeEnum.enumeration.name)));
-
-    modelSchemaDefinition.addField(
-        amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-
-    modelSchemaDefinition.addField(
-        amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+      key: RequestForProposal.CATEGORIES,
+      isRequired: true,
+      isArray: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.collection, ofModelName: amplify_core.ModelFieldTypeEnum.enumeration.name)
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
+      fieldName: 'createdAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
+      fieldName: 'updatedAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
+    ));
   });
 }
 
-class _RequestForProposalModelType
-    extends amplify_core.ModelType<RequestForProposal> {
+class _RequestForProposalModelType extends amplify_core.ModelType<RequestForProposal> {
   const _RequestForProposalModelType();
-
+  
   @override
   RequestForProposal fromJson(Map<String, dynamic> jsonData) {
     return RequestForProposal.fromJson(jsonData);
   }
-
+  
   @override
   String modelName() {
     return 'RequestForProposal';
@@ -525,37 +443,41 @@ class _RequestForProposalModelType
  * This is an auto generated class representing the model identifier
  * of [RequestForProposal] in your schema.
  */
-class RequestForProposalModelIdentifier
-    implements amplify_core.ModelIdentifier<RequestForProposal> {
+class RequestForProposalModelIdentifier implements amplify_core.ModelIdentifier<RequestForProposal> {
   final String id;
 
   /** Create an instance of RequestForProposalModelIdentifier using [id] the primary key. */
-  const RequestForProposalModelIdentifier({required this.id});
-
+  const RequestForProposalModelIdentifier({
+    required this.id});
+  
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
-
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
-
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
   @override
   String serializeAsString() => serializeAsMap().values.join('#');
-
+  
   @override
   String toString() => 'RequestForProposalModelIdentifier(id: $id)';
-
+  
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-
-    return other is RequestForProposalModelIdentifier && id == other.id;
+    
+    return other is RequestForProposalModelIdentifier &&
+      id == other.id;
   }
-
+  
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode =>
+    id.hashCode;
 }

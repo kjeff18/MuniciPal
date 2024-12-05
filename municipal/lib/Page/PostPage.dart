@@ -1,15 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
-import 'package:municipal/Helper/IssueCategory.dart';
+import 'package:municipal/Helper/ReportType.dart';
 import 'package:municipal/models/ModelProvider.dart';
 import 'package:municipal/widgets/CustomAppBar.dart';
 import 'package:municipal/widgets/FeedPageWidgets/CustomProgressIndicator.dart';
 import 'package:municipal/widgets/PostPageWidgets/PostNMapContainer.dart';
 import 'package:municipal/widgets/PostPageWidgets/SimilarPostDescription.dart';
 import 'package:municipal/Repositories/APIRepo.dart';
-import 'package:municipal/model/UserState.dart';
-import 'package:provider/provider.dart';
 import 'package:municipal/widgets/PostPageWidgets/UpvoteButton.dart';
 
 class PostPage extends StatefulWidget {
@@ -31,6 +28,7 @@ class _PostPageState extends State<PostPage> {
   bool isLoading = true;
   bool hasError = false;
   List<Report> relatedReports = [];
+  bool isProcessingUpvote = false; // Flag to track upvote processing
 
   @override
   void initState() {
@@ -64,6 +62,29 @@ class _PostPageState extends State<PostPage> {
     }
   }
 
+  // Function to handle upvote change
+  void _handleUpvoteChange(int upvotes) async {
+    // Prevent multiple fast clicks
+    if (isProcessingUpvote) return;
+
+    setState(() {
+      isProcessingUpvote = true; // Set flag to prevent multiple clicks
+    });
+
+    // Store the current upvotes locally (before making API calls or changes)
+    setState(() {
+      widget.issue = widget.issue.copyWith(upvotes: upvotes);
+    });
+
+    await Future.delayed(const Duration(milliseconds: 500)); // Simulate a delay for network request
+
+    widget.onIssueUpdated(widget.issue);
+
+    setState(() {
+      isProcessingUpvote = false; // Reset flag after processing
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,13 +105,11 @@ class _PostPageState extends State<PostPage> {
             const SizedBox(height: 16),
             Row(
               children: [
+                // Disable the button when processing upvotes
                 UpvoteButton(
                   issue: widget.issue,
                   onUpvoteChange: (upvotes) {
-                    setState(() {
-                      widget.issue = widget.issue.copyWith(upvotes: upvotes);
-                    });
-                    widget.onIssueUpdated(widget.issue);
+                    _handleUpvoteChange(upvotes); // Pass the upvotes value
                   },
                 ),
                 Text(
@@ -151,7 +170,7 @@ class _PostPageState extends State<PostPage> {
                                       }
                                       return SimilarPostDescription(
                                         username:
-                                            report.citizenName ?? "Anonymous",
+                                            report.citizenName,
                                         description: report.description!,
                                         createdAt: report.createdAt.toString(),
                                       );

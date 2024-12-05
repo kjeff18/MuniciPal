@@ -1,14 +1,16 @@
-
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
 
 class ImagePickerSection extends StatelessWidget {
   final VoidCallback onTap;
+  final File? selectedImage; // Pass the selected image to this widget
 
   const ImagePickerSection({
     Key? key,
     required this.onTap,
+    this.selectedImage, // Optional, can be null
   }) : super(key: key);
 
   @override
@@ -41,13 +43,21 @@ class ImagePickerSection extends StatelessWidget {
                 ),
                 child: InkWell(
                   onTap: onTap,
-                  child: Icon(CupertinoIcons.photo_fill, color: Colors.grey, size: 48),
+                  child: selectedImage == null
+                      ? Icon(CupertinoIcons.photo_fill, color: Colors.grey, size: 48) // Show icon if no image is selected
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(textFieldBorderRadius - 2),
+                          child: Image.file(
+                            selectedImage!, // Display the selected image
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                 ),
               ),
             ),
             Text(
-              "Add Photo",
-              style: textFont.copyWith(color: accentColor, fontSize: HeadlineSize),
+              selectedImage == null ? "Add Photo" : "Change Photo", // Change text if image is selected
+              style: textFont.copyWith(color: accentColor, fontSize: bodyTextSize + 6),
             ),
           ],
         ),

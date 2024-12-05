@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
+import 'package:municipal/Page/UpdatePage.dart';
 import 'package:municipal/models/IssueStatus.dart';
 import 'package:municipal/models/ModelProvider.dart';
 import 'package:municipal/widgets/CustomAppBar.dart';
@@ -50,14 +51,7 @@ class _MyReportsPageState extends State<MyReportsPage> {
       );
       debugPrint("Reports retrieved: ${reports.length}");
 
-      // Sort reports by createdAt in descending order (most recent first)
-      reports.sort((a, b) {
-        if (a.createdAt == null && b.createdAt == null) return 0;
-        if (a.createdAt == null) return 1; // Nulls go last
-        if (b.createdAt == null) return -1;
-        return b.createdAt!.compareTo(a.createdAt!);
-      });
-
+      // Ensure the widget is still mounted before calling setState
       for (final report in reports) {
         if (report.imageUrl != null && report.imageUrl!.isNotEmpty) {
           CachedNetworkImageProvider(report.imageUrl!)
@@ -65,15 +59,19 @@ class _MyReportsPageState extends State<MyReportsPage> {
         }
       }
 
-      setState(() {
-        myReports = reports;
-        isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          myReports = reports;
+          isLoading = false;
+        });
+      }
     } catch (e) {
-      setState(() {
-        hasError = true;
-        isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          hasError = true;
+          isLoading = false;
+        });
+      }
       debugPrint("Error fetching reports: $e");
     }
   }
@@ -84,7 +82,12 @@ class _MyReportsPageState extends State<MyReportsPage> {
       appBar: CustomAppBar(
         title: "My Reports",
         showBellIcon: true,
-        onPressed: () => print("Bell icon pressed"),
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const UpdatePage(),
+          ),
+        ),
       ),
       backgroundColor: backgroundColor,
       body: isLoading
