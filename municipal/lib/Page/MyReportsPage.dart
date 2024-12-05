@@ -9,6 +9,7 @@ import 'package:municipal/Repositories/APIRepo.dart';
 import 'package:provider/provider.dart';
 import 'package:municipal/model/UserState.dart';
 import 'package:municipal/Helper/UserLocation.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class MyReportsPage extends StatefulWidget {
   const MyReportsPage({super.key});
@@ -50,7 +51,15 @@ class _MyReportsPageState extends State<MyReportsPage> {
       );
       debugPrint("Reports retrieved: ${reports.length}");
 
-      if (mounted) {  // Ensure the widget is still mounted before calling setState
+      // Ensure the widget is still mounted before calling setState
+      for (final report in reports) {
+        if (report.imageUrl != null && report.imageUrl!.isNotEmpty) {
+          CachedNetworkImageProvider(report.imageUrl!)
+              .resolve(const ImageConfiguration());
+        }
+      }
+
+      if (mounted) {
         setState(() {
           myReports = reports;
           isLoading = false;
@@ -73,13 +82,18 @@ class _MyReportsPageState extends State<MyReportsPage> {
       appBar: CustomAppBar(
         title: "My Reports",
         showBellIcon: true,
-        onPressed: () =>
+        onPressed: () {
+          // Extract list of issueIds
+          final issueIds = myReports.map((report) => report.issueId).toList();
+
+          // Navigate to UpdatePage with the issueIds
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const UpdatePage(),
+              builder: (context) => UpdatePage(issueIds: issueIds),
             ),
-          ),
+          );
+        },
       ),
       backgroundColor: backgroundColor,
       body: isLoading
@@ -109,6 +123,7 @@ class _MyReportsPageState extends State<MyReportsPage> {
                         itemBuilder: (context, index) {
                           final report = myReports[index];
                           return ReportContainer(
+                            key: ValueKey(report.id),
                             report: report,
                             userLocation: userLocation,
                           );

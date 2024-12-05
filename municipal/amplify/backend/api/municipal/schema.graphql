@@ -42,6 +42,18 @@ enum IssueCategory {
   Other
 }
 
+type IssueStatusUpdate @model
+  @auth(rules: [
+    { allow: groups, groups: ["Government", "Contractor", "Citizen"], operations: [create, read, update] },
+    { allow: public, provider: apiKey, operations: [create, read, update, delete] }
+  ]) {
+  id: ID!
+  issueId: ID! @index(name: "byIssue", queryField: "statusUpdatesByIssueId")
+  issueCategory: IssueCategory!
+  issueImageUrl: String!
+  status: IssueStatus!
+}
+
 type Report @model
   @auth(rules: [
     { allow: groups, groups: ["Citizen"], operations: [create, read] },

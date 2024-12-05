@@ -7,6 +7,7 @@ import 'package:municipal/Helper/DistanceCalculator.dart';
 import 'package:municipal/Helper/UserLocation.dart';
 import 'package:municipal/Page/PostPage.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class FeedContainer extends StatefulWidget {
   Issue issue;

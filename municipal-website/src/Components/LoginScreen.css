@@ -1,0 +1,135 @@
+/* Modal Overlay */
+.login-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  
+  /* Modal Container */
+  .login-modal-container {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Close Button */
+  .close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: gray;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  .close-button:hover {
+    color: #345b72;
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    padding: 2rem;
+  }
+  
+  /* Logo and Title */
+  .logo-title-container {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .logo {
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto 1rem auto;
+  }
+  .modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Input Container */
+  .input-container {
+    margin-bottom: 1rem;
+  }
+  .input-wrapper {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  .icon-container {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  .input-icon {
+    color: #aaa;
+  }
+  .input-field {
+    width: 100%;
+    padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .input-field:focus {
+    border-color: #3e7494;
+    box-shadow: 0 0 0 2px rgba(62, 116, 148, 0.5);
+  }
+  
+  /* Forgot Password Link */
+  .forgot-password-container {
+    text-align: right;
+  }
+  .forgot-password-link {
+    font-size: 0.875rem;
+    color: #3e7494;
+    text-decoration: none;
+  }
+  .forgot-password-link:hover {
+    color: #345b72;
+  }
+  
+  /* Login Button */
+  .login-button {
+    width: 100%;
+    background-color: #0b2e60;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .login-button:hover {
+    background-color: #345b72;
+  }
+  
+  /* Sign Up Link */
+  .signup-link-container {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #666;
+  }
+  .signup-link {
+    color: #3e7494;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .signup-link:hover {
+    color: #345b72;
+  }
+  
