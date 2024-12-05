@@ -7,6 +7,8 @@ import { FaHome, FaProjectDiagram, FaUserCircle, FaSignOutAlt } from "react-icon
 import GoogleMapComponent from "./GoogleMapComponent";
 import Light from "../assets/Map_Icons/Light.png";
 
+
+
 const MapPage = () => {
   const navigate = useNavigate(); // Navigation hook
   const [isSlideOverOpen, setIsSlideOverOpen] = useState(false);
@@ -63,6 +65,7 @@ const MapPage = () => {
             onClick={() => setIsSlideOverOpen(false)}
           ></div>
           <div className="slide-over-content">
+
             <button
               className="close-button"
               onClick={() => setIsSlideOverOpen(false)}
@@ -70,8 +73,27 @@ const MapPage = () => {
             >
               &times;
             </button>
-            <h2 className="slide-over-title">Slide-Over Header</h2>
-            <p className="slide-over-text">This is the slide-over content.</p>
+            <div class="report-card">
+              <div class="report-type">Report</div>
+              <div class="report-name">
+                <img class="report-image" src="src/assets/street_light.png" alt="Report Picture"></img>
+                <p class="report-text">Street Light</p>
+              </div>
+              <img class="light-png" src="Pictures/istockphoto-496026170-612x612.jpg"></img>
+              <div class="description">Adam Azmi: This street light is broken</div>
+              <div class="report-content">
+                <div class="upvotes">Upvotes: <strong>12</strong></div>
+              </div>
+              <div class="download-section">
+                <img src="Pictures/duotone.png" alt="Contract Icon"></img>
+                <a href="document.pdf" download>Download RFP</a>
+              </div>
+            </div>
+
+            <style>
+
+            </style>
+
           </div>
         </div>
       )}
