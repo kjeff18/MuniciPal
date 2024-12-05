@@ -12,18 +12,18 @@ import Logo from "../assets/Logo.png";
 import TitleImage from "../assets/MuniciPalTitle.png";
 
 // Importing icons images
-import PotholeImg from "../assets/pothole.png";
-import StreetLightImg from "../assets/street_light.png";
-import WaterLeakImg from "../assets/water_leak.png";
-import TrafficSignalImg from "../assets/traffic_signal.png";
-import RoadwayImg from "../assets/roadway.png";
-import SidewalkImg from "../assets/sidewalk.png";
-import DrainageImg from "../assets/drain.png";
-import StreetSignImg from "../assets/street-sign.png";
-import GraffitiImg from "../assets/graffiti.png";
-import ParkMaintenanceImg from "../assets/playground.png";
-import TreeMaintenanceImg from "../assets/tree.png";
-import PedestrianCrossingImg from "../assets/pedestrians.png";
+import PotholeImg from "/src/assets/Pothole.png";
+import StreetLightImg from "/src/assets/Light.png";
+import WaterLeakImg from "/src/assets/Pipe.png";
+import TrafficSignalImg from "/src/assets/StreetLight.png";
+import RoadwayImg from "/src/assets/Road.png";
+import SidewalkImg from "/src/assets/Sidewalk.png";
+import DrainageImg from "/src/assets/Drainage.png";
+import StreetSignImg from "/src/assets/StreetSign.png";
+import GraffitiImg from "/src/assets/Graffiti.png";
+import ParkMaintenanceImg from "/src/assets/Park_Main.png";
+import TreeMaintenanceImg from "/src/assets/Tree_Main.png";
+import PedestrianCrossingImg from "/src/assets/Pedestrian.png";
 
 import { motion } from "framer-motion";
 import { FaBookReader } from "react-icons/fa";
