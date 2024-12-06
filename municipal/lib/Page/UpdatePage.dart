@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/models/IssueCategory.dart';
 import 'package:municipal/models/ModelProvider.dart';
 import 'package:municipal/widgets/CustomAppBar.dart';
@@ -126,7 +127,7 @@ class _UpdatePageState extends State<UpdatePage> {
                   ),
                 )
               : myIssueStatusUpdates.isEmpty
-                  ? const Center(child: Text("You have no updates."))
+                  ?  Center(child: Text("You have no updates.", style: textFont.copyWith(color: accentColor, fontSize: bodyTextSize)))
                   : RefreshIndicator(
                       onRefresh: () async {
                         await _loadIssueStatusUpdates();

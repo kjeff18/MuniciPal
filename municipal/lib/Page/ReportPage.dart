@@ -50,23 +50,20 @@ class _ReportPageState extends State<ReportPage> {
       context: context,
       builder: (BuildContext context) {
         return CupertinoActionSheet(
-          title: Text('Choose an Option',
-              style: textFont.copyWith(
-                  color: accentColor, fontSize: hintTextSize)),
           actions: [
             CupertinoActionSheetAction(
               child: Text('Take a Photo',
                   style: textFont.copyWith(
-                      color: accentColor, fontSize: hintTextSize)),
+                      color: accentColor, fontSize: bodyTextSize)),
               onPressed: () {
                 _pickImage(ImageSource.camera);
                 Navigator.pop(context); // Close the action sheet
               },
             ),
             CupertinoActionSheetAction(
-              child: Text('Choose from Gallery',
+              child: Text('Choose from Photo',
                   style: textFont.copyWith(
-                      color: accentColor, fontSize: hintTextSize)),
+                      color: accentColor, fontSize: bodyTextSize)),
               onPressed: () {
                 _pickImage(ImageSource.gallery);
                 Navigator.pop(context); // Close the action sheet
@@ -134,24 +131,22 @@ class _ReportPageState extends State<ReportPage> {
     if (_isSubmitting) return;
     print("Starting report submission...");
     if (_controller.text.isEmpty || _image == null) {
-       CoolAlert.show(
-          context: context,
-          type: CoolAlertType.error, 
-          autoCloseDuration: Duration(seconds: 3),
-          title: 'Error', 
-          titleTextStyle: textFont.copyWith(color: accentColor, fontSize: HeadlineSize),
-          text: 'Please provide a description and an image.', 
-          textTextStyle: textFont.copyWith(color: accentColor, fontSize: bodyTextSize),
-          confirmBtnText: 'OK',
-          confirmBtnColor: accentColor, 
-          backgroundColor: secondaryColor, 
-          onConfirmBtnTap: () {
-          },
-          barrierDismissible: false,  
-        );
+      CoolAlert.show(
+        context: context,
+        type: CoolAlertType.error, 
+        autoCloseDuration: Duration(seconds: 2),
+        title: 'Error', 
+        titleTextStyle: textFont.copyWith(color: accentColor, fontSize: HeadlineSize),
+        text: 'Please provide a description and an image.', 
+        textTextStyle: textFont.copyWith(color: accentColor, fontSize: bodyTextSize),
+        confirmBtnText: 'OK',
+        confirmBtnColor: accentColor, 
+        backgroundColor: secondaryColor, 
+        onConfirmBtnTap: () {},
+        barrierDismissible: false,  
+      );
       return;
     }
-       // content: Text("Please provide a description and an image."),
 
     // Fetch authenticated user
     print("Fetching authenticated user...");
@@ -179,13 +174,12 @@ class _ReportPageState extends State<ReportPage> {
           confirmBtnText: 'OK',
           confirmBtnColor: accentColor, 
           backgroundColor: secondaryColor, 
-          onConfirmBtnTap: () {
-          },
+          onConfirmBtnTap: () {},
           barrierDismissible: false,  
         );
         return;
       }
-              //Text("Unable to get location. Please enable location services."),
+
       print("User location: ${position.latitude}, ${position.longitude}");
 
       final latitude = position.latitude;
@@ -234,148 +228,149 @@ class _ReportPageState extends State<ReportPage> {
       if (response.errors.isNotEmpty) {
         throw Exception('GraphQL Error: ${response.errors.first.message}');
       }
-            CoolAlert.show(
-              context: context,
-              type: CoolAlertType.success,
-              title: 'Success!',
-              titleTextStyle: textFont.copyWith(color: accentColor, fontSize: HeadlineSize),
-              text: 'Your report has been submitted successfully.',
-              textTextStyle: textFont.copyWith(color: accentColor, fontSize: bodyTextSize),
-              confirmBtnText: 'OK',
-              confirmBtnColor: accentColor,
-              backgroundColor: secondaryColor,
-              onConfirmBtnTap: () {
-                Future.delayed(Duration(milliseconds: 300), () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CustomBottomNavigationBar(initialIndex: 0),
-                    ),
-                  );
-                });
-              },
-              barrierDismissible: false,
+
+      CoolAlert.show(
+        context: context,
+        type: CoolAlertType.success,
+        title: 'Success!',
+        titleTextStyle: textFont.copyWith(color: accentColor, fontSize: HeadlineSize),
+        text: 'Your report has been submitted successfully.',
+        textTextStyle: textFont.copyWith(color: accentColor, fontSize: bodyTextSize),
+        confirmBtnText: 'OK',
+        confirmBtnColor: accentColor,
+        backgroundColor: secondaryColor,
+        onConfirmBtnTap: () {
+          Future.delayed(Duration(milliseconds: 300), () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CustomBottomNavigationBar(initialIndex: 0),
+              ),
             );
+          });
+        },
+        barrierDismissible: false,
+      );
       // Clear form
       _controller.clear();
       setState(() {
         _image = null;
       });
-    }catch (e) {
-        CoolAlert.show(
-          context: context,
-          type: CoolAlertType.error, 
-          title: 'Error', 
-          titleTextStyle: textFont.copyWith(color: accentColor, fontSize: HeadlineSize),
-          text: 'Error submitting report: $e', 
-          textTextStyle: textFont.copyWith(color: accentColor, fontSize: bodyTextSize),
-          confirmBtnText: 'OK',
-          confirmBtnColor: accentColor, 
-          backgroundColor: secondaryColor, 
-          onConfirmBtnTap: () {
-          },
-          barrierDismissible: false,  
-        );
-}
- 
-    finally {
+    } catch (e) {
+      CoolAlert.show(
+        context: context,
+        type: CoolAlertType.error, 
+        title: 'Error', 
+        titleTextStyle: textFont.copyWith(color: accentColor, fontSize: HeadlineSize),
+        text: 'Error submitting report: $e', 
+        textTextStyle: textFont.copyWith(color: accentColor, fontSize: bodyTextSize),
+        confirmBtnText: 'OK',
+        confirmBtnColor: accentColor, 
+        backgroundColor: secondaryColor, 
+        onConfirmBtnTap: () {},
+        barrierDismissible: false,  
+      );
+    } finally {
       setState(() {
         _isSubmitting = false;
       });
     }
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: _dismissKeyboard,
-        child: Scaffold(
-          appBar: const CustomAppBar(
-            title: 'Report',
-            showBackButton: true,
-          ),
-          body: Stack(
-            children: [
-              SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: defaultPadding * 2),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+@override
+Widget build(BuildContext context) {
+  return GestureDetector(
+    onTap: _dismissKeyboard, // Dismiss the keyboard when tapping outside
+    child: Scaffold(
+      appBar: const CustomAppBar(
+        title: 'Report',
+        showBackButton: true,
+      ),
+      body: Stack(
+        children: [
+          // Main content inside the body
+          SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: defaultPadding * 2),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ReportHeader(
+                    iconPath: widget.iconPath,
+                    reportName: widget.reportName,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ReportHeader(
-                          iconPath: widget.iconPath,
-                          reportName: widget.reportName),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Description',
-                            style: textFont.copyWith(
-                              fontSize: bodyTextSize,
-                              color: accentColor,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            '(${_controller.text.length}/200)',
-                            style: textFont.copyWith(
-                              fontSize: bodyTextSize,
-                              color: accentColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: defaultPadding),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: accentColor, width: 2),
-                            borderRadius:
-                                BorderRadius.circular(textFieldBorderRadius),
-                          ),
-                          width: double.infinity,
-                          height: 300,
-                          child: TextField(
-                            focusNode: _focusNode,
-                            controller: _controller,
-                            maxLines: null,
-                            expands: true,
-                            maxLength: 200,
-                            textAlignVertical: TextAlignVertical.top,
-                            onSubmitted: (value) => _dismissKeyboard(),
-                            decoration: const InputDecoration(
-                              hintText: "Enter your text here...",
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.all(defaultPadding),
-                              counterText: "",
-                            ),
-                            onChanged: (text) {
-                              setState(() {});
-                            },
-                          ),
+                      Text(
+                        'Description',
+                        style: textFont.copyWith(
+                          fontSize: bodyTextSize,
+                          color: accentColor,
                         ),
                       ),
-                      ImagePickerSection(onTap: _showCupertinoImagePicker, selectedImage: _image,),
-                      CustomButton(
-                          text: "Submit",
-                          onPressed: _submitReport,
-                          blueButton: true),
+                      const SizedBox(width: 8),
+                      Text(
+                        '(${_controller.text.length}/200)',
+                        style: textFont.copyWith(
+                          fontSize: bodyTextSize,
+                          color: accentColor,
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ),
-              if (_isSubmitting)
-                Positioned.fill(
-                  child: Container(
-                    color: Colors.black.withOpacity(0.5),
-                    child: const Center(
-                      child: CircularProgressIndicator(),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: defaultPadding),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: accentColor, width: 2),
+                        borderRadius: BorderRadius.circular(textFieldBorderRadius),
+                      ),
+                      width: double.infinity,
+                      height: 300, // You can make this dynamic if needed
+                      child: TextField(
+                        focusNode: _focusNode,
+                        controller: _controller,
+                        maxLines: null,
+                        expands: true,
+                        maxLength: 200,
+                        textAlignVertical: TextAlignVertical.top,
+                        onSubmitted: (value) => _dismissKeyboard(),
+                        decoration: const InputDecoration(
+                          hintText: "Enter your text here...",
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.all(defaultPadding),
+                          counterText: "",
+                        ),
+                        onChanged: (text) {
+                          setState(() {});
+                        },
+                      ),
                     ),
                   ),
-                ),
-            ],
+                  ImagePickerSection(onTap: _showCupertinoImagePicker, selectedImage: _image),
+                  CustomButton(
+                    text: "Submit",
+                    onPressed: _submitReport,
+                    blueButton: true,
+                  ),
+                ],
+              ),
+            ),
           ),
-        ));
-  }
+          // Show loading indicator while submitting
+          if (_isSubmitting)
+            Positioned.fill(
+              child: Container(
+                color: Colors.black.withOpacity(0.5),
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            ),
+        ],
+      ),
+    ),
+  );
+}
 }
