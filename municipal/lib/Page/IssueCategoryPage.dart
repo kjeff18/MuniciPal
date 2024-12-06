@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/Page/ReportPage.dart';
 import 'package:municipal/widgets/CustomAppBar.dart';
-import 'package:municipal/widgets/IssueCaterogryPageWidgets/IssueIcons.dart';
+import 'package:municipal/widgets/IssueCategoryPageWidgets/IssueIcons.dart';
 import 'package:municipal/Helper/ReportNameChecker.dart';
 
 class IssueCategoryPage extends StatelessWidget {
@@ -11,16 +11,19 @@ class IssueCategoryPage extends StatelessWidget {
   void _issueIconPressed(String iconName, BuildContext context) {
     // Implement your button press logic here
     ReportNameChecker checker = ReportNameChecker();
-    String reportName = checker.getReportName(iconName);    
+    String reportName = checker.getReportName(iconName);
     print(reportName);
     String reportIcon = checker.getReportIconPath(iconName);
     print(reportIcon);
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ReportPage(iconPath:reportIcon, reportName: reportName,)),
+      MaterialPageRoute(
+          builder: (context) => ReportPage(
+                iconPath: reportIcon,
+                reportName: reportName,
+              )),
     );
-    
   }
 
   @override

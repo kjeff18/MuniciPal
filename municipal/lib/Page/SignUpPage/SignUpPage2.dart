@@ -4,8 +4,11 @@ import 'package:municipal/widgets/CustomButton.dart';
 import 'package:municipal/widgets/SecondaryBackground.dart';
 import 'package:municipal/widgets/CustomTextField.dart';
 import 'SignUpPage3.dart';
+import 'package:municipal/model/SignUpData.dart';
+
 class SignUpPage2 extends StatelessWidget {
-  SignUpPage2({super.key});
+  final SignUpData signUpData;
+  SignUpPage2({super.key, required this.signUpData});
 
   final TextEditingController _address = TextEditingController();
   final TextEditingController _city = TextEditingController();
@@ -13,10 +16,15 @@ class SignUpPage2 extends StatelessWidget {
   final TextEditingController _zip = TextEditingController();
 
   void signup3Func(BuildContext context) {
-    // Navigate to SignUpPage3
+    signUpData.street = _address.text;
+    signUpData.city = _city.text;
+    signUpData.state = _state.text;
+    signUpData.zipCode = _zip.text;
+
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => SignUpPage3()),
+      MaterialPageRoute(
+          builder: (context) => SignUpPage3(signUpData: signUpData)),
     );
   }
 
@@ -37,24 +45,30 @@ class SignUpPage2 extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: defaultPadding),
                           child: Text(
                             "Welcome,",
-                            style: textFont.copyWith(color: textColor, fontSize: HeadlineSize),
+                            style: textFont.copyWith(
+                                color: textColor, fontSize: HeadlineSize),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: defaultPadding),
                           child: Text(
                             'sign up to',
-                            style: textFont.copyWith(color: textColor, fontSize: HeadlineSize),
+                            style: textFont.copyWith(
+                                color: textColor, fontSize: HeadlineSize),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: defaultPadding),
                           child: Text(
                             'become a pal',
-                            style: textFont.copyWith(color: textColor, fontSize: HeadlineSize),
+                            style: textFont.copyWith(
+                                color: textColor, fontSize: HeadlineSize),
                           ),
                         ),
                       ],
@@ -70,7 +84,8 @@ class SignUpPage2 extends StatelessWidget {
                           scale: 2.5,
                           child: CircularProgressIndicator(
                             strokeWidth: 4.0,
-                            valueColor: AlwaysStoppedAnimation<Color>(accentColor),
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(accentColor),
                             backgroundColor: Colors.lightBlue[100],
                             value: value, // Animated value
                           ),

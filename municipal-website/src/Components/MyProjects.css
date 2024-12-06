@@ -1,0 +1,83 @@
+/* Table Page Container */
+.map-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #ffffff;
+  overflow: hidden;
+  padding: 10px;
+}
+
+/* Header styles are reused from MapPage.css */
+
+/* Table Container */
+.table-container {
+  width: calc(100% - 40px); /* Matches the map-placeholder width */
+  margin: 20px 0; /* Adds spacing above and below the table section */
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between multiple tables */
+}
+
+/* Table Wrapper */
+.table-wrapper {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px; /* Consistent rounded edges */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  overflow-x: auto; /* Horizontal scroll for small screens */
+  width: 100%;
+}
+
+/* Section Title */
+h2 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #0b2e60;
+}
+
+/* Table Styles */
+.projects-table {
+  width: 100%;
+  border-collapse: collapse; /* Remove gaps between cells */
+  text-align: left; /* Align all text to the left */
+}
+
+.projects-table th,
+.projects-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd; /* Light divider between rows */
+}
+
+.projects-table th {
+  background-color: #f5f5f5; /* Light gray for table headers */
+  font-weight: bold;
+}
+
+.projects-table tr:hover {
+  background-color: #f1f1f1; /* Highlight row on hover */
+  cursor: pointer; /* Pointer cursor for interactive rows */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .table-container {
+    width: 100%;
+  }
+
+  .table-wrapper {
+    padding: 10px;
+  }
+
+  .projects-table th,
+  .projects-table td {
+    font-size: 14px; /* Smaller font for compact screens */
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+}

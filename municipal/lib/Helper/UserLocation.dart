@@ -1,10 +1,22 @@
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter/foundation.dart';
 
-class UserLocation {
+class UserLocation extends ChangeNotifier {
   StreamSubscription<Position>? _positionStreamSubscription;
   LatLng? currentPosition;
+
+  // Mock location for testing
+  static const LatLng mockLocation =
+      LatLng(30.407470560318153, -91.18010735074873);
+
+  UserLocation() {
+    startLocationStream((LatLng position) {
+      currentPosition = position;
+      notifyListeners();
+    });
+  }
 
   void startLocationStream(Function(LatLng) onLocationUpdate) {
     LocationSettings locationSettings = const LocationSettings(
@@ -12,16 +24,22 @@ class UserLocation {
       distanceFilter: 10,
     );
 
-    _positionStreamSubscription = Geolocator.getPositionStream(locationSettings: locationSettings).listen(
+    _positionStreamSubscription =
+        Geolocator.getPositionStream(locationSettings: locationSettings).listen(
       (Position? position) {
         if (position != null) {
           currentPosition = LatLng(position.latitude, position.longitude);
-          // Only call the callback to update the location, do not print here
           onLocationUpdate(currentPosition!);
         }
       },
       onError: (e) {
-        print(e); // Handle errors if needed
+        print("Error fetching location: $e");
+        if (currentPosition == null) {
+          // Use fallback location if location data is not available
+          currentPosition = mockLocation;
+          onLocationUpdate(currentPosition!);
+          notifyListeners();
+        }
       },
     );
   }
@@ -32,11 +50,12 @@ class UserLocation {
 
   Future<Position?> getCurrentLocation() async {
     LocationPermission permission = await getUserLocationPermission();
-    if (permission == LocationPermission.always || permission == LocationPermission.whileInUse) {
-      return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    } else {
-      return null; // Permission denied
+    if (permission == LocationPermission.always ||
+        permission == LocationPermission.whileInUse) {
+      return await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
     }
+    return null; // Permission denied
   }
 
   Future<LocationPermission> getUserLocationPermission() async {
@@ -47,7 +66,9 @@ class UserLocation {
     return permission;
   }
 
+  @override
   void dispose() {
     _positionStreamSubscription?.cancel();
+    super.dispose();
   }
 }

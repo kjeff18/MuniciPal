@@ -1,5 +1,27 @@
 {
   "api": {
+    "AdminQueries": {
+      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "municipal6e3c111b"
+        },
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "AdminQueries336d69e2"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "municipal": {
       "dependsOn": [
         {
@@ -15,7 +37,7 @@
           "additionalAuthenticationProviders": [
             {
               "apiKeyConfig": {
-                "apiKeyExpirationDate": "2025-04-05T13:58:37.972Z",
+                "apiKeyExpirationDate": "2025-05-23T17:53:03.478Z",
                 "apiKeyExpirationDays": 180,
                 "description": "MuniciPal GraphQL API key"
               },
@@ -38,15 +60,6 @@
     "municipal6e3c111b": {
       "customAuth": false,
       "dependsOn": [
-        {
-          "attributes": [
-            "Arn",
-            "Name"
-          ],
-          "category": "function",
-          "resourceName": "municipal6e3c111bCustomMessage",
-          "triggerProvider": "Cognito"
-        },
         {
           "attributes": [
             "Arn",
@@ -102,7 +115,60 @@
     }
   },
   "function": {
-    "municipal6e3c111bCustomMessage": {
+    "AdminQueries336d69e2": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "municipal6e3c111b"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "HandleNearbyIssues": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "municipal"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "IssueReportHandler": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "municipal"
+        },
+        {
+          "attributes": [
+            "BucketName"
+          ],
+          "category": "storage",
+          "resourceName": "MuniciPalImages"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "S3Triggerf45c2567": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -114,43 +180,67 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_municipal6e3c111bCustomMessage_EMAILMESSAGE": {
+    "AMPLIFY_function_AdminQueries336d69e2_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "municipal6e3c111bCustomMessage"
+          "resourceName": "AdminQueries336d69e2"
         }
       ]
     },
-    "AMPLIFY_function_municipal6e3c111bCustomMessage_EMAILSUBJECT": {
+    "AMPLIFY_function_AdminQueries336d69e2_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "municipal6e3c111bCustomMessage"
+          "resourceName": "AdminQueries336d69e2"
         }
       ]
     },
-    "AMPLIFY_function_municipal6e3c111bCustomMessage_REDIRECTURL": {
+    "AMPLIFY_function_HandleNearbyIssues_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "municipal6e3c111bCustomMessage"
+          "resourceName": "HandleNearbyIssues"
         }
       ]
     },
-    "AMPLIFY_function_municipal6e3c111bCustomMessage_deploymentBucketName": {
+    "AMPLIFY_function_HandleNearbyIssues_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "municipal6e3c111bCustomMessage"
+          "resourceName": "HandleNearbyIssues"
         }
       ]
     },
-    "AMPLIFY_function_municipal6e3c111bCustomMessage_s3Key": {
+    "AMPLIFY_function_IssueReportHandler_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "municipal6e3c111bCustomMessage"
+          "resourceName": "IssueReportHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_IssueReportHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "IssueReportHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_S3Triggerf45c2567_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Triggerf45c2567"
+        }
+      ]
+    },
+    "AMPLIFY_function_S3Triggerf45c2567_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Triggerf45c2567"
         }
       ]
     },
@@ -181,7 +271,45 @@
   },
   "storage": {
     "MuniciPalImages": {
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ],
+          "category": "function",
+          "resourceName": "S3Triggerf45c2567"
+        },
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "municipal6e3c111b"
+        },
+        {
+          "attributes": [
+            "GovernmentGroupRole"
+          ],
+          "category": "auth",
+          "resourceName": "userPoolGroups"
+        },
+        {
+          "attributes": [
+            "ContractorGroupRole"
+          ],
+          "category": "auth",
+          "resourceName": "userPoolGroups"
+        },
+        {
+          "attributes": [
+            "CitizenGroupRole"
+          ],
+          "category": "auth",
+          "resourceName": "userPoolGroups"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "S3"
     }

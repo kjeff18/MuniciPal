@@ -25,6 +25,7 @@ import 'Contract.dart';
 import 'ContractorSubscription.dart';
 import 'GovernmentEntity.dart';
 import 'Issue.dart';
+import 'IssueStatusUpdate.dart';
 import 'Report.dart';
 import 'RequestForProposal.dart';
 import 'Upvote.dart';
@@ -38,6 +39,7 @@ export 'GovernmentEntity.dart';
 export 'Issue.dart';
 export 'IssueCategory.dart';
 export 'IssueStatus.dart';
+export 'IssueStatusUpdate.dart';
 export 'RFPStatus.dart';
 export 'Report.dart';
 export 'RequestForProposal.dart';
@@ -45,9 +47,9 @@ export 'Upvote.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "1b36cdc04c10899f569156cc62b1d7a1";
+  String version = "98046988c758bf899cee06911af6dc09";
   @override
-  List<amplify_core.ModelSchema> modelSchemas = [Bid.schema, Contract.schema, ContractorSubscription.schema, GovernmentEntity.schema, Issue.schema, Report.schema, RequestForProposal.schema, Upvote.schema];
+  List<amplify_core.ModelSchema> modelSchemas = [Bid.schema, Contract.schema, ContractorSubscription.schema, GovernmentEntity.schema, Issue.schema, IssueStatusUpdate.schema, Report.schema, RequestForProposal.schema, Upvote.schema];
   @override
   List<amplify_core.ModelSchema> customTypeSchemas = [];
   static final ModelProvider _instance = ModelProvider();
@@ -66,6 +68,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return GovernmentEntity.classType;
       case "Issue":
         return Issue.classType;
+      case "IssueStatusUpdate":
+        return IssueStatusUpdate.classType;
       case "Report":
         return Report.classType;
       case "RequestForProposal":

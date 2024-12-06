@@ -1,0 +1,299 @@
+/* Main container for the page */
+.map-page {
+  display: flex;
+  flex-direction: column; /* Stack header and map */
+  align-items: center;
+  height: 100vh;
+
+  width: 100vw;
+  background-color: #ffffff;
+  overflow: hidden;
+  padding: 10px; /* Add padding to ensure space around the map */
+}
+
+/* Header container with logo and icons */
+.header {
+  display: flex;
+  justify-content: space-between; /* Space between logo and icons */
+  align-items: center;
+  width: 98%; /* Full width of the page */
+  padding: 10px 20px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  border-radius: 10px; /* Slightly rounded header corners */
+  margin-bottom: 15px; /* Gap between header and map */
+}
+
+/* Logo container */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Increase space between logo and title image */
+  margin-left: 20px; /* Push the entire logo-container to the right */
+}
+
+.logo {
+  width: 50px; /* Adjust logo size */
+  height: auto;
+  margin-right: 10px; /* Add space between logo and title image if needed */
+}
+
+/* Title image styling */
+.title-image {
+  height: 60px; /* Adjust height of the title image */
+  width: auto; /* Maintain aspect ratio */
+}
+
+/* Menu icons container */
+.menu-icons {
+  display: flex;
+  align-items: center;
+  gap: 50px; /* Space between icons */
+  margin-left: auto;
+}
+
+.icon-button {
+  display: flex;
+  flex-direction: column; /* Icon above text */
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: #0b2e60;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+/* Highlight the active icon */
+.icon-button.active {
+  color: #0056b3; /* Highlighted color */
+  font-weight: bold; /* Make the label bold */
+}
+
+.icon-button:hover {
+  color: #0056b3;
+}
+
+.icon {
+  font-size: 20px; /* Icon size */
+  margin-bottom: 5px; /* Space between icon and label */
+}
+
+.account-menu {
+  position: relative;
+}
+
+.icon-button.account-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 110%; /* Slightly below the button */
+  right: 0;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 8px 0;
+  z-index: 1000;
+  min-width: 160px;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f5f5f5;
+  color: #000;
+}
+
+/* Map placeholder area */
+.map-placeholder {
+  position: relative;
+  width: calc(100% - 40px); /* Reduce width to create space on left and right */
+  height: 100%;
+  background-color: white;
+  border-radius: 20px; /* Rounded edges for the map */
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  flex-grow: 1; /* Allow the map to fill the remaining space */
+  margin: 0 20px; /* Add equal spacing on the left and right */
+}
+
+/*MyProjects
+
+/* Table container */
+.table-container {
+  margin-top: 20px;
+  width: 95%;
+  overflow-x: auto; /* Allow horizontal scroll for smaller screens */
+}
+
+/* Table container */
+.table-container {
+  margin-top: 20px; /* Adds gap between the header and the table */
+  width: 100%; /* Ensures table spans full width */
+  display: flex;
+  justify-content: center; /* Centers the table horizontally */
+}
+
+/* Projects table */
+.projects-table {
+  width: 95%; /* Table takes most of the container width */
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.projects-table th,
+.projects-table td {
+  padding: 16px; /* Adds padding for readability */
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.projects-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.projects-table td {
+  font-size: 16px;
+}
+
+.projects-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Status container styles */
+.status {
+  display: inline-block;
+  padding: 5px 10px; /* Add padding for the badge-like appearance */
+  border-radius: 50px; /* Rounded corners */
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Specific status styles */
+.status-open {
+  background-color: #d4edda; /* Light pastel green */
+  color: #155724; /* Darker green text */
+}
+
+.status-in-progress {
+  background-color: #d1ecf1; /* Light pastel blue */
+  color: #0c5460; /* Darker blue text */
+}
+
+.status-closed {
+  background-color: #f8d7da; /* Light pastel red */
+  color: #721c24; /* Darker red text */
+}
+
+/* Slide-Over Container */
+/* Light Icon on Map */
+.light-icon-on-map {
+  position: absolute;
+  top: 50%; /* Position at the center of the map vertically */
+  left: 50%; /* Position at the center of the map horizontally */
+  transform: translate(-50%, -50%); /* Adjust for exact center */
+  width: 40px; /* Icon size */
+  height: 40px;
+  cursor: pointer;
+  z-index: 10; /* Ensure it appears above the map */
+  transition: transform 0.2s ease; /* Smooth hover effect */
+}
+
+.light-icon-on-map:hover {
+  transform: translate(-50%, -50%) scale(1.1); /* Slightly enlarge on hover */
+}
+
+/* Slide-Over Container */
+.slide-over {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 1000;
+}
+
+.slide-over-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  cursor: pointer;
+}
+
+.slide-over-content {
+  position: relative;
+  width: 300px;
+  height: 100%;
+  background: #ffffff;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  animation: slideIn 0.3s ease-in-out;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+}
+
+.slide-over-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #0b2e60;
+}
+
+.slide-over-text {
+  font-size: 1rem;
+  color: #555;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

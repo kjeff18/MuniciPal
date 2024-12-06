@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,14 +11,15 @@ import 'LoginPage.dart';
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
-   void loginFunc(BuildContext context) {
+  void loginFunc(BuildContext context) {
     // Navigate to LogInPage
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => LogInPage()),
     );
   }
-     void SignUpFunc(BuildContext context) {
+
+  void SignUpFunc(BuildContext context) {
     // Navigate to LogInPage
     Navigator.push(
       context,
@@ -27,42 +27,35 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
-
 // Design and Placements
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Center(child: Image.asset(logo,width: 150,)),
-          SvgPicture.asset(logoText),
-
-          const SizedBox(height: 30),
-
-          Text('Get Started',
-          style: textFont.copyWith(color: accentColor,fontSize: 15)),
-           
-           const SizedBox(height: 30),
-         CustomButton(
-                text: 'Login',
-               onPressed: () => loginFunc(context), 
-               blueButton: true,
-               ),
-          CustomButton(text: 'Sign Up', 
-            onPressed: () => SignUpFunc(context),
-             blueButton: false
-             ), 
-         
-          
-        ],
-      )
-    );
-
+        backgroundColor: backgroundColor,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(
+                child: Image.asset(
+              logo,
+              width: 150,
+            )),
+            SvgPicture.asset(logoText),
+            const SizedBox(height: 30),
+            Text('Get Started',
+                style: textFont.copyWith(color: accentColor, fontSize: 15)),
+            const SizedBox(height: 30),
+            CustomButton(
+              text: 'Login',
+              onPressed: () => loginFunc(context),
+              blueButton: true,
+            ),
+            CustomButton(
+                text: 'Sign Up',
+                onPressed: () => SignUpFunc(context),
+                blueButton: false),
+          ],
+        ));
   }
-      
 }
-
-

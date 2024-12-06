@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:municipal/Page/Profile.dart';
+import 'package:municipal/Page/ProfilePage.dart';
 import 'package:municipal/widgets/CustomTextField.dart';
 import 'package:municipal/widgets/EditAccountPageWidgets/EditAccountPageAppBar.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'package:municipal/widgets/CustomButton.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 
 class EditProfilePage extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
@@ -16,10 +15,7 @@ class EditProfilePage extends StatelessWidget {
   final TextEditingController stateController = TextEditingController();
   final TextEditingController zipCodeController = TextEditingController();
 
-  void UpdateButtonFunc ()
-  {
-    
-  }
+  void UpdateButtonFunc() {}
 
   @override
   Widget build(BuildContext context) {
@@ -27,44 +23,58 @@ class EditProfilePage extends StatelessWidget {
       backgroundColor: backgroundColor,
       body: Column(
         children: [
-         EditAccountPageAppBar(),
-         
+          EditAccountPageAppBar(),
+          const SizedBox(height: 55),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomTextField(hintText: "Full Name", controller: nameController, icon: Icon(Icons.account_box_rounded) ),
-                 const SizedBox(height: 16),
-                CustomTextField(hintText: "Email", controller: emailController, icon: Icon(Icons.mail)),
+                CustomTextField(
+                    hintText: "Full Name",
+                    controller: nameController,
+                    icon: Icon(Icons.account_box_rounded)),
                 const SizedBox(height: 16),
-                CustomTextField(hintText: "Address", controller: addressController, icon: Icon(Icons.location_on)),
-               const  SizedBox(height: 16),
+                CustomTextField(
+                    hintText: "Email",
+                    controller: emailController,
+                    icon: Icon(Icons.mail)),
+                const SizedBox(height: 16),
+                CustomTextField(
+                    hintText: "Address",
+                    controller: addressController,
+                    icon: Icon(Icons.location_on)),
+                const SizedBox(height: 16),
 
                 // State and Zip Code row
                 Row(
                   children: [
                     Expanded(
-                      child: CustomTextField(hintText: "State", controller: stateController, icon: Icon(Icons.map)),
+                      child: CustomTextField(
+                          hintText: "State",
+                          controller: stateController,
+                          icon: Icon(Icons.map)),
                     ),
-                const  SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     Expanded(
-                      child: CustomTextField(hintText: "Zip Code", controller: zipCodeController, icon: Icon(Icons.pin_drop)),
+                      child: CustomTextField(
+                          hintText: "Zip Code",
+                          controller: zipCodeController,
+                          icon: Icon(Icons.pin_drop)),
                     ),
                   ],
                 ),
               ],
             ),
           ),
-
           const Spacer(),
-
-          CustomButton(text: "Update", onPressed: () => UpdateButtonFunc , blueButton: true),
-          const SizedBox(height: 20),
+          CustomButton(
+              text: "Update",
+              onPressed: () => UpdateButtonFunc,
+              blueButton: true),
+          const SizedBox(height: 85),
         ],
       ),
     );
   }
-
-
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:municipal/DesingContstant.dart';
 import 'package:municipal/Page/FeedPage.dart';
 import 'package:municipal/Page/IssueCategoryPage.dart';
-import 'package:municipal/Page/MyReportPage.dart';
+import 'package:municipal/Page/MyReportsPage.dart';
 import 'package:municipal/Page/WelcomePage.dart';
 import 'package:municipal/Page/LandingPage.dart';
 
@@ -24,7 +24,7 @@ class _CustomNavigationBar extends State<CustomBottomNavigationBar> {
     const LandingPage(),
     const IssueCategoryPage(),
     const FeedPage(),
-    const MyReportPage()
+    const MyReportsPage()
   ];
 
   @override
@@ -41,53 +41,64 @@ class _CustomNavigationBar extends State<CustomBottomNavigationBar> {
         children: _pages,
       ),
       bottomNavigationBar: ClipRect(
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed, 
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          iconSize: 45.0, 
-          backgroundColor: backgroundColor,
-          elevation: 0.0,
-          items: [
-            BottomNavigationBarItem(
-              icon: Transform.scale(
-                scale: bottomNavIconScale, 
-                child: const Icon(Icons.home),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                color: accentColor, // Set the border color here
+                width: 2.0, // Set the border width
               ),
-              label: 'Home',
             ),
-            BottomNavigationBarItem(
-              icon: Transform.scale(
-                scale:bottomNavIconScale,
-                child: const Icon(Icons.assignment_rounded),
+          ),
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            iconSize: 45.0,
+            backgroundColor: backgroundColor,
+            elevation: 0.0,
+            items: [
+              BottomNavigationBarItem(
+                icon: Transform.scale(
+                  scale: bottomNavIconScale,
+                  child: const Icon(Icons.home),
+                ),
+                label: 'Home',
               ),
-              label: 'Issue Report',
-            ),
-            BottomNavigationBarItem(
-              icon: Transform.scale(
-                scale: bottomNavIconScale,
-                child: const Icon(Icons.newspaper),
+              BottomNavigationBarItem(
+                icon: Transform.scale(
+                  scale: bottomNavIconScale,
+                  child: const Icon(Icons.assignment_rounded),
+                ),
+                label: 'Issue Report',
               ),
-              label: 'Feed',
-            ),
-            BottomNavigationBarItem(
-              icon: Transform.scale(
-                scale: bottomNavIconScale,
-                child: const Icon(Icons.account_circle),
+              BottomNavigationBarItem(
+                icon: Transform.scale(
+                  scale: bottomNavIconScale,
+                  child: const Icon(Icons.newspaper),
+                ),
+                label: 'Feed',
               ),
-              label: 'Account',
-            ),
-          ],
-          selectedItemColor: accentColor,
-          unselectedItemColor: secondaryColor,
-          showUnselectedLabels: false,
-          showSelectedLabels: false,
+              BottomNavigationBarItem(
+                icon: Transform.scale(
+                  scale: bottomNavIconScale,
+                  child: const Icon(Icons.account_circle),
+                ),
+                label: 'Account',
+              ),
+            ],
+            selectedItemColor: accentColor,
+            unselectedItemColor: secondaryColor,
+            showUnselectedLabels: false,
+            showSelectedLabels: false,
+          ),
         ),
       ),
     );
   }
 }
+

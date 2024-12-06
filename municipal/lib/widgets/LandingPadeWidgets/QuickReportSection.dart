@@ -17,24 +17,30 @@ class QuickReportSection extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return AnimatedPositioned(
-      bottom: screenSize.height * 0.15,
-      right: isVisible ? screenSize.width * 0.02 : -500,
+      bottom: screenSize.height * 0.09,
+      right: isVisible ? screenSize.width * 0.05 : -500,
       curve: Curves.easeInOut,
-      duration:  Duration(milliseconds: animationDuration),
+      duration: Duration(milliseconds: animationDuration),
       child: AnimatedOpacity(
-        opacity: isVisible ? 1.0 : 0.0,
-        duration:  Duration(milliseconds: animationDuration),
+        opacity: isVisible ? 0.8 : 0.0,
+        duration: Duration(milliseconds: animationDuration),
         curve: Curves.easeInOutCubicEmphasized,
         child: Column(
           children: [
-            QuickReportIcon(iconPath: potholeIcon, onPressed: () => onReportButtonPressed("Pothole")),
+            QuickReportIcon(
+                iconPath: potholeIcon,
+                onPressed: () => onReportButtonPressed("Pothole")),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: defaultPadding),
-              child: QuickReportIcon(iconPath: trafficLightIcon, onPressed: () => onReportButtonPressed("Traffic Light")),
+              child: QuickReportIcon(
+                  iconPath: trafficLightIcon,
+                  onPressed: () => onReportButtonPressed("Traffic Light")),
             ),
             Padding(
               padding: EdgeInsets.only(bottom: defaultPadding),
-              child: QuickReportIcon(iconPath: streetLightIcon, onPressed: () => onReportButtonPressed("Street Light")),
+              child: QuickReportIcon(
+                  iconPath: streetLightIcon,
+                  onPressed: () => onReportButtonPressed("Street Light")),
             ),
           ],
         ),
